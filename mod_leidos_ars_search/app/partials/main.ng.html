@@ -13,13 +13,14 @@
 	<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
 	<div class="col-xs-12 col-sm-7 col-lg-8">
 		<!-- This is for searching current applications -->
+
 		<div class="row ars__applications--search">
 			<div class="form-inline">
-				<div class="form-group pull-right">
-					<input type="text" class="form-control" placeholder="Search {{ currentCategory }}.." ng-model="searchFilter">
-					<button class="btn btn-primary">
+				<div class="input-group pull-right">
+					<span class="input-group-addon">
 						<span class="fa fa-search"></span>
-					</button>
+					</span>
+					<input type="text" class="form-control" placeholder="Search {{ currentCategory }}.." ng-model="searchFilter">
 				</div>
 			</div>
 		</div>

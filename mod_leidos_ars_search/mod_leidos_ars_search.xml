@@ -14,7 +14,7 @@
 
         <filename>css/*.*</filename>
         <filename>images/*.*</filename>
-        <filename>app/*.*</filename>
+        <filename>app/**.*/*.*</filename>
     </files>
     <config>
         <fields name="params">
