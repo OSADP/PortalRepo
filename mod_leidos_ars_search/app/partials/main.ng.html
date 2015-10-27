@@ -1,0 +1,41 @@
+
+
+<div class="row">
+	<!-- LEFT SIDE DISPLAY A LIST OF CATEGORIES -->
+	<div class="col-xs-12 col-sm-4 col-lg-4" class="ars__categories">
+		<h4 class="ars__categories--heading">Categories</h4>
+		<!-- LIST ALL OUR CATEGORIES -->
+		<div class="ars__categories--item" ng-class="{ 'ars_categories--item-active': category.active }" ng-repeat="category in categories">
+			<a href="#/{{ category.id }}">{{ category.title }} <span class="badge pull-right">{{ category.num_releases }}</span></a>
+		</div>
+	</div>
+	<!-- // -->
+	<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
+	<div class="col-xs-12 col-sm-7 col-lg-8">
+		<!-- This is for searching current applications -->
+		<div class="row ars__applications--search">
+			<div class="form-inline">
+				<div class="form-group pull-right">
+					<input type="text" class="form-control" placeholder="Search {{ currentCategory }}.." ng-model="searchFilter">
+					<button class="btn btn-primary">
+						<span class="fa fa-search"></span>
+					</button>
+				</div>
+			</div>
+		</div>
+		<!-- This section displays applications based on the controls given -->
+		<div class="row ars__applications">
+			<div class="loader" ng-show="showLoader">Loading...</div>
+			<div ng-repeat="item in releases | filter:searchFilter" class="ars__item">
+				{{ item.alias }}
+				{{ item.version }}
+				{{ item.id }}
+				{{ item.maturity }}
+				{{ item.hits }}
+				{{ item.created }}
+				{{ item.modified }}
+			</div>
+		</div>
+
+	</div>
+</div>

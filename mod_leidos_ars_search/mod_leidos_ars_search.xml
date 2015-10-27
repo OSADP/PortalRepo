@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Leidos Akeeba Realease Application Search</name>
+    <author>Leidos|Robert Roth</author>
+    <version>0.0.1</version>
+    <description>A custom module made by Leidos for OSADP to showcase ARS items as a slider.</description>
+    <files>
+        <filename>mod_leidos_ars_search.xml</filename>
+        <filename module="mod_leidos_ars_search">mod_leidos_ars_search.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+
+        <filename>css/*.*</filename>
+        <filename>images/*.*</filename>
+        <filename>app/*.*</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="header" type="text" default="Module Header" label="Enter Module Header" description="Text entered here will be displayed as the modules header." size="20" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
