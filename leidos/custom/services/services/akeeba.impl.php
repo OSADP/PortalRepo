@@ -23,11 +23,11 @@ class ArsService extends DBConfig {
 				FROM jos_ars_categories 
 				WHERE id=' . $categoryId );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$cat = $row;
 		}
 				
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $cat );
 		$stmt->close ();
 	}
 	
@@ -35,11 +35,11 @@ class ArsService extends DBConfig {
 		// Print all codes in database
 		$stmt = $this->db->query ( 'SELECT * FROM jos_ars_releases' );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$arrRel [] = $row;
 		}
 		
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $arrRel );
 		$stmt->close ();
 	}
 	
@@ -49,22 +49,22 @@ class ArsService extends DBConfig {
 				'SELECT * FROM jos_ars_releases  
 				WHERE id=' . $releaseId );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$rel = $row;
 		}
 				
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $rel );
 		$stmt->close ();
 	}
 	
 	function getAllItems() {
 		$stmt = $this->db->query ( 'SELECT * FROM jos_ars_items' );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$arrItems[] = $row;
 		}
 		
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $arrItems );
 		$stmt->close ();
 	}
 	
@@ -77,11 +77,11 @@ class ArsService extends DBConfig {
 					published, language, environments  
 				FROM jos_ars_items WHERE id=' . $itemId );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$item = $row;
 		}
 	
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $item );
 		$stmt->close ();
 	}
 	
@@ -111,14 +111,62 @@ class ArsService extends DBConfig {
 			WHERE 
 				i.id=' . $itemId );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrCat [] = $row;
+			$item = $row;
 		}
 	
 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		echo json_encode ( $item );
 		$stmt->close ();
 	}
 	
+	
+	function getItemRest($itemId) {
+		
+		// ITEM
+		$stmt = $this->db->query (
+			'SELECT 
+				i.id, i.release_id, i.title, i.alias, i.description, i.type,
+				i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+				i.published, i.language, i.environments
+			FROM jos_ars_items i WHERE i.id=' . $itemId );
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+			$item = $row;
+			
+		}
+		
+		$releaseId = $item['release_id'];
+		
+		// RELEASE
+		$stmt2 = $this->db->query (
+				'SELECT * FROM jos_ars_releases
+				WHERE id=' . $releaseId );
+		while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+			$rel = $row2;
+		}
+		$categoryId = $rel['category_id'];
+		
+ 		// CATEGORY
+		$stmt3 = $this->db->query (
+				'SELECT id, alias, title, description, created, modified, type, directory 
+				FROM jos_ars_categories 
+				WHERE id=' . $categoryId );
+		while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+			$cat = $row3;
+		}
+		
+		// add the category to the release
+		$rel['category'] = $cat;
+		// add the release to the item
+		$item["release"] = $rel;
+		
+		header ( 'Content-type: application/json' );
+		echo json_encode ( $item );
+		$stmt->close ();
+		$stmt2->close();
+		$stmt3->close();
+	}
 	
 	// this is mostly just for reference use getAllCategories always
 	function getAllCategoriesArray() {

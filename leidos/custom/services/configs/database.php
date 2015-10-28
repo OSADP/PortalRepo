@@ -6,7 +6,7 @@
 class DBConfig {
 	// define our database configuration
 	private $host = 'localhost';
-	private $schema = 'osadp';
+	private $schema = 'osadp_bookshop';
 	private $username = 'root';
 	private $password = 'Password*2';
 	
