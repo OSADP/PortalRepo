@@ -120,6 +120,47 @@ class ArsService extends DBConfig {
 	}
 	
 	
+	function getAllItemsRest() {
+		
+		// ITEMs
+		$stmt = $this->db->query (
+				'SELECT * FROM jos_ars_items' );
+		$counter = 0;
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+			
+ 			$arrItems[] = $row;
+ 			$releaseId = $row['release_id'];
+			
+ 			// RELEASE
+ 			$stmt2 = $this->db->query (
+ 					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
+ 			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+ 				$rel = $row2;
+ 				$categoryId = $rel['category_id'];
+		 		// CATEGORY
+				$stmt3 = $this->db->query (
+						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
+ 				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+ 					$cat = $row3;
+
+	 				// add the category to the release
+	 				$rel['category'] = $cat;
+ 				}
+
+	 			// add the release to the item
+	 			$arrItems[$counter]["release"] = $rel;
+	 			$counter++;
+ 			}
+		}
+		
+		
+		header ( 'Content-type: application/json' );
+		echo json_encode ( $arrItems );
+		$stmt->close ();
+ 		$stmt2->close();
+ 		$stmt3->close();
+	}
+	
 	function getItemRest($itemId) {
 		
 		// ITEM

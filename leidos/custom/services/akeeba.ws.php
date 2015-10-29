@@ -42,25 +42,25 @@ if (isset ( $_GET ['releases'] )) {
 	}
 }
 
-if (isset ( $_GET ['items'] )) {
+if (isset ( $_GET ['items_rest'] )) {
 	$count = count($params) - 2;
-	$key = array_search('items', array_values($params));
+	$key = array_search('items_rest', array_values($params));
 
 	if ($key == $count) { // this can only happen if there is an id after the items in the url
 		$itemId = $parts[$key+1]; // the item id
-		$ars->getItem($itemId);
+		$ars->getItemRest($itemId);
 	} else {
-		$ars->getAllItems ();
+		$ars->getAllItemsRest();
 	}
 }
 
-if (isset ( $_GET ['item_detail'] )) {
-	$count = count($params) - 2;
-	$key = array_search('item_detail', array_values($params));
+// if (isset ( $_GET ['item_detail'] )) {
+// 	$count = count($params) - 2;
+// 	$key = array_search('item_detail', array_values($params));
 
-	$itemId = $parts[$key+1]; // the item id
-	$ars->getItemDetail($itemId);
-}
+// 	$itemId = $parts[$key+1]; // the item id
+// 	$ars->getItemDetail($itemId);
+// }
 
 if (isset ( $_GET ['item_rest'] )) {
 	$count = count($params) - 2;
