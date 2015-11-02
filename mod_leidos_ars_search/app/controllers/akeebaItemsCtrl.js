@@ -10,6 +10,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 function AkeebaItemsCtrl ( $scope, $timeout, $http, $stateParams ) {
 	$scope.showLoader = true;
 	$scope.items = [];
+	$scope.ordering = 'title';
 	// environments are fontawesome icons, the DB returns an array index that we are using for this
 	$scope.environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
 	// get the current category id from the url
@@ -19,6 +20,10 @@ function AkeebaItemsCtrl ( $scope, $timeout, $http, $stateParams ) {
 	$http.get('/osadp/leidos/custom/services/akeeba/items')
 	.then( function( promise ) {
 		var items = promise.data;
+
+		angular.forEach( items, function( item ) {
+			item.hits = parseInt( item.hits );
+		});
 		// give all items to all
 		if( _categoryId  == 'all' ) {
 			$scope.items = items || [];
