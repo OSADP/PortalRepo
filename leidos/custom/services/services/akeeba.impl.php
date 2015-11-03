@@ -149,8 +149,8 @@ class ArsService extends DBConfig {
 
 	 			// add the release to the item
 	 			$arrItems[$counter]["release"] = $rel;
-	 			$counter++;
  			}
+ 			$counter++;
 		}
 		
 		
