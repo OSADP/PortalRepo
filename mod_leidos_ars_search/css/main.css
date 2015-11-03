@@ -1,11 +1,9 @@
 
 
-
-.ars__categories {}
-
-.ars__categories--item {}
-
-.ars__categories--item > a {
+/* NOTE: We're using the BEM methodology. Somewhat. */
+.ars-categories {}
+.ars-categories__item {}
+.ars-categories__item > a {
   display: block;
   padding: 10px;
   margin-top: 2px;
@@ -13,11 +11,11 @@
   font-size: 1.4rem;
 }
 
-.ars__categories--item > a:hover, .ars__categories--item > a:focus {
+.ars-categories__item > a:hover, .ars-categories__item > a:focus {
   background: #dddddd;
 }
 
-.ars_categories--item-active > a {
+.ars_categories__item--active > a {
   background: #0077bb !important;
   color: #ffffff !important;
   cursor: default;
@@ -26,28 +24,28 @@
   animation: animation 700ms linear both;
 }
 
-.ars_categories--item-active .badge {
+.ars_categories__item--active .badge {
   background: #ffffff;
   color: #07b;
 }
 
-.ars__categories--heading {
+.ars-categories__heading {
   margin: 20px 0 9px 0;
   text-transform: uppercase;
 }
 
-.ars__applications {
+.ars-applications {
   position: relative;
   clear: both;
-  height: 901px;
+  max-height: 900px;
   overflow: auto;
 }
 
-.ars__applications--search {
+.ars-applications__search {
   margin-bottom: 10px;
 }
 
-.ars__item {
+.ars-item {
   background: #ffffff;
   font-size: 1.4rem;
   letter-spacing: 1px;
@@ -57,45 +55,53 @@
   border: solid 1px #ddd;
   transition: .3s;
   cursor: pointer;
+  /* animations */
+  -webkit-animation: osadp_fadein .3s linear;
+  -o-animation: osadp_fadein .3s linear;
+  animation: osadp_fadein .3s linear;
 }
 
-.ars__item:hover {
+.ars-item:hover {
   box-shadow: 0px 4px 8px #ddd;
 }
 
-.ars__item--image-container {
+.ars-item__image-container {
   padding: 0;
   height: 100%;
 }
 
-.ars__item--image {
+.ars-item__image-container__image {
   width: 100%;
   height: 100%;
-  background: #eee; /*url('../images/1.png'); */
+  background: #eee;
   background-position: center;
 }
 
-.ars__item--info {
+.ars-item__info {
   padding: 10px;
   padding-bottom: 0px;
 }
 
-.ars__item--info-title {
+.ars-item__info-title {
   font-weight: bold;
   font-size: 1.6rem;
   color: #0077bb;
   margin: 0px;
 }
 
-.ars__item--info-badge {
+.ars-item__info-badge {
   text-transform: uppercase;
   background-color: #1BBC9B;
 }
 
-.ars__item--info-badge.alpha {
+.ars-item__info-badge.alpha {
   background-color: #F7CA18;
 }
+/***/
 
+/* This is for the 3 balls fading in and out 
+which acts as our loader while the DOM loads
+each Akeeba release */
 .loader:before,
 .loader:after,
 .loader {
@@ -132,6 +138,7 @@
   position: absolute;
   top: 0;
 }
+
 @-webkit-keyframes load7 {
   0%,
   80%,
@@ -152,5 +159,14 @@
     box-shadow: 0 2.5em 0 0 #0077bb;
   }
 }
+/***/
 
+/* Standard fadein animation */
+@keyframes osadp_fadein {
+  from { opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
 
+@-webkit-keyframes osadp_fadein {
+  from { opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
+/***/
