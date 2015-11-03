@@ -12,9 +12,23 @@
         <filename>tmpl/default.php</filename>
         <filename>tmpl/index.html</filename>
 
-        <filename>css/*.*</filename>
-        <filename>images/*.*</filename>
-        <filename>app/**.*/*.*</filename>
+        <filename>css/index.html</filename>
+        <filename>css/bounce.animation.css</filename>
+        <filename>css/main.css</filename>
+
+        <filename>images/index.html</filename>
+
+        <filename>app/index.html</filename>
+        <filename>app/controller.js</filename>
+        <filename>app/main.js</filename>
+        <filename>app/router.js</filename>
+
+        <filename>app/controllers/index.html</filename>
+        <filename>app/controllers/akeebaItemsCtrl.js</filename>
+        <filename>app/controllers/categoryListCtrl.js</filename>
+
+        <filename>app/partials/index.html</filename>
+        <filename>app/partials/main.ng.html</filename>
     </files>
     <config>
         <fields name="params">
