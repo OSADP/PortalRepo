@@ -124,20 +124,29 @@ class ArsService extends DBConfig {
 		
 		// ITEMs
 		$stmt = $this->db->query (
-				'SELECT * FROM jos_ars_items' );
+				'SELECT
+				i.id, i.release_id, i.title, i.alias, i.description, i.type,
+				i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+				i.published, i.language, i.environments
+				FROM  jos_ars_items i 
+				inner join jos_ars_releases r 
+				on i.release_id = r.id;' );
 		$counter = 0;
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			
- 			$arrItems[] = $row;
+			$arrItems[] = $row;
  			$releaseId = $row['release_id'];
+			$hasRelease = false;
 			
- 			// RELEASE
+ 			// RELEASEs
  			$stmt2 = $this->db->query (
  					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
  			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+				$hasRelease = true;
  				$rel = $row2;
  				$categoryId = $rel['category_id'];
-		 		// CATEGORY
+		 		// CATEGORIEs
 				$stmt3 = $this->db->query (
 						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
  				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
@@ -150,9 +159,10 @@ class ArsService extends DBConfig {
 	 			// add the release to the item
 	 			$arrItems[$counter]["release"] = $rel;
  			}
+//			if ($hasRelease) {
+//			}
  			$counter++;
 		}
-		
 		
 		header ( 'Content-type: application/json' );
 		echo json_encode ( $arrItems );
