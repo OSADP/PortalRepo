@@ -1,19 +1,10 @@
 
 
 <div class="row">
-	<!-- LEFT SIDE DISPLAY A LIST OF CATEGORIES -->
-	<div class="col-xs-12 col-sm-4 col-lg-4" class="ars__categories">
-		<h4 class="ars__categories--heading">Categories</h4>
-		<!-- LIST ALL OUR CATEGORIES -->
-		<div class="ars__categories--item" ng-class="{ 'ars_categories--item-active': category.active }" ng-repeat="category in categories">
-			<a href="#/{{ category.id }}">{{ items.category.title }} <span class="badge pull-right">{{ items.length }}</span></a>
-		</div>
-	</div>
-	<!-- // -->
 	<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
-	<div class="col-xs-12">
+	<div class="col-xs-12 ars-applications__container">
 		<!-- This is for searching current applications -->
-		<div class="row ars__applications--search">
+		<div class="row ars-applications__search">
 			<div class="input-group col-xs-12 col-md-6 pull-left">
 				<select name="ordering" id="ordering" ng-model="ordering">
 					<option value="title">Sort by Name</option>
@@ -30,22 +21,33 @@
 			</div>
 		</div>
 		<!-- This section displays applications based on the controls given -->
-		<div class="row ars__applications">
+		<div class="row ars-applications" onload="scrollGuard(e)">
 			<div class="loader" ng-show="showLoader">Loading...</div>
 			<!-- Populate items by selected category -->
-			<div ng-repeat="item in items | orderBy: ordering | filter:searchFilter" class="ars__item" ng-hide="showLoader">
-				<div class="col-xs-4 ars__item--image-container">
-					<div class="ars__item--image"></div>
+			<div ng-repeat="item in items | orderBy: ordering | filter:searchFilter" class="ars-item" ng-hide="showLoader">
+				<div class="col-xs-4 ars-item__image-container">
+					<div class="ars-item__image-container__image"></div>
 				</div>
-				<div class="col-xs-8 ars__item--info">
-					<span class="ars__item--info-badge badge {{ item.maturity }} pull-right">{{ item.maturity }}</span>
-					<p class="ars__item--info-title">{{ item.title }}</p>
-					Version: <strong>{{ item.version }}</strong><br>
-					Date: <strong>{{ item.created }}</strong><br>
+				<div class="col-xs-8 ars-item__info">
+					<!-- Maturity Badge -->
+					<span class="ars-item__info-badge badge {{ item.maturity }} pull-right">{{ item.release.maturity }}</span>
+					<!-- Release Name -->
+					<p class="ars-item__info-title">
+						{{ item.title }}
+<!-- 						<a href="" class="btn btn-small btn-success" title="Download">
+							<span class="fa fa-download"></span> DOWNLOAD
+						</a> -->
+					</p>
+					<!-- Release Version -->
+					<span class="hidden-xs">Version: <strong>{{ item.release.version }}</strong><br></span>
+					<!-- Date Created -->
+					Date: <strong>{{ item.release.category.created }}</strong><br>
+					<!-- Environment | float right -->
 					<span class="pull-right">
 						<span class="fa fa-{{ item.environment }}" title="{{ item.environment }}"></span>
 					</span>
-					Downloads: <strong>{{ item.hits }}</strong><br>
+					<!-- Number of Hits -->
+					Downloads: <strong>{{ item.hits }}</strong>
 				</div>
 			</div>
 			<!-- // -->

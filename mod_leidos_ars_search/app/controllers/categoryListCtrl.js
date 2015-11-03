@@ -1,13 +1,17 @@
 
+'use strict';
+
 /**
-*  Controller
+*  Akeeba Category List Controller
 *
 * Description
+* This generates the category list based on data
+* from ARS.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('CategoryListCtrl', ['$scope', '$timeout', '$http', '$location', CategoryListCtrl])
+.controller('CategoryListCtrl', ['$scope', '$timeout', '$http', '$location', 'AkeebaService', CategoryListCtrl])
 
-function CategoryListCtrl ( $scope, $timeout, $http, $location ) {
+function CategoryListCtrl ( $scope, $timeout, $http, $location, AkeebaService ) {
 	$scope.categories = [];
 	// populate our category list with items from the ARS database
 	$http.get('/osadp/leidos/custom/services/akeeba/categories')
@@ -38,14 +42,16 @@ function CategoryListCtrl ( $scope, $timeout, $http, $location ) {
 			_currentCategory.active = true;
 		}
 		// this will show how many applications are under each category
-		$http.get('/osadp/leidos/custom/services/akeeba/items')
-		.then( function( promise ) {
-			var _items = promise.data;
+		// TODO: This should probably be part of the data from the category
+		// web service.
+		AkeebaService.getAll()
+		.then( function( _items ) {
+			// var _items = promise.data;
 			angular.forEach( $scope.categories, function( category ) {
 				category.items = [];
 				if( category.id == 'all' ) category.items = _items;
 				angular.forEach( _items, function( item ) {
-					if( item.category_id == category.id )
+					if( item.release.category_id == category.id )
 						category.items.push( item );
 				})
 			});

@@ -1,13 +1,18 @@
 
+'use strict';
+
 /**
-*  Controller
+*  Akeeba Releases Controller
 *
 * Description
+* This controller handles the data for our items/releases
+* and parse any necessary information to make it readable
+* for users.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('AkeebaItemsCtrl', ['$scope', '$timeout', '$http', '$stateParams', AkeebaItemsCtrl])
+.controller('AkeebaReleasesCtrl', ['$scope', '$timeout', '$http', '$stateParams', 'AkeebaService', AkeebaReleasesCtrl])
 
-function AkeebaItemsCtrl ( $scope, $timeout, $http, $stateParams ) {
+function AkeebaReleasesCtrl ( $scope, $timeout, $http, $stateParams, AkeebaService ) {
 	$scope.showLoader = true;
 	$scope.items = [];
 	$scope.ordering = 'title';
@@ -17,12 +22,13 @@ function AkeebaItemsCtrl ( $scope, $timeout, $http, $stateParams ) {
 	var _categoryId = $stateParams.categoryId;
 	// get all items, in the future this will be determined by category id
 	// so we won't have to make a loop
-	$http.get('/osadp/leidos/custom/services/akeeba/items')
-	.then( function( promise ) {
-		var items = promise.data;
-
+	AkeebaService.getAll()
+	.then( function( items ) {
+		// var items = promise.data;
+		$scope.showLoader = false;
 		angular.forEach( items, function( item ) {
 			item.hits = parseInt( item.hits );
+			item.environment = $scope.environments[item.environments.split('"')[1]];
 		});
 		// give all items to all
 		if( _categoryId  == 'all' ) {
@@ -30,15 +36,11 @@ function AkeebaItemsCtrl ( $scope, $timeout, $http, $stateParams ) {
 		} else {
 			// display items based on current category id
 			angular.forEach( items, function( item ) {
-				item.environment = $scope.environments[item.environments.split('"')[1]];
-				if( item.category_id == _categoryId ) {
+				if( item.release.category_id == _categoryId ) {
 					$scope.items.push( item );
 				}
 			})
 		}
-		// timeout applies $apply so yea hide loader
-		$timeout( function() {
-			$scope.showLoader = false;
-		}, 250);
-	})
+	});
+	
 }
