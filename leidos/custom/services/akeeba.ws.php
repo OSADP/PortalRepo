@@ -42,7 +42,7 @@ if (isset ( $_GET ['releases'] )) {
 	}
 }
 
-if (isset ( $_GET ['items_rest'] )) {
+if (isset ( $_GET ['items'] )) {
 	$count = count($params) - 2;
 	$key = array_search('items_rest', array_values($params));
 
@@ -52,22 +52,6 @@ if (isset ( $_GET ['items_rest'] )) {
 	} else {
 		$ars->getAllItemsRest();
 	}
-}
-
-// if (isset ( $_GET ['item_detail'] )) {
-// 	$count = count($params) - 2;
-// 	$key = array_search('item_detail', array_values($params));
-
-// 	$itemId = $parts[$key+1]; // the item id
-// 	$ars->getItemDetail($itemId);
-// }
-
-if (isset ( $_GET ['item_rest'] )) {
-	$count = count($params) - 2;
-	$key = array_search('item_rest', array_values($params));
-
-	$itemId = $parts[$key+1]; // the item id
-	$ars->getItemRest($itemId);
 }
 
 ?>
