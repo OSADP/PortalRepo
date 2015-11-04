@@ -22,4 +22,12 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search', ['ui.router']);
   	var arsSearcher = $('#arsSearch');
    	angular.bootstrap( arsSearcher, ['Leidos.OSADP.Akeeba.Application.Search']);
   });
+
+ 	$('.ars-categories--mobile').ready( function() {
+ 		var btn = $('.ars-categories--mobile').find('.btn');
+ 		btn.click(function() {
+ 			$('.ars-categories__item').toggle();
+ 		})
+ 	})
+
 })(window, document, jQuery, FastClick);

@@ -1,8 +1,14 @@
 
 
 /* NOTE: We're using the BEM methodology. Somewhat. */
-.ars-categories {}
+.ars-categories {
+  padding-left: 0;
+}
+
 .ars-categories__item {}
+.ars-categories__item:focus {
+  box-shadow: 0 0 10px #07b;
+}
 .ars-categories__item > a {
   display: block;
   padding: 10px;
@@ -15,7 +21,7 @@
   background: #dddddd;
 }
 
-.ars_categories__item--active > a {
+.ars-categories__item--active > a {
   background: #0077bb !important;
   color: #ffffff !important;
   cursor: default;
@@ -24,7 +30,7 @@
   animation: animation 700ms linear both;
 }
 
-.ars_categories__item--active .badge {
+.ars-categories__item--active .badge {
   background: #ffffff;
   color: #07b;
 }
@@ -37,12 +43,37 @@
 .ars-applications {
   position: relative;
   clear: both;
-  max-height: 900px;
+  /*max-height: 900px;*/
   overflow: auto;
 }
 
-.ars-applications__search {
+.ars-applications__tools {
   margin-bottom: 10px;
+}
+
+@media screen and (max-width: 920px) {
+  .ars-categories {
+    padding: 0;
+  }
+  .ars-categories--mobile {
+    padding-top: 10px;
+  }
+  .ars-categories__item {
+    display: none;
+  }
+/*  .ars-categories__item--active {
+    display: block !important;
+  }*/
+  .ars-applications__tools__sort {
+    padding-top: 15px;
+  }
+  .ars-applications__tools__sort > select {
+    /*width: 100%;*/
+  }
+  .ars-applications__tools__search {
+    padding-top: 15px;
+    padding-bottom: 5px;
+  } 
 }
 
 .ars-item {

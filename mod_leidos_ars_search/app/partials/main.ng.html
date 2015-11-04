@@ -4,16 +4,26 @@
 	<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
 	<div class="col-xs-12 ars-applications__container">
 		<!-- This is for searching current applications -->
-		<div class="row ars-applications__search">
-			<div class="input-group col-xs-12 col-md-6 pull-left">
-				<select name="ordering" id="ordering" ng-model="ordering">
+		<div class="row ars-applications__tools">
+			<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
+				<select class="col-xs-6" name="ordering" id="ordering" ng-model="ordering">
 					<option value="title">Sort by Name</option>
 					<option value="-hits">Sort by Most Downloads</option>
 					<option value="-created">Sort by Date Created</option>
 					<option value="-version">Sort by Newest Version</option>
 				</select>
+				<button class="col-xs-6 col-lg-4 btn btn-default" ng-click="reverse = ! reverse">
+					<div ng-show="reverse">
+						<span class="fa fa-sort-amount-desc"></span>
+						DESCENDING
+					</div>
+					<div ng-hide="reverse">
+						<span class="fa fa-sort-amount-asc"></span>
+						ASCENDING
+					</div>
+				</button>
 			</div>
-			<div class="input-group col-xs-12 col-md-6 pull-right">
+			<div class="ars-applications__tools__search input-group col-xs-12 col-md-6 pull-right">
 				<span class="input-group-addon">
 					<span class="fa fa-search"></span>
 				</span>
@@ -24,7 +34,7 @@
 		<div class="row ars-applications" onload="scrollGuard(e)">
 			<div class="loader" ng-show="showLoader">Loading...</div>
 			<!-- Populate items by selected category -->
-			<div ng-repeat="item in items | orderBy: ordering | filter:searchFilter" class="ars-item" ng-hide="showLoader">
+			<div ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader">
 				<div class="col-xs-4 ars-item__image-container">
 					<div class="ars-item__image-container__image"></div>
 				</div>

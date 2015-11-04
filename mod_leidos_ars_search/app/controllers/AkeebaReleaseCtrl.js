@@ -14,6 +14,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 
 function AkeebaReleasesCtrl ( $scope, $timeout, $http, $stateParams, AkeebaService ) {
 	$scope.showLoader = true;
+	$scope.reverse = false;
 	$scope.items = [];
 	$scope.ordering = 'title';
 	// environments are fontawesome icons, the DB returns an array index that we are using for this

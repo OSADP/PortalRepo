@@ -21,15 +21,22 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 
 	<div class="row" ng-cloak>
 		<!-- LEFT SIDE DISPLAY A LIST OF CATEGORIES -->
-		<div class="col-xs-12 col-sm-4 col-lg-4" class="ars-categories" ng-controller="CategoryListCtrl">
+		<div class="ars-categories col-xs-12 col-md-4 col-lg-4" class="ars-categories" ng-controller="CategoryListCtrl">
+			<div class="ars-categories--mobile visible-xs visible-sm pull-right">
+				<button type="button" class="btn btn-primary">
+					{{ currentCategory.title }}
+					<span class="fa fa-angle-down"></span>
+					<span class="sr-only">Show Categories</span>
+				</button>
+			</div>
 			<h4 class="ars-categories__heading">Categories</h4>
 			<!-- LIST ALL OUR CATEGORIES -->
-			<div class="ars-categories__item" ng-class="{ 'ars_categories__item--active': category.active }" ng-repeat="category in categories">
+			<div class="ars-categories__item" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories">
 				<a href="#/{{ category.id }}" ng-click="categoryChange( this )">{{ category.title }} <span class="badge pull-right">{{ category.items.length }}</span></a>
 			</div>
 		</div>
 		<!-- // -->
 		<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
-		<div class="col-xs-12 col-sm-8 ars__container" ui-view autoscroll="false"></div>
+		<div class="col-xs-12 col-md-8 ars-container" ui-view autoscroll="false"></div>
 	</div>
 </div>
