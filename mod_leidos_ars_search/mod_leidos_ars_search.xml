@@ -23,7 +23,7 @@
         <filename>app/router.js</filename>
 
         <filename>app/controllers/index.html</filename>
-        <filename>app/controllers/AkeebaItemsCtrl.js</filename>
+        <filename>app/controllers/AkeebaReleaseCtrl.js</filename>
         <filename>app/controllers/CategoryListCtrl.js</filename>
 
         <filename>app/services/index.html</filename>
