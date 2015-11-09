@@ -9,9 +9,9 @@
 * from ARS.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('CategoryListCtrl', ['$scope', '$timeout', '$http', '$location', 'AkeebaService', CategoryListCtrl])
+.controller('CategoryListCtrl', ['$rootScope', '$scope', '$timeout', '$http', '$location', 'AkeebaService', CategoryListCtrl])
 
-function CategoryListCtrl ( $scope, $timeout, $http, $location, AkeebaService ) {
+function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, AkeebaService ) {
 	$scope.categories = [];
 	// populate our category list with items from the ARS database
 	$http.get('/osadp/leidos/custom/services/akeeba/categories')
@@ -29,12 +29,7 @@ function CategoryListCtrl ( $scope, $timeout, $http, $location, AkeebaService ) 
 		}
 		// grab current category id from the url path to select
 		// current category on page load/refresh
-		angular.forEach( $scope.categories, function( category ) {
-			if( category.id == $location.path().split("/")[1] ) {
-				$scope.currentCategory = category;
-				$scope.currentCategory.active = true;
-			}
-		})
+		setActiveOnLoad( $scope.categories );
 		// this is our event for changing active/current category
 		$scope.categoryChange = function() {
 			$scope.currentCategory.active = false;
@@ -44,7 +39,7 @@ function CategoryListCtrl ( $scope, $timeout, $http, $location, AkeebaService ) 
 		// this will show how many applications are under each category
 		// TODO: This should probably be part of the data from the category
 		// web service.
-		AkeebaService.getAll()
+		AkeebaService.getAllItems()
 		.then( function( _items ) {
 			// var _items = promise.data;
 			angular.forEach( $scope.categories, function( category ) {
@@ -57,5 +52,28 @@ function CategoryListCtrl ( $scope, $timeout, $http, $location, AkeebaService ) 
 			});
 		});
 
+		// show the list and get active category item
+		$rootScope
+		.$on('application:hidden', function() {
+			$scope.hideView = false;
+			setActiveOnLoad( $scope.categories );
+		})
+
 	});
+	// hide category list, it's outside the category scope
+	// to enable it on reload when in an application page
+	$rootScope
+	.$on('application:visible', function() {
+		$scope.hideView = true;
+	})
+
+	function setActiveOnLoad( categories ) {
+		angular.forEach( categories, function( category ) {
+			category.active = false;
+			if( category.id == $location.path().split("/")[1] ) {
+				$scope.currentCategory = category;
+				$scope.currentCategory.active = true;
+			}
+		})
+	}
 }

@@ -10,26 +10,24 @@
 * for users.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('AkeebaReleasesCtrl', ['$scope', '$timeout', '$http', '$stateParams', 'AkeebaService', AkeebaReleasesCtrl])
+.controller('AkeebaReleasesCtrl', ['$rootScope', '$scope', '$stateParams', 'AkeebaService', AkeebaReleasesCtrl])
 
-function AkeebaReleasesCtrl ( $scope, $timeout, $http, $stateParams, AkeebaService ) {
-	$scope.showLoader = true;
-	$scope.reverse = false;
-	$scope.items = [];
-	$scope.ordering = 'title';
-	// environments are fontawesome icons, the DB returns an array index that we are using for this
-	$scope.environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
+function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService ) {
+	$rootScope.$broadcast('application:hidden');
+	$scope.showLoader = true; // shows or hides loader on http load
+	$scope.items = []; // actuall ARS items
+	$scope.ordering = 'title'; // initial ordering setting
+	$scope.reverse = false; // affects ascending or desc of order
 	// get the current category id from the url
 	var _categoryId = $stateParams.categoryId;
 	// get all items, in the future this will be determined by category id
 	// so we won't have to make a loop
-	AkeebaService.getAll()
+	AkeebaService.getAllItems()
 	.then( function( items ) {
 		// var items = promise.data;
 		$scope.showLoader = false;
 		angular.forEach( items, function( item ) {
 			item.hits = parseInt( item.hits );
-			item.environment = $scope.environments[item.environments.split('"')[1]];
 		});
 		// give all items to all
 		if( _categoryId  == 'all' ) {

@@ -9,27 +9,76 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 .service('AkeebaService', ['$http', function( $http ){
 	var _this = this;
 
-	_this.getAll = function() {
-		return $http.get('/osadp/leidos/custom/services/akeeba/items')
+	_this.getAllCategories = function() {
+		return $http.get('/osadp/leidos/custom/services/akeeba/categories')
 			.then( function( promise ) {
 				return promise.data;
 			})
 	}
 
-	_this.getReleased = function() {
+	_this.getCategory = function( categoryId ) {
+		return $http.get('/osadp/leidos/custom/services/akeeba/categories/' + categoryId)
+			.then( function( promise ) {
+				return promise.data;
+			})
+	}
+
+	_this.getAllItems = function() {
 		return $http.get('/osadp/leidos/custom/services/akeeba/items')
 			.then( function( promise ) {
-				var items = promise.data;
-				var parsedItems = [];
-				angular.forEach( items, function( item ) {
-					if( item.release ) {
-						if( item.release.category ) {
-							parsedItems.push( item )
-						}
-					}
-				})
-				return parsedItems;
+				angular.forEach( promise.data, function( item ) {
+					item.environments = envToFontAwesome( item.environments );
+				});
+				return promise.data;
 			})
+	}
+
+	_this.getItemsByCategory = function( categoryId ) {
+		return $http.get('/osadp/leidos/custom/services/akeeba/items')
+			.then( function( promise ) {
+				var _parsedItems= [];
+				angular.forEach( promise.data, function( item ) {
+					if( item.release.category.id == categoryId ) {
+						item.environments = envToFontAwesome( item.environments );
+						_parsedItems.push( item );
+					}
+				});
+				return _parsedItems;
+			})
+	}
+
+	_this.getOtherItems = function( categoryId, itemId ) {
+		return $http.get('/osadp/leidos/custom/services/akeeba/items')
+			.then( function( promise ) {
+				var _parsedItems= [];
+				angular.forEach( promise.data, function( item ) {
+					if( item.release.category.id == categoryId && item.id != itemId ) {
+						item.environments = envToFontAwesome( item.environments );
+						_parsedItems.push( item );
+					}
+				});
+				return _parsedItems;
+			})
+	}
+
+	_this.getItem = function( itemId ) {
+		return $http.get('/osadp/leidos/custom/services/akeeba/items/' + itemId)
+			.then( function( promise ) {
+				promise.data.environments = envToFontAwesome( promise.data.environments );
+				return promise.data;
+			})
+	}
+
+	// parse environments to match equivalent fontawesome icons
+	function envToFontAwesome( items ) {
+		items = items.split('"');
+		var _fontAwesome = ["-", "-", "linux", "apple", "apple", "windows", "android"];
+		var _parsedItems = [];
+		angular.forEach( items, function( item, index ) {
+			if( index % 2 ) _parsedItems.push( _fontAwesome[ item ] );
+		});
+
+		return _parsedItems;
 	}
 
 	return _this;
