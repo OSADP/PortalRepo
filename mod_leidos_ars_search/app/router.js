@@ -22,6 +22,12 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 		templateUrl: '/osadp/modules/mod_leidos_ars_search/app/partials/main.ng.html',
 		controller: 'AkeebaReleasesCtrl'
 	})
+	// this route show individual applications
+	.state('application', {
+		url: '/:categoryId/:itemId',
+		templateUrl: '/osadp/modules/mod_leidos_ars_search/app/partials/application.ng.html',
+		controller: 'ApplicationCtrl'
+	})
 	// set default route to display all releases
 	$urlRouterProvider.otherwise('/all');
 

@@ -11,7 +11,7 @@
 * Main module for displaying Akeeba Release Systems'
 * releases as well as provide a search and sort function.
 */
-angular.module('Leidos.OSADP.Akeeba.Application.Search', ['ui.router']);
+angular.module('Leidos.OSADP.Akeeba.Application.Search', ['ui.router', 'ngSanitize']);
 
 ;(function(window, document, $, FastClick, undefined) {
   $(document).ready( function() {

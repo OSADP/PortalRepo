@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos Akeeba Realease Application Search</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.10.1</version>
+    <version>0.11.0</version>
     <description>A custom module made by Leidos for OSADP to showcase ARS items as a slider.</description>
     <files>
         <filename>mod_leidos_ars_search.xml</filename>
@@ -25,12 +25,16 @@
         <filename>app/controllers/index.html</filename>
         <filename>app/controllers/AkeebaReleaseCtrl.js</filename>
         <filename>app/controllers/CategoryListCtrl.js</filename>
+        <filename>app/controllers/ViewCtrl.js</filename>
+        <filename>app/controllers/ApplicationCtrl.js</filename>
 
         <filename>app/services/index.html</filename>
         <filename>app/services/AkeebaService.js</filename>
 
         <filename>app/partials/index.html</filename>
         <filename>app/partials/main.ng.html</filename>
+        <filename>app/partials/item.ng.html</filename>
+        <filename>app/partials/application.ng.html</filename>
     </files>
     <config>
         <fields name="params">

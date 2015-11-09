@@ -1,77 +1,51 @@
 
 
-<div class="row">
-	<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
-	<div class="col-xs-12 ars-applications__container">
-		<!-- This is for searching current applications -->
-		<div class="row ars-applications__tools">
-			<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
-				<select class="col-xs-6" name="ordering" id="ordering" ng-model="ordering">
-					<option value="title">Sort by Name</option>
-					<option value="-hits">Sort by Most Downloads</option>
-					<option value="-created">Sort by Date Created</option>
-					<option value="-version">Sort by Newest Version</option>
-				</select>
-				<button class="col-xs-6 col-lg-4 btn btn-default" ng-click="reverse = ! reverse">
-					<div ng-show="reverse">
-						<span class="fa fa-sort-amount-desc"></span>
-						DESCENDING
-					</div>
-					<div ng-hide="reverse">
-						<span class="fa fa-sort-amount-asc"></span>
-						ASCENDING
-					</div>
-				</button>
-			</div>
-			<div class="ars-applications__tools__search input-group col-xs-12 col-md-6 pull-right">
-				<span class="input-group-addon">
-					<span class="fa fa-search"></span>
-				</span>
-				<input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter">
-			</div>
-		</div>
-		<!-- This section displays applications based on the controls given -->
-		<div class="row ars-applications" onload="scrollGuard(e)">
-			<div class="loader" ng-show="showLoader">Loading...</div>
-			<!-- Populate items by selected category -->
-			<div ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader">
-				<div class="col-xs-4 ars-item__image-container">
-					<div class="ars-item__image-container__image"></div>
+<!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
+<div class="col-xs-12 ars-applications__container">
+	<!-- This is for searching current applications -->
+	<div class="row ars-applications__tools">
+		<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
+			<select class="col-xs-6" name="ordering" id="ordering" ng-model="ordering">
+				<option value="title">Sort by Name</option>
+				<option value="-hits">Sort by Most Downloads</option>
+				<option value="-created">Sort by Date Created</option>
+				<option value="-version">Sort by Newest Version</option>
+			</select>
+			<button class="col-xs-6 col-lg-4 btn btn-default" ng-click="reverse = ! reverse">
+				<div ng-show="reverse">
+					<span class="fa fa-sort-amount-desc"></span>
+					DESCENDING
 				</div>
-				<div class="col-xs-8 ars-item__info">
-					<!-- Maturity Badge -->
-					<span class="ars-item__info-badge badge {{ item.maturity }} pull-right">{{ item.release.maturity }}</span>
-					<!-- Release Name -->
-					<p class="ars-item__info-title">
-						{{ item.title }}
-<!-- 						<a href="" class="btn btn-small btn-success" title="Download">
-							<span class="fa fa-download"></span> DOWNLOAD
-						</a> -->
-					</p>
-					<!-- Release Version -->
-					<span class="hidden-xs">Version: <strong>{{ item.release.version }}</strong><br></span>
-					<!-- Date Created -->
-					Date: <strong>{{ item.release.category.created }}</strong><br>
-					<!-- Environment | float right -->
-					<span class="pull-right">
-						<span class="fa fa-{{ item.environment }}" title="{{ item.environment }}"></span>
-					</span>
-					<!-- Number of Hits -->
-					Downloads: <strong>{{ item.hits }}</strong>
+				<div ng-hide="reverse">
+					<span class="fa fa-sort-amount-asc"></span>
+					ASCENDING
 				</div>
-			</div>
-			<!-- // -->
-			<!-- Show this when there are no applications -->
-			<div ng-show="items.length == 0 && !showLoader" style="text-align: center;">
-				<h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
-				<p><em>You can submit your application for this category by clicking this button</em></p>
-				<a href="#" class="btn btn-lg btn-success">
-					<span class="fa fa-cloud-upload"></span>
-					Upload Request
-				</a>
-			</div>
-			<!-- // -->
+			</button>
 		</div>
-
+		<div class="ars-applications__tools__search input-group col-xs-12 col-md-6 pull-right">
+			<span class="input-group-addon">
+				<span class="fa fa-search"></span>
+			</span>
+			<input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter">
+		</div>
 	</div>
+	<!-- This section displays applications based on the controls given -->
+	<div class="row ars-applications" onload="scrollGuard(e)">
+		<div class="loader" ng-show="showLoader">Loading...</div>
+		<!-- Populate items by selected category -->
+		<div ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader" tabindex="0"
+			ng-include="'/osadp/modules/mod_leidos_ars_search/app/partials/item.ng.html'"></div>
+		<!-- // -->
+		<!-- Show this when there are no applications -->
+		<div ng-show="items.length == 0 && !showLoader" style="text-align: center;">
+			<h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
+			<p><em>You can submit your application for this category by clicking this button</em></p>
+			<a href="#" class="btn btn-lg btn-success">
+				<span class="fa fa-cloud-upload"></span>
+				Upload Request
+			</a>
+		</div>
+		<!-- // -->
+	</div>
+
 </div>

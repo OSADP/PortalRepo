@@ -1,0 +1,28 @@
+
+
+<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link">
+	<div class="col-xs-4 ars-item__image-container">
+		<div class="ars-item__image-container__image"></div>
+	</div>
+	<div class="col-xs-8 ars-item__info">
+		<!-- Maturity Badge -->
+		<span class="ars-item__info__badge badge {{ item.maturity }} pull-right">{{ item.release.maturity }}</span>
+		<!-- Release Name -->
+		<p class="ars-item__info-title">
+			{{ item.title }}
+<!-- 						<a href="" class="btn btn-small btn-success" title="Download">
+				<span class="fa fa-download"></span> DOWNLOAD
+			</a> -->
+		</p>
+		<!-- Release Version -->
+		<span class="hidden-xs">Version: <strong>{{ item.release.version }}</strong><br></span>
+		<!-- Date Created -->
+		Date: <strong>{{ item.release.category.created }}</strong><br>
+		<!-- Environment | float right -->
+		<span class="pull-right">
+			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
+		</span>
+		<!-- Number of Hits -->
+		Downloads: <strong>{{ item.hits }}</strong>
+	</div>
+</a>

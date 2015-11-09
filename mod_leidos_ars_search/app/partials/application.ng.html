@@ -1,0 +1,44 @@
+
+
+<div class="ars-item__page col-xs-12">
+
+	<div class="ars-item__page__info">
+		<p class="pull-right">
+			Category: 
+			<a href="#/{{ item.release.category.id }}" class="">
+				{{ item.release.category.title }}
+			</a>
+		</p>
+		<h3>{{ item.title }}</h3>
+		<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right" ng-cloak>
+			<span class="fa fa-download"></span>
+			Download {{ (item.filesize / 1000).toFixed(2) }} KB 
+		</a>
+		<p><em>Published: {{ item.release.created }}</em></p>
+		<p>
+			<!-- Maturity Badge -->
+			<span class="ars-item__info__badge ars-item__info__badge--left badge {{ item.maturity }} display">{{ item.release.maturity }}</span>
+			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
+		</p>
+	</div>
+
+	<ul class="nav nav-tabs">
+	  <li role="presentation" ng-class="{'active': activeTab == 'description'}"><a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'description'">Discription</a></li>
+	  <li role="presentation" ng-class="{'active': activeTab == 'release'}"><a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'release'">Release Notes</a></li>
+	  <li role="presentation" ng-class="{'active': activeTab == 'other'}"><a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'other'">Similar Applications</a></li>
+	</ul>
+
+	<div class="" ng-bind-html="item.description" style="padding-top: 15px;" ng-show="activeTab == 'description'"></div>
+
+	<div class="" ng-bind-html="item.release.notes" style="padding-top: 15px;" ng-show="activeTab == 'release'"></div>
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'release' && item.release.notes == ''">
+		<p>No release notes found..</p>
+	</div>
+
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'other'">
+		<div ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" tabindex="0"
+			ng-include="'/osadp/modules/mod_leidos_ars_search/app/partials/item.ng.html'"></div>
+	</div>
+
+
+</div>
