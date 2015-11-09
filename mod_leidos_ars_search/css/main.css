@@ -40,6 +40,10 @@
   text-transform: uppercase;
 }
 
+.ars-container {
+  padding: 0;
+}
+
 .ars-applications {
   position: relative;
   clear: both;
@@ -81,6 +85,7 @@
   font-size: 1.4rem;
   letter-spacing: 1px;
   height: 120px;
+  max-width: 767px;
   margin: 0;
   margin-bottom: 10px;
   border: solid 1px #ddd;
@@ -94,6 +99,10 @@
 
 .ars-item:hover {
   box-shadow: 0px 4px 8px #ddd;
+}
+
+.ars-item__link, .ars-item__link:hover, .ars-item__link:focus {
+  color: inherit;
 }
 
 .ars-item__image-container {
@@ -120,13 +129,31 @@
   margin: 0px;
 }
 
-.ars-item__info-badge {
+.ars-item__info__badge {
   text-transform: uppercase;
   background-color: #1BBC9B;
 }
 
-.ars-item__info-badge.alpha {
+.ars-item__info__badge.alpha {
   background-color: #F7CA18;
+}
+
+/**
+* Specifically for application.ng.html
+*/
+.ars-item__page {
+  padding: 0;
+}
+.ars-item__page__info {
+  padding-bottom: 15px;
+}
+.ars-item__info__badge--left {
+  /*margin-top: 2px;*/
+  float: left;
+}
+.fa.display {
+  font-size: 1.6rem;
+  padding-left: 5px;
 }
 /***/
 
