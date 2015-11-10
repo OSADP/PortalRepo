@@ -143,10 +143,22 @@
 */
 .ars-item__page {
   padding: 0;
-  font-size: 14px;
+  font-size: 1.1em;
 }
 .ars-item__page__info {
   padding-bottom: 15px;
+}
+.ars-item__page__info__image {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #f8f8f8;
+  vertical-align: middle;
+}
+.ars-item__page__info__meta {
+  display: inline-block;
+  vertical-align: middle;
+  padding-left: 10px;
 }
 .ars-item__info__badge--left {
   /*margin-top: 2px;*/
@@ -155,6 +167,11 @@
 .fa.display {
   font-size: 1.6rem;
   padding-left: 5px;
+}
+@media screen and (max-width: 920px) and (orientation: portrait) {
+  .ars-item__page {
+    font-size: 1em;
+  }
 }
 /***/
 
