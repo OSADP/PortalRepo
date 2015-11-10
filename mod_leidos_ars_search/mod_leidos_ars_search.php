@@ -13,6 +13,8 @@ defined('_JEXEC') or die;
 $layout = $params->get('layout', 'default');
 // get the header text from user input
 $page_header = $params->get('header', 'Applications');
+// user
+$user = JFactory::getUser();
 // require our helper class ArsSearcher
 require_once (dirname(__FILE__).'/helper.php');
 // get akeeba releases data from our helper class
