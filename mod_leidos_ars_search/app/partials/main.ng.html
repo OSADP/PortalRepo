@@ -5,21 +5,17 @@
 	<!-- This is for searching current applications -->
 	<div class="row ars-applications__tools">
 		<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
-			<select class="col-xs-6" name="ordering" id="ordering" ng-model="ordering">
+			<select class="col-xs-10 col-md-8 col-lg-6" name="ordering" id="ordering" ng-model="ordering">
 				<option value="title">Sort by Name</option>
 				<option value="-hits">Sort by Most Downloads</option>
-				<option value="-created">Sort by Date Created</option>
+				<option value="-release.modified">Sort by Last Modified</option>
 				<option value="-version">Sort by Newest Version</option>
 			</select>
-			<button class="col-xs-6 col-lg-4 btn btn-default" ng-click="reverse = ! reverse">
-				<div ng-show="reverse">
-					<span class="fa fa-sort-amount-desc"></span>
-					DESCENDING
-				</div>
-				<div ng-hide="reverse">
-					<span class="fa fa-sort-amount-asc"></span>
-					ASCENDING
-				</div>
+			<button class="col-xs-2 btn btn-default" ng-click="reverse = ! reverse" ng-show="reverse" title="Descending">
+				<span class="fa fa-sort-amount-desc"></span>
+			</button>
+			<button class="col-xs-2 btn btn-default" ng-click="reverse = ! reverse" ng-hide="reverse" title="Ascending">
+				<span class="fa fa-sort-amount-asc"></span>
 			</button>
 		</div>
 		<div class="ars-applications__tools__search input-group col-xs-12 col-md-6 pull-right">
