@@ -2,24 +2,36 @@
 
 <div class="ars-item__page col-xs-12" ng-cloak>
 
-	<div class="ars-item__page__info" ng-cloak>
-		<p class="pull-right">
-			Category: 
-			<a href="#/{{ item.release.category.id }}" class="">
-				{{ item.release.category.title }}
+	<div class="ars-item__page__info row">
+
+		<div class="col-xs-6 col-sm-8">
+			<div class="ars-item__page__info__image hidden-xs"></div>
+			<div class="ars-item__page__info__meta">
+				<h3>{{ item.title }} </h3>
+				<p><em>Published: {{ item.release.created }}</em></p>
+				<p>
+					<!-- Maturity Badge -->
+					<span class="ars-item__info__badge ars-item__info__badge--left badge {{ item.release.maturity }} display">{{ item.release.maturity }}</span>
+					<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
+				</p>
+			</div>
+		</div>
+		<div class="col-xs-6 col-sm-4">
+			<p style="text-align: right; margin-top: 20px">
+				Category: 
+				<a href="#/{{ item.release.category.id }}" class="">
+					{{ item.release.category.title }}
+				</a>
+			</p>
+			<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right" ng-if="! loggedIn">
+				<span class="fa fa-download"></span>
+				Download {{ (item.filesize / 1000).toFixed(2) }} KB 
 			</a>
-		</p>
-		<h3>{{ item.title }} </h3>
-		<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right">
-			<span class="fa fa-download"></span>
-			Download {{ (item.filesize / 1000).toFixed(2) }} KB 
-		</a>
-		<p><em>Published: {{ item.release.created }}</em></p>
-		<p>
-			<!-- Maturity Badge -->
-			<span class="ars-item__info__badge ars-item__info__badge--left badge {{ item.maturity }} display">{{ item.release.maturity }}</span>
-			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
-		</p>
+			<a href="/osadp/login" class="btn btn-success pull-right" ng-if="loggedIn">
+				<span class="fa fa-sign-in"></span>
+				Login to Download 
+			</a>
+		</div>
 	</div>
 
 	<ul class="nav nav-tabs">
