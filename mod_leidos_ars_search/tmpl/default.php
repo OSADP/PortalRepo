@@ -22,8 +22,11 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 	<div class="">
 		<h2>
 			<a href="#/all">
-				<?php echo $page_header; ?></h2>
+				<?php
+					echo $page_header;
+				?>
 			</a>
+		</h2>
 	</div>
 
 	<div class="" ng-cloak>
@@ -47,3 +50,11 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 		<div class="{{ width }} ars-container" ui-view autoscroll="false" ng-controller="ViewCtrl"></div>
 	</div>
 </div>
+
+
+
+	<script>
+		window.isGuest = function() {
+			return <?php echo $user->guest;?> == 0;
+		}
+	</script>

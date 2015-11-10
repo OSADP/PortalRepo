@@ -16,6 +16,7 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 	$rootScope.$broadcast('application:visible');
 	var _environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
 	// get our application details based on the route's parameters
+	$scope.loggedIn = ! window.isGuest();
 	AkeebaService.getItem( $stateParams.itemId )
 	.then( function( item ) {
 		// item.environment = _environments[item.environments.split('"')[1]];
