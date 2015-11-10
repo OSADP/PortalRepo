@@ -1,16 +1,16 @@
 
 
-<div class="ars-item__page col-xs-12">
+<div class="ars-item__page col-xs-12" ng-cloak>
 
-	<div class="ars-item__page__info">
+	<div class="ars-item__page__info" ng-cloak>
 		<p class="pull-right">
 			Category: 
 			<a href="#/{{ item.release.category.id }}" class="">
 				{{ item.release.category.title }}
 			</a>
 		</p>
-		<h3>{{ item.title }}</h3>
-		<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right" ng-cloak>
+		<h3>{{ item.title }} </h3>
+		<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right">
 			<span class="fa fa-download"></span>
 			Download {{ (item.filesize / 1000).toFixed(2) }} KB 
 		</a>
@@ -27,18 +27,19 @@
 	  <li role="presentation" ng-class="{'active': activeTab == 'release'}"><a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'release'">Release Notes</a></li>
 	  <li role="presentation" ng-class="{'active': activeTab == 'other'}"><a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'other'">Similar Applications</a></li>
 	</ul>
-
+	<!-- Display Item Description when 'description' tab is active -->
 	<div class="" ng-bind-html="item.description" style="padding-top: 15px;" ng-show="activeTab == 'description'"></div>
-
+	<!-- Displays Item Release Notes when 'release notes' tab is active -->
 	<div class="" ng-bind-html="item.release.notes" style="padding-top: 15px;" ng-show="activeTab == 'release'"></div>
-	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'release' && item.release.notes == ''">
-		<p>No release notes found..</p>
-	</div>
-
+	<!-- Displays other applications under the same category when 'other' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'other'">
 		<div ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" tabindex="0"
 			ng-include="'/osadp/modules/mod_leidos_ars_search/app/partials/item.ng.html'"></div>
 	</div>
+	<!-- Notifies user when no release note was found -->
+	<p ng-show="activeTab == 'description' && item.description == ''">No descriptions found..</p>
+	<p ng-show="activeTab == 'release' && item.release.notes == ''">No release notes found..</p>
+	<p ng-show="activeTab == 'other' && otherItems.length == 0">No similar application found..</p>
 
 
 </div>
