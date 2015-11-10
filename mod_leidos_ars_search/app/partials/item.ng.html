@@ -1,12 +1,12 @@
 
 
 <a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link">
-	<div class="col-xs-4 ars-item__image-container">
+	<div class="col-xs-4 ars-item__image-container hidden-xs">
 		<div class="ars-item__image-container__image"></div>
 	</div>
 	<div class="col-xs-8 ars-item__info">
 		<!-- Maturity Badge -->
-		<span class="ars-item__info__badge badge {{ item.maturity }} pull-right">{{ item.release.maturity }}</span>
+		<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
 		<!-- Release Name -->
 		<p class="ars-item__info-title">
 			{{ item.title }}
@@ -15,9 +15,9 @@
 			</a> -->
 		</p>
 		<!-- Release Version -->
-		<span class="hidden-xs">Version: <strong>{{ item.release.version }}</strong><br></span>
+		<span>Version: <strong>{{ item.release.version }}</strong><br></span>
 		<!-- Date Created -->
-		Date: <strong>{{ item.release.category.created }}</strong><br>
+		<span>Modified: <strong>{{ item.release.modified }}</strong><br></span>
 		<!-- Environment | float right -->
 		<span class="pull-right">
 			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
