@@ -1,11 +1,15 @@
 <?php
+
 require (dirname ( __DIR__ ) . "/configs/database.php");
+
 class ArsService extends DBConfig {
 	
 	// Main method to redeem a code
 	function getAllCategories() {
 		// Print all codes in database
-		$stmt = $this->db->query ( 'SELECT id, alias, title, description, created, modified, type, directory FROM jos_ars_categories' );
+		$stmt = $this->db->query ( 
+				'SELECT id, alias, title, description, created, modified, type, directory 
+				FROM jos_ars_categories' );
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$arrCat [] = $row;
 		}
@@ -125,28 +129,28 @@ class ArsService extends DBConfig {
 		// ITEMs
 		$stmt = $this->db->query (
 				'SELECT
-				i.id, i.release_id, i.title, i.alias, i.description, i.type,
-				i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
-				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
-				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
-				i.published, i.language, i.environments
-				FROM  jos_ars_items i 
-				inner join jos_ars_releases r 
-				on i.release_id = r.id;' );
+					i.id, i.release_id, i.title, i.alias, i.description, i.type,
+					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+					i.published, i.language, i.environments
+				FROM  
+					jos_ars_items i 
+				INNER JOIN
+					jos_ars_releases r ON i.release_id = r.id;' );
 		$counter = 0;
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrItems[] = $row;
- 			$releaseId = $row['release_id'];
-			$hasRelease = false;
 			
- 			// RELEASEs
+ 			$arrItems[] = $row;
+ 			$releaseId = $row['release_id'];
+			
+ 			// RELEASE
  			$stmt2 = $this->db->query (
  					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
  			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
-				$hasRelease = true;
  				$rel = $row2;
  				$categoryId = $rel['category_id'];
-		 		// CATEGORIEs
+		 		// CATEGORY
 				$stmt3 = $this->db->query (
 						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
  				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
@@ -159,10 +163,10 @@ class ArsService extends DBConfig {
 	 			// add the release to the item
 	 			$arrItems[$counter]["release"] = $rel;
  			}
-//			if ($hasRelease) {
-//			}
+
  			$counter++;
 		}
+		
 		
 		header ( 'Content-type: application/json' );
 		echo json_encode ( $arrItems );
@@ -214,6 +218,109 @@ class ArsService extends DBConfig {
 		
 		header ( 'Content-type: application/json' );
 		echo json_encode ( $item );
+		$stmt->close ();
+		$stmt2->close();
+		$stmt3->close();
+	}
+	
+	function getAllItemsByCategory($catId) {
+	
+		// ITEMs
+		$stmt = $this->db->query (
+				'SELECT 
+					i.id, i.release_id, i.title, i.alias, i.description, i.type,
+					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+					i.published, i.language, i.environments
+				FROM 
+					jos_ars_items i
+				INNER JOIN
+					jos_ars_releases r on i.release_id = r.id
+				WHERE 
+					r.category_id=' . $catId  );
+		$counter = 0;
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+				
+			$arrItems[] = $row;
+			$releaseId = $row['release_id'];
+				
+			// RELEASE
+			$stmt2 = $this->db->query (
+					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
+			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+				$rel = $row2;
+				$categoryId = $rel['category_id'];
+				// CATEGORY
+				$stmt3 = $this->db->query (
+						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
+				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+					$cat = $row3;
+	
+					// add the category to the release
+					$rel['category'] = $cat;
+				}
+	
+				// add the release to the item
+				$arrItems[$counter]["release"] = $rel;
+			}
+	
+			$counter++;
+		}
+	
+	
+ 		header ( 'Content-type: application/json' );
+		echo json_encode ( $arrItems );
+		$stmt->close ();
+		$stmt2->close();
+		$stmt3->close();
+	}
+	
+	function getAllItemsByRelease($relId) {
+	
+		// ITEMs
+		$stmt = $this->db->query (
+				'SELECT
+					i.id, i.release_id, i.title, i.alias, i.description, i.type,
+					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+					i.published, i.language, i.environments
+				FROM
+					jos_ars_items i
+				WHERE
+					i.release_id=' . $relId  );
+		$counter = 0;
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+	
+			$arrItems[] = $row;
+			$releaseId = $row['release_id'];
+	
+			// RELEASE
+			$stmt2 = $this->db->query (
+					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
+			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+				$rel = $row2;
+				$categoryId = $rel['category_id'];
+				// CATEGORY
+				$stmt3 = $this->db->query (
+						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
+				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+					$cat = $row3;
+	
+					// add the category to the release
+					$rel['category'] = $cat;
+				}
+	
+				// add the release to the item
+				$arrItems[$counter]["release"] = $rel;
+			}
+	
+			$counter++;
+		}
+	
+		header ( 'Content-type: application/json' );
+		echo json_encode ( $arrItems );
 		$stmt->close ();
 		$stmt2->close();
 		$stmt3->close();

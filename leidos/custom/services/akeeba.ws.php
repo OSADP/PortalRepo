@@ -43,14 +43,51 @@ if (isset ( $_GET ['releases'] )) {
 }
 
 if (isset ( $_GET ['items'] )) {
-	$count = count($params) - 2;
+	$count = count($params);
 	$key = array_search('items', array_values($params));
 
-	if ($key == $count) { // this can only happen if there is an id after the items in the url
-		$itemId = $parts[$key+1]; // the item id
-		$ars->getItemRest($itemId);
-	} else {
+	// nothing is after the key, get all the items
+	if ($key == ($count-1)) { 
 		$ars->getAllItemsRest();
+
+	// additional url parameters have been provided
+	} else {
+		
+		// if the next url path isn't category or release, it must be the id
+		if ($parts[$key+1] != 'category' && $parts[$key+1] != 'release') {
+			$itemId = $parts[$key+1]; // the item id
+			$ars->getItemRest($itemId);
+		
+		} else {
+			if ($parts[$key+1] == 'category') {
+				// look up items by category id
+				
+				// count should be 3 greater than the key index
+				if ($count == $key+3) {
+//					echo $parts[$key+2];
+					$ars->getAllItemsByCategory($parts[$key+2]);
+				} else {
+					// no category id provided
+					echo "no category id provided";
+				}
+				
+			} else if ($parts[$key+1] == 'release') {
+				// count should be 3 greater than the key index
+//				echo "look up items by release id\r\n";
+				
+				if ($count == $key+3) {
+//					echo $parts[$key+2];
+					$ars->getAllItemsByRelease($parts[$key+2]);
+				} else {
+					// no category id provided
+					echo "no release id provided";
+				}
+			} else {
+				// do nothing.  the url path is unrecognized.
+				// possibly return a 404 error
+				echo "possibly return a 404 error";
+			}
+		} 
 	}
 }
 
