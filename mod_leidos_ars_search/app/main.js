@@ -26,7 +26,13 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search', ['ui.router', 'ngSaniti
  	$('.ars-categories--mobile').ready( function() {
  		var btn = $('.ars-categories--mobile').find('.btn');
  		btn.click(function() {
- 			$('.ars-categories__item').toggle();
+ 			$('.ars-categories__item').toggleClass('hidden-xs hidden-sm');
+ 			var icon = btn.find('.fa');
+ 			if( icon.hasClass('fa-angle-down') ) {
+ 				icon.removeClass('fa-angle-down').addClass('fa-angle-up');
+ 			} else {
+ 				icon.removeClass('fa-angle-up').addClass('fa-angle-down');
+ 			}
  		})
  	})
 

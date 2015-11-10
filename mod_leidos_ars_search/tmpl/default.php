@@ -38,7 +38,7 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 			</div>
 			<h4 class="ars-categories__heading">Categories</h4>
 			<!-- LIST ALL OUR CATEGORIES -->
-			<div class="ars-categories__item" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories">
+			<div class="ars-categories__item hidden-xs hidden-sm" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories">
 				<a href="#/{{ category.id }}" ng-click="categoryChange( this )">{{ category.title }} <span class="badge pull-right">{{ category.items.length }}</span></a>
 			</div>
 		</div>
