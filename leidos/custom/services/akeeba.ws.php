@@ -44,7 +44,7 @@ if (isset ( $_GET ['releases'] )) {
 
 if (isset ( $_GET ['items'] )) {
 	$count = count($params) - 2;
-	$key = array_search('items_rest', array_values($params));
+	$key = array_search('items', array_values($params));
 
 	if ($key == $count) { // this can only happen if there is an id after the items in the url
 		$itemId = $parts[$key+1]; // the item id
