@@ -172,6 +172,9 @@
   .ars-item__page {
     font-size: 1em;
   }
+  .ars-item__info {
+    width: 100% !important;
+  }
 }
 /***/
 
