@@ -16,7 +16,12 @@ for($i = 0; $i < count ( $parts ); $i ++) {
 }
 
 // and make it work with your exsisting code
-$_GET = $params;
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	$_GET = $params;
+} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$_POST = $params;
+}
+
 
 if (isset ( $_GET ['categories'] )) {
 	$count = count($params) - 2;
@@ -89,6 +94,13 @@ if (isset ( $_GET ['items'] )) {
 			}
 		} 
 	}
+}
+
+if (isset ( $_POST ['items'] )) {
+	$data = json_decode(file_get_contents('php://input'), true);
+//	print_r($data);
+//	echo $data["id"];
+	$ars->hitMeBaby($data["id"]);
 }
 
 ?>

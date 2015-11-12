@@ -342,6 +342,12 @@ class ArsService extends DBConfig {
 		echo json_encode ( $arrCat );
 		$stmt->close ();
 	}
+	
+	function hitMeBaby($itemId) {
+		$stmt = $this->db->prepare ( 'UPDATE jos_ars_items SET hits = hits + 1 WHERE id = ' . $itemId );
+		$stmt->execute ();
+		$stmt->close ();
+	}
 }
 
 ?>
