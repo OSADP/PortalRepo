@@ -61,7 +61,9 @@ if (isset ( $_GET ['items'] )) {
 		// if the next url path isn't category or release, it must be the id
 		if ($parts[$key+1] != 'category' && $parts[$key+1] != 'release') {
 			$itemId = $parts[$key+1]; // the item id
+			$ars->hitMeBaby($itemId);
 			$ars->getItemRest($itemId);
+
 		
 		} else {
 			if ($parts[$key+1] == 'category') {
@@ -102,5 +104,14 @@ if (isset ( $_POST ['items'] )) {
 //	echo $data["id"];
 	$ars->hitMeBaby($data["id"]);
 }
+
+if (isset ( $_GET ['session'] )) {
+	if (isset($_SESSION['userlogin'])) {
+		echo $_SESSION['userlogin'];
+	} else {
+		echo "No session set";
+	}
+}
+
 
 ?>
