@@ -4,75 +4,91 @@ require (dirname ( __DIR__ ) . "/configs/database.php");
 
 class ArsService extends DBConfig {
 	
-	// Main method to redeem a code
+	// Get all the categories
 	function getAllCategories() {
-		// Print all codes in database
+		// prepare the statement
 		$stmt = $this->db->query ( 
 				'SELECT id, alias, title, description, created, modified, type, directory 
 				FROM jos_ars_categories' );
+		
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$arrCat [] = $row;
 		}
 		
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrCat );
+		// close out the statement and return the array
 		$stmt->close ();
+		return $arrCat;
 	}
 	
-	// Main method to redeem a code
+	// Get a category by a category id
 	function getCategory($categoryId) {
-		// Print all codes in database
+		// prepare the statement
 		$stmt = $this->db->query ( 
 				'SELECT id, alias, title, description, created, modified, type, directory 
 				FROM jos_ars_categories 
 				WHERE id=' . $categoryId );
+				
+		// should only return one result.  put that row in a variable
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$cat = $row;
 		}
-				
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $cat );
+
+		// close out the statement and return the one category
 		$stmt->close ();
+		return $cat;
 	}
 	
+	// Get all the releases
 	function getAllReleases() {
-		// Print all codes in database
+		// prepare the statement
 		$stmt = $this->db->query ( 'SELECT * FROM jos_ars_releases' );
+
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$arrRel [] = $row;
 		}
 		
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrRel );
+		// close out the statement and return the array
 		$stmt->close ();
+		return $arrRel;
 	}
 	
+	// Get the release by release id
 	function getRelease($releaseId) {
-		// Print all codes in database
+		// prepare the statement
 		$stmt = $this->db->query ( 
 				'SELECT * FROM jos_ars_releases  
 				WHERE id=' . $releaseId );
+
+		// should only return one result.  put that row in a variable
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$rel = $row;
 		}
 				
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $rel );
+		// close out the statement and return the one category
 		$stmt->close ();
+		return $rel;
 	}
 	
+/*
+	// Get all the items
 	function getAllItems() {
+		// prepare the statement
 		$stmt = $this->db->query ( 'SELECT * FROM jos_ars_items' );
+
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$arrItems[] = $row;
 		}
 		
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrItems );
+		// close out the statement and return the array
 		$stmt->close ();
+		return $arrItems;
 	}
 	
 	function getItem($itemId) {
+		// prepare the statement
 		$stmt = $this->db->query ( 
 				'SELECT id, release_id, title, alias, description, type, 
 					filename, url, updatestream, md5, sha1, filesize, 
@@ -90,6 +106,7 @@ class ArsService extends DBConfig {
 	}
 	
 	function getItemDetail($itemId) {
+		// prepare the statement
 		$stmt = $this->db->query (
 				'SELECT 
 				i.id, i.release_id, i.title, i.alias, i.description, i.type,
@@ -122,11 +139,11 @@ class ArsService extends DBConfig {
 		echo json_encode ( $item );
 		$stmt->close ();
 	}
-	
-	
+*/	
+
+	// Get all the items and their subcomponents
 	function getAllItemsRest() {
-		
-		// ITEMs
+		// prepare the items statement
 		$stmt = $this->db->query (
 				'SELECT
 					i.id, i.release_id, i.title, i.alias, i.description, i.type,
@@ -139,21 +156,27 @@ class ArsService extends DBConfig {
 				INNER JOIN
 					jos_ars_releases r ON i.release_id = r.id;' );
 		$counter = 0;
+
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			
  			$arrItems[] = $row;
  			$releaseId = $row['release_id'];
 			
- 			// RELEASE
+			// prepare the RELEASE statement
  			$stmt2 = $this->db->query (
  					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
- 			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+
+			// should only return one result.  put that row in a variable
+			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
  				$rel = $row2;
  				$categoryId = $rel['category_id'];
-		 		// CATEGORY
+
+				// prepare the CATEGORY statement
 				$stmt3 = $this->db->query (
 						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
- 				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+ 			
+				// should only return one result.  put that row in a variable
+				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
  					$cat = $row3;
 
 	 				// add the category to the release
@@ -167,17 +190,16 @@ class ArsService extends DBConfig {
  			$counter++;
 		}
 		
-		
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrItems );
+		// close out the statements and return the array
 		$stmt->close ();
  		$stmt2->close();
  		$stmt3->close();
+		return $arrItems;
 	}
 	
+	// Get the item and it's subcomponents by item id
 	function getItemRest($itemId) {
-		
-		// ITEM
+		// prepare the statement for the item
 		$stmt = $this->db->query (
 			'SELECT 
 				i.id, i.release_id, i.title, i.alias, i.description, i.type,
@@ -186,27 +208,31 @@ class ArsService extends DBConfig {
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 				i.published, i.language, i.environments
 			FROM jos_ars_items i WHERE i.id=' . $itemId );
+		
+		// should only return one result.  put that row in a variable
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
 			$item = $row;
-			
 		}
-		
 		$releaseId = $item['release_id'];
 		
-		// RELEASE
+		// prepare the statement for the RELEASE
 		$stmt2 = $this->db->query (
 				'SELECT * FROM jos_ars_releases
 				WHERE id=' . $releaseId );
+
+		// should only return one result.  put that row in a variable
 		while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
 			$rel = $row2;
 		}
 		$categoryId = $rel['category_id'];
 		
- 		// CATEGORY
+		// prepare the statement for the CATEGORY
 		$stmt3 = $this->db->query (
 				'SELECT id, alias, title, description, created, modified, type, directory 
 				FROM jos_ars_categories 
 				WHERE id=' . $categoryId );
+
+		// should only return one result.  put that row in a variable
 		while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
 			$cat = $row3;
 		}
@@ -216,16 +242,18 @@ class ArsService extends DBConfig {
 		// add the release to the item
 		$item["release"] = $rel;
 		
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $item );
 		$stmt->close ();
 		$stmt2->close();
 		$stmt3->close();
+		return $item;
 	}
 	
+	// Get all the items and their subcomponents by the category id
 	function getAllItemsByCategory($catId) {
 	
-		// ITEMs
+		$isItemFound = false;
+
+		// prepare the statement for items
 		$stmt = $this->db->query (
 				'SELECT 
 					i.id, i.release_id, i.title, i.alias, i.description, i.type,
@@ -240,20 +268,27 @@ class ArsService extends DBConfig {
 				WHERE 
 					r.category_id=' . $catId  );
 		$counter = 0;
+		
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-				
+			$isItemFound = true;
 			$arrItems[] = $row;
 			$releaseId = $row['release_id'];
 				
-			// RELEASE
+			// prepare the statement for RELEASE
 			$stmt2 = $this->db->query (
 					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
+			
+			// should only return one result.  put that row in a variable
 			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
 				$rel = $row2;
 				$categoryId = $rel['category_id'];
-				// CATEGORY
+
+				// prepare the statement for CATEGORY
 				$stmt3 = $this->db->query (
 						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
+
+				// should only return one result.  put that row in a variable
 				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
 					$cat = $row3;
 	
@@ -268,17 +303,23 @@ class ArsService extends DBConfig {
 			$counter++;
 		}
 	
-	
- 		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrItems );
+		// close out the statements and return the array
 		$stmt->close ();
-		$stmt2->close();
-		$stmt3->close();
+		if ($isItemFound) {
+			$stmt2->close();
+			$stmt3->close();
+			return $arrItems;
+		} else {
+			return null;
+		}
 	}
 	
+	// Get all the items and their subcomponents by the category id
 	function getAllItemsByRelease($relId) {
 	
-		// ITEMs
+		$isItemFound = false;
+
+		// prepare the statement for items
 		$stmt = $this->db->query (
 				'SELECT
 					i.id, i.release_id, i.title, i.alias, i.description, i.type,
@@ -291,20 +332,27 @@ class ArsService extends DBConfig {
 				WHERE
 					i.release_id=' . $relId  );
 		$counter = 0;
+		
+		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-	
+			$isItemFound = true;
 			$arrItems[] = $row;
 			$releaseId = $row['release_id'];
 	
-			// RELEASE
+			// prepare the statement for RELEASE
 			$stmt2 = $this->db->query (
 					'SELECT * FROM jos_ars_releases WHERE id=' . $releaseId );
+			
+			// should only return one result.  put that row in a variable
 			while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
 				$rel = $row2;
 				$categoryId = $rel['category_id'];
-				// CATEGORY
+
+				// prepare the statement for CATEGORY
 				$stmt3 = $this->db->query (
 						'SELECT *FROM jos_ars_categories WHERE id=' . $categoryId );
+
+				// should only return one result.  put that row in a variable
 				while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
 					$cat = $row3;
 	
@@ -319,11 +367,15 @@ class ArsService extends DBConfig {
 			$counter++;
 		}
 	
-		header ( 'Content-type: application/json' );
-		echo json_encode ( $arrItems );
+		// close out the statements and return the array
 		$stmt->close ();
-		$stmt2->close();
-		$stmt3->close();
+		if ($isItemFound) {
+			$stmt2->close();
+			$stmt3->close();
+			return $arrItems;
+		} else {
+			return null;
+		}
 	}
 	
 	// this is mostly just for reference use getAllCategories always
@@ -344,9 +396,25 @@ class ArsService extends DBConfig {
 	}
 	
 	function hitMeBaby($itemId) {
-		$stmt = $this->db->prepare ( 'UPDATE jos_ars_items SET hits = hits + 1 WHERE id = ' . $itemId );
+		// prepare the statement
+		$stmt = $this->db->prepare ( 
+			'UPDATE jos_ars_items SET hits = hits + 1 WHERE id = ' . $itemId );
 		$stmt->execute ();
 		$stmt->close ();
+	}
+
+	function doMeBaby($itemId) {
+		// prepare the statement
+		$stmt = $this->db->query ( 
+			'SELECT i.filename FROM jos_ars_items i WHERE i.id = ' . $itemId );
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+			$arrItems[] = $row;
+		}
+
+		$stmt->close();
+//		hitMeBaby($itemId);
+		
+		return $arrItems;
 	}
 }
 
