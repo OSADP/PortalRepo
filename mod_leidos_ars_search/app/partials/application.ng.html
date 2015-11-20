@@ -9,6 +9,7 @@
 			<div class="ars-item__page__info__meta">
 				<h3>{{ item.title }} </h3>
 				<p><em>Published: {{ item.release.created }}</em></p>
+				<p>Downloads: {{ item.hits }}</p>
 				<p>
 					<!-- Maturity Badge -->
 					<span class="ars-item__info__badge ars-item__info__badge--left badge {{ item.release.maturity }} display">{{ item.release.maturity }}</span>
@@ -17,7 +18,7 @@
 			</div>
 		</div>
 		<div class="col-xs-6 col-sm-4">
-			<p style="text-align: right; margin-top: 20px">
+			<p style="text-align: right;">
 				Category: 
 				<a href="#/{{ item.release.category.id }}" class="">
 					{{ item.release.category.title }}
@@ -45,8 +46,7 @@
 	<div class="" ng-bind-html="item.release.notes" style="padding-top: 15px;" ng-show="activeTab == 'release'"></div>
 	<!-- Displays other applications under the same category when 'other' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'other'">
-		<div ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" tabindex="0"
-			ng-include="'/osadp/modules/mod_leidos_ars_search/app/partials/item.ng.html'"></div>
+		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" tabindex="0" item="item"></div>
 	</div>
 	<!-- Notifies user when no release note was found -->
 	<p ng-show="activeTab == 'description' && item.description == ''">No descriptions found..</p>

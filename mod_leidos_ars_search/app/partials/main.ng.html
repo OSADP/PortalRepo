@@ -29,8 +29,9 @@
 	<div class="row ars-applications" onload="scrollGuard(e)">
 		<div class="loader" ng-show="showLoader">Loading...</div>
 		<!-- Populate items by selected category -->
-		<div ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader" tabindex="0"
-			ng-include="'/osadp/modules/mod_leidos_ars_search/app/partials/item.ng.html'"></div>
+		<div >
+			<div akeebaitem item="item" ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader" tabindex="0"></div>
+		</div>
 		<!-- // -->
 		<!-- Show this when there are no applications -->
 		<div ng-show="items.length == 0 && !showLoader" style="text-align: center;">

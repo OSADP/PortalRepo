@@ -14,7 +14,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, AkeebaService ) {
 	$scope.categories = [];
 	// populate our category list with items from the ARS database
-	$http.get('/osadp/leidos/custom/services/akeeba/categories')
+	$http.get('/osadp/leidos/custom/services/ars/categories')
 	.then( function( promise ) {
 		$scope.categories = promise.data;
 		// create All Applications category as it's not part of the

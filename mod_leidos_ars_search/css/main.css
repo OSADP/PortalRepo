@@ -143,6 +143,7 @@
 */
 .ars-item__page {
   padding: 0;
+  padding-top: 20px;
   font-size: 1.1em;
 }
 .ars-item__page__info {
@@ -153,12 +154,18 @@
   width: 100px;
   height: 100px;
   background: #f8f8f8;
-  vertical-align: middle;
+  vertical-align: top;
+  margin-right: 10px;
 }
 .ars-item__page__info__meta {
   display: inline-block;
-  vertical-align: middle;
-  padding-left: 10px;
+  /*padding-left: 10px;*/
+}
+.ars-item__page__info__meta h3 {
+  margin-top: 0;
+}
+.ars-item__page__info__meta h3, p {
+  margin-bottom: 5px;
 }
 .ars-item__info__badge--left {
   /*margin-top: 2px;*/

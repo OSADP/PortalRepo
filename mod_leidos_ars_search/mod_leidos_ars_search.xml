@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos Akeeba Realease Application Search</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.11.0</version>
+    <version>0.11.2</version>
     <description>A custom module made by Leidos for OSADP to showcase ARS items as a slider.</description>
     <files>
         <filename>mod_leidos_ars_search.xml</filename>

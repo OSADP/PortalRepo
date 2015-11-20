@@ -10,6 +10,7 @@ JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/an
 JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js');
 JHTML::script('modules/mod_leidos_ars_search/app/main.js'); 
 JHTML::script('modules/mod_leidos_ars_search/app/services/AkeebaService.js');
+JHTML::script('modules/mod_leidos_ars_search/app/services/AkeebaItemDirective.js');
 JHTML::script('modules/mod_leidos_ars_search/app/controllers/AkeebaReleaseCtrl.js');
 JHTML::script('modules/mod_leidos_ars_search/app/controllers/CategoryListCtrl.js');
 JHTML::script('modules/mod_leidos_ars_search/app/controllers/ViewCtrl.js');
@@ -39,7 +40,7 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 					<span class="sr-only">Show Categories</span>
 				</button>
 			</div>
-			<h4 class="ars-categories__heading">Categories</h4>
+			<h4 class="ars-categories__heading">Application Categories</h4>
 			<!-- LIST ALL OUR CATEGORIES -->
 			<div class="ars-categories__item hidden-xs hidden-sm" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories | orderBy: 'title'">
 				<a href="#/{{ category.id }}" ng-click="categoryChange( this )">{{ category.title }} <span class="badge pull-right">{{ category.items.length }}</span></a>
