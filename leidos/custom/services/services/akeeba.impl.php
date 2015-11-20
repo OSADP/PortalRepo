@@ -395,7 +395,7 @@ class ArsService extends DBConfig {
 		$stmt->close ();
 	}
 	
-	function hitMeBaby($itemId) {
+	function incrementItemHitCount($itemId) {
 		// prepare the statement
 		$stmt = $this->db->prepare ( 
 			'UPDATE jos_ars_items SET hits = hits + 1 WHERE id = ' . $itemId );
@@ -403,7 +403,7 @@ class ArsService extends DBConfig {
 		$stmt->close ();
 	}
 
-	function doMeBaby($itemId) {
+	function getItemFileName($itemId) {
 		// prepare the statement
 		$stmt = $this->db->query ( 
 			'SELECT i.filename FROM jos_ars_items i WHERE i.id = ' . $itemId );
@@ -412,7 +412,7 @@ class ArsService extends DBConfig {
 		}
 
 		$stmt->close();
-//		hitMeBaby($itemId);
+//		incrementItemHitCount($itemId);
 		
 		return $arrItems;
 	}

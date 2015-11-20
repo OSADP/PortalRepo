@@ -132,10 +132,25 @@ if (isset($_POST['download'])) {
 	}
 // 	print_r($data);
 // 	echo $data["id"];
-	$arrItem = $ars->doMeBaby($data["id"]);
+	$arrItem = $ars->incrementItemHitCount($data["id"]);
 	
 	header ( 'Content-type: application/json' );
 	echo json_encode ( $arrItem );
+}
+
+if (isset($_GET['download'])) {
+	$data = json_decode(file_get_contents('php://input'), true);
+	if ($data == null) {
+		$data = array("id" => "20");
+	}
+// 	print_r($data);
+// 	echo $data["id"];
+	$arrItem = $ars->getItemFileName($data["id"]);
+	
+	header ( 'Content-type: application/json' );
+	echo json_encode ( $arrItem );
+//	echo $_SERVER['REQUEST_URI'];
+//	echo $_SERVER['REMOTE_ADDR'];
 }
 
 
