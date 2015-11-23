@@ -26,7 +26,11 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	.state('application', {
 		url: '/:categoryId/:itemId',
 		templateUrl: '/osadp/modules/mod_leidos_ars_search/app/partials/application.ng.html',
-		controller: 'ApplicationCtrl'
+		controller: 'ApplicationCtrl',
+		onEnter: function() {
+			// scroll to top in application pages for better browsing experience
+			jQuery('html, body').animate({ scrollTop: -10000 }, 100);
+		}
 	})
 	// set default route to display all releases
 	$urlRouterProvider.otherwise('/all');
