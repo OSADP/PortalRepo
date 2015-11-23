@@ -18,7 +18,7 @@
 }
 
 .ars-categories__item > a:hover, .ars-categories__item > a:focus {
-  background: #dddddd;
+  background: #eee;
 }
 
 .ars-categories__item--active > a {
@@ -36,7 +36,7 @@
 }
 
 .ars-categories__heading {
-  margin: 20px 0 9px 0;
+  margin: 13px 0 15px 0;
   text-transform: uppercase;
 }
 
