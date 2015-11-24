@@ -16,12 +16,16 @@
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field
-                       name="categories"
-                       type="sql"
-                       default="1"
-                       label="Select a Category"
-                       query="SELECT id, title FROM #__ars_categories" key_field="id" value_field="title" />
+                <field name="applicationsLink" type="text" default="" label="Enter Explore Applications URL:" description="This will be the link for the Explore Applications Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="releasesLink" type="text" default="" label="Enter Upcoming Releases URL:" description="This will be the link for the Upcoming Releases Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="resourcesLink" type="text" default="" label="Enter Resources and Tools URL:" description="This will be the link for the Resources and Tools Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="discussionsLink" type="text" default="" label="Enter Discussion Forum URL:" description="This will be the link for the Discussion Forum Icon" size="256" />
             </fieldset>
         </fields>
     </config>

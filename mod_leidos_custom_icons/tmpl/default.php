@@ -7,7 +7,7 @@
 <ol class="row" role="navigation">
 	
 	<li class="col-xs-6 col-lg-3 card">
-		<a href="2015-10-22-21-56-19/all-applications" class="iconlink" title="Explore Applications">
+		<a href="<?php echo $applicationsLink; ?>" class="iconlink" title="Explore Applications">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-puzzle-piece"></i>
 			</span>
@@ -16,7 +16,7 @@
 	</li>
 	
 	<li class="col-xs-6 col-sm-6 col-lg-3 card">
-		<a href="2015-10-22-21-56-19/release-schedule" class="iconlink" title="Upcoming Releases">
+		<a href="<?php echo $releasesLink; ?>" class="iconlink" title="Upcoming Releases">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-calendar"></i>
 			</span>
@@ -25,7 +25,7 @@
 	</li>
 	
 	<li class="col-xs-6 col-sm-6 col-lg-3 card">
-		<a href="#/resources" class="iconlink" title="Resources and Tools">
+		<a href="<?php echo $resourcesLink; ?>" class="iconlink" title="Resources and Tools">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-gears"></i>
 			</span>
@@ -34,11 +34,11 @@
 	</li>
 	
 	<li class="col-xs-6 col-sm-6 col-lg-3 card">
-		<a href="forum/index" class="iconlink" title="Recent Discussion">
+		<a href="<?php echo $discussionsLink; ?>" class="iconlink" title="Recent Discussion">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-comment"></i>
 			</span>
-			<h4>Recent Discussion</h4>
+			<h4>Discussion Forum</h4>
 		</a>
 	</li>
 

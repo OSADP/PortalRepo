@@ -21,6 +21,14 @@ $items = ArsRelease::getItems();
 $users = ArsRelease::getUsers();
 // get forum topics data from our helper class
 $discussions = ArsRelease::getDiscussions();
+// get the link for Explore Applications from our params
+$applicationsLink = $params->get('applicationsLink');
+// get the link for Upcoming Releases from our params
+$releasesLink = $params->get('releasesLink');
+// get the link for Resources and Tools from our params
+$resourcesLink = $params->get('resourcesLink');
+// get the link for Discussion Forum from our params
+$discussionsLink = $params->get('discussionsLink');
 //
 require JModuleHelper::getLayoutPath('mod_leidos_custom_icons', $layout);
 ?>
