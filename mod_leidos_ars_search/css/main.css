@@ -102,6 +102,7 @@
 }
 
 .ars-item__link, .ars-item__link:hover, .ars-item__link:focus {
+  overflow: auto;
   color: inherit;
 }
 
