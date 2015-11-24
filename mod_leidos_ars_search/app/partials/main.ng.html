@@ -30,7 +30,7 @@
 		<div class="loader" ng-show="showLoader">Loading...</div>
 		<!-- Populate items by selected category -->
 		<div >
-			<div akeebaitem item="item" ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader" tabindex="0"></div>
+			<div akeebaitem item="item" ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader"></div>
 		</div>
 		<!-- // -->
 		<!-- Show this when there are no applications -->
