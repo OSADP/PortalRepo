@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	$_POST = $params;
 }
 
-
 if (isset ( $_GET ['categories'] )) {
 	$count = count($params) - 2;
 	$key = array_search('categories', array_values($params));
@@ -110,19 +109,29 @@ if (isset ( $_GET ['items'] )) {
 	}
 }
 
-if (isset ( $_POST ['item'] )) {
-	$data = json_decode(file_get_contents('php://input'), true);
-//	print_r($data);
-//	echo $data["id"];
-	$ars->hitMeBaby($data["id"]);
-}
-
-if (isset ( $_GET ['session'] )) {
-	if (isset($_SESSION['userlogin'])) {
-		echo $_SESSION['userlogin'];
-	} else {
-		echo "No session set";
+if (isset($_GET['download'])) {
+/*	$data = json_decode(file_get_contents('php://input'), true);
+	if ($data == null) {
+		$data = array("id" => "20");
 	}
+// 	print_r($data);
+// 	echo $data["id"];*/
+	$key = array_search('download', array_values($params));
+	$itemId = $parts[$key+1];
+//	echo $itemId . "<br>";
+	
+	$arrItem = $ars->getItemFileName($itemId);
+	$ars->incrementItemHitCount($itemId);
+	
+ 	//echo $arrItem["filename"];
+	$filename = $arrItem["filename"];
+//	echo $filename . "<br>";
+	$dirs = explode("/", $filename);
+	
+	header('HTTP 1.1 200 OK');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename=' . $dirs[1]);
+	readfile('http://localhost/htdocs/data/repository/' . $filename);
 }
 
 if (isset($_POST['download'])) {
@@ -132,13 +141,39 @@ if (isset($_POST['download'])) {
 	}
 // 	print_r($data);
 // 	echo $data["id"];
-	$arrItem = $ars->incrementItemHitCount($data["id"]);
+	$arrItem = $ars->getItemFileName($data["id"]);
+	$ars->incrementItemHitCount($data["id"]);
 	
-	header ( 'Content-type: application/json' );
-	echo json_encode ( $arrItem );
+ 	//echo $arrItem["filename"];
+	$filename = $arrItem["filename"];
+	$dirs = explode("/", $filename);
+	
+	header('HTTP 1.1 200 OK');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename=' . $dirs[1]);
+	readfile('http://localhost/htdocs/data/repository/' . $filename);
+}
+
+/*
+
+if (isset ( $_POST ['item'] )) {
+	$data = json_decode(file_get_contents('php://input'), true);
+//	print_r($data);
+//	echo $data["id"];
+	$ars->hitMeBaby($data["id"]);
 }
 
 if (isset($_GET['download'])) {
+	$release = 'INFLO';
+	$filename = $release . '-master.zip';
+	header('HTTP 1.1 200 OK');
+	header('Content-Type: application/octet-stream');
+	header('Content-Disposition: attachment; filename=' . $filename);
+	readfile('http://localhost/htdocs/data/repository/' . $release . '/' . $filename);
+	//  http://localhost/htdocs/PortalRepo/leidos/custom/services/ars/download/
+}
+
+if (isset($_GET['download_test'])) {
 	$data = json_decode(file_get_contents('php://input'), true);
 	if ($data == null) {
 		$data = array("id" => "20");
@@ -152,6 +187,17 @@ if (isset($_GET['download'])) {
 //	echo $_SERVER['REQUEST_URI'];
 //	echo $_SERVER['REMOTE_ADDR'];
 }
+
+if (isset ( $_GET ['session'] )) {
+	if (isset($_SESSION['userlogin'])) {
+		echo $_SESSION['userlogin'];
+	} else {
+		echo "No session set";
+	}
+}
+
+
+*/
 
 
 ?>

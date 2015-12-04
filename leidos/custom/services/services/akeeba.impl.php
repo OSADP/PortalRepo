@@ -395,6 +395,20 @@ class ArsService extends DBConfig {
 		$stmt->close ();
 	}
 	
+	function getItemFileName($itemId) {
+		// prepare the statement
+		$stmt = $this->db->query ( 
+			'SELECT i.filename FROM jos_ars_items i WHERE i.id = ' . $itemId );
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+			$arrItem = $row;
+		}
+
+		$stmt->close();
+//		incrementItemHitCount($itemId);
+		
+		return $arrItem;
+	}
+
 	function incrementItemHitCount($itemId) {
 		// prepare the statement
 		$stmt = $this->db->prepare ( 
@@ -403,19 +417,6 @@ class ArsService extends DBConfig {
 		$stmt->close ();
 	}
 
-	function getItemFileName($itemId) {
-		// prepare the statement
-		$stmt = $this->db->query ( 
-			'SELECT i.filename FROM jos_ars_items i WHERE i.id = ' . $itemId );
-		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
-			$arrItems[] = $row;
-		}
-
-		$stmt->close();
-//		incrementItemHitCount($itemId);
-		
-		return $arrItems;
-	}
 }
 
 ?>
