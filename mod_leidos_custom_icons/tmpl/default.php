@@ -7,7 +7,7 @@
 <ol class="row" role="navigation">
 	
 	<li class="col-xs-6 col-lg-3 card">
-		<a href="<?php echo $applicationsLink; ?>" class="iconlink" title="Explore Applications">
+		<a href="<?php echo $applicationLink; ?>" class="iconlink" title="Explore Applications">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-puzzle-piece"></i>
 			</span>
