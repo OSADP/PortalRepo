@@ -1,1 +1,2 @@
 RewriteRule ^ars/ akeeba.ws.php
+RewriteRule ^extras/ akeebacustom.ws.php
