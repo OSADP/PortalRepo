@@ -150,9 +150,12 @@ class ArsService extends DBConfig {
 					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
-					i.published, i.language, i.environments
+					i.published, i.language, i.environments,
+					c.icon_url, c.short_description
 				FROM  
 					jos_ars_items i 
+				LEFT JOIN
+					jos_akeeba_item_custom c ON i.id = c.item_id
 				INNER JOIN
 					jos_ars_releases r ON i.release_id = r.id;' );
 		$counter = 0;
@@ -206,8 +209,15 @@ class ArsService extends DBConfig {
 				i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
 				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
-				i.published, i.language, i.environments
-			FROM jos_ars_items i WHERE i.id=' . $itemId );
+				i.published, i.language, i.environments,
+				c.icon_url, c.short_description,
+		    d.documentation_link, d.documentation_text
+				FROM jos_ars_items i 
+				LEFT JOIN
+				jos_akeeba_item_custom c ON i.id = c.item_id
+				LEFT JOIN
+				jos_akeeba_item_documentation d ON i.id = d.item_id
+			WHERE i.id=' . $itemId );
 		
 		// should only return one result.  put that row in a variable
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
