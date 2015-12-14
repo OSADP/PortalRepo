@@ -109,29 +109,66 @@ if (isset ( $_GET ['items'] )) {
 	}
 }
 
-if (isset($_GET['download'])) {
-/*	$data = json_decode(file_get_contents('php://input'), true);
-	if ($data == null) {
-		$data = array("id" => "20");
+if (isset($_GET['filename'])) {
+	$key = array_search('filename', array_values($params));
+	$itemId = $parts[$key+1];
+	
+	$arrItem = $ars->getFileNameAndDirectory($itemId);
+	$ars->incrementItemHitCount($itemId);
+
+//	echo json_encode($arrItem);
+	
+//	$baseDir = 'http://localhost/htdocs/bookshop';
+	$baseDir = $_SERVER["DOCUMENT_ROOT"] . 'htdocs/bookshop';
+	$trimmedDir = ltrim($arrItem["directory"], ".");
+	$filename = $arrItem["filename"];
+	$file = $baseDir . $trimmedDir . "/" . $filename;
+	$dirs = explode("/", $filename);
+	
+	echo "baseDir -> " . $baseDir . "<br>";
+	echo "trimmedDir -> " . $trimmedDir . "<br>";
+	echo "filename -> " . $filename . "<br>";
+	echo "file -> " . $file . "<br>";
+	
+	if (file_exists($file) == 1) {
+
+		echo "File found" . "<br>";
+		echo filesize($file) . "<br>";
+
+		header('Content-Type: application/zip');
+//		header('Content-Length: ' . filesize($file));
+		header('Content-Disposition: attachment; filename=' . $dirs[1]);
+		readfile($file);
+
+	} else {
+		echo "File not found" . "<br>";
 	}
-// 	print_r($data);
-// 	echo $data["id"];*/
+}
+
+if (isset($_GET['download'])) {
 	$key = array_search('download', array_values($params));
 	$itemId = $parts[$key+1];
-//	echo $itemId . "<br>";
 	
 	$arrItem = $ars->getItemFileName($itemId);
 	$ars->incrementItemHitCount($itemId);
 	
- 	//echo $arrItem["filename"];
 	$filename = $arrItem["filename"];
-//	echo $filename . "<br>";
 	$dirs = explode("/", $filename);
-	
-	header('HTTP 1.1 200 OK');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename=' . $dirs[1]);
-	readfile('http://localhost/htdocs/data/repository/' . $filename);
+	$file = new ZipArchive();
+	$file = ($_SERVER["DOCUMENT_ROOT"] . '/htdocs/data/repository/' . $filename);
+
+	if (file_exists($file) == 1) {
+		header('Content-Type: application/zip');
+		header('Content-Length: ' . filesize($file));
+		header('Content-Disposition: attachment; filename=' . $dirs[1]);
+		readfile($file);
+	} else {
+		http_response_code(404);
+	}
+
+//	header('Content-Disposition: attachment; filename=' . $dirs[1]);
+//	readfile('http://localhost/htdocs/data/repository/' . $filename);
+
 }
 
 if (isset($_POST['download'])) {

@@ -395,6 +395,26 @@ class ArsService extends DBConfig {
 		$stmt->close ();
 	}
 	
+	function getFileNameAndDirectory($itemId) {
+		$stmt = $this->db->query (
+			'select 
+			i.id as \'item_id\', i.release_id, i.filename, 
+			r.id as \'rel_id\', r.category_id, 
+			c.id as \'cat_id\', c.directory
+			from jos_ars_items i
+			inner join jos_ars_releases r
+			on i.release_id = r.id
+			inner join jos_ars_categories c
+			on  r.category_id = c.id
+			where i.id = ' . $itemId );
+		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+			$arrItem = $row;
+		}
+
+		$stmt->close();
+		return $arrItem;
+	}
+	
 	function getItemFileName($itemId) {
 		// prepare the statement
 		$stmt = $this->db->query ( 
