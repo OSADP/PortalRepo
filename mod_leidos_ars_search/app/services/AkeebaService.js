@@ -69,6 +69,13 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 			})
 	}
 
+	_this.getItemDocumentation = function( itemId ) {
+		return $http.post('/osadp/leidos/custom/services/extras/documentation', { itemId: parseInt( itemId ) })
+			.then( function( promise ) {
+				return promise.data;
+			})
+	}
+
 	// parse environments to match equivalent fontawesome icons
 	function envToFontAwesome( items ) {
 		items = items.split('"');
