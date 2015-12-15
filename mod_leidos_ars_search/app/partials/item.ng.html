@@ -1,15 +1,18 @@
 
 
 <a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link">
-	<div class="col-xs-4 ars-item__image-container hidden-xs">
-		<div class="ars-item__image-container__image"></div>
+	<div class="ars-item__image-container hidden-xs">
+		<div class="ars-item__image-container__image">
+			<img ng-src="{{ item.icon_url }}" alt="">
+		</div>
 	</div>
-	<div class="col-xs-8 ars-item__info">
+	<div class="ars-item__info">
 		<!-- Maturity Badge -->
 		<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
 		<!-- Release Name -->
 		<p class="ars-item__info-title">
 			{{ item.title }}
+			<p><em>{{ item.short_description }}</em></p>
 <!-- 						<a href="" class="btn btn-small btn-success" title="Download">
 				<span class="fa fa-download"></span> DOWNLOAD
 			</a> -->
