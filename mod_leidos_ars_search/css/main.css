@@ -84,7 +84,7 @@
   background: #ffffff;
   font-size: 1.4rem;
   letter-spacing: 1px;
-  height: 120px;
+  min-height: 158px;
   max-width: 767px;
   margin: 0;
   margin-bottom: 10px;
@@ -107,8 +107,10 @@
 }
 
 .ars-item__image-container {
+  float: left;
   padding: 0;
-  height: 100%;
+  height: 156px;
+  width: 156px;
 }
 
 .ars-item__image-container__image {
@@ -118,9 +120,23 @@
   background-position: center;
 }
 
+.ars-item__image-container__image img {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
 .ars-item__info {
   padding: 10px;
+  padding-left: 167px;
   padding-bottom: 0px;
+}
+/*remove wide padding on smaller screens since we hide the 
+item image anyways */
+@media screen and (max-width: 767px) {
+  .ars-item__info {
+    padding-left: 10px !important;
+  }
 }
 
 .ars-item__info-title {
@@ -157,6 +173,10 @@
   background: #f8f8f8;
   vertical-align: top;
   margin-right: 10px;
+}
+.ars-item__page__info__image img {
+  height: 100%;
+  width: 100%;
 }
 .ars-item__page__info__meta {
   display: inline-block;
