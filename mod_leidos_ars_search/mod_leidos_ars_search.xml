@@ -30,6 +30,7 @@
 
         <filename>app/services/index.html</filename>
         <filename>app/services/AkeebaService.js</filename>
+        <filename>app/services/AkeebaItemDirective.js</filename>
 
         <filename>app/partials/index.html</filename>
         <filename>app/partials/main.ng.html</filename>
