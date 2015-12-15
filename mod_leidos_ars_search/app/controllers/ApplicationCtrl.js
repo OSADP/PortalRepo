@@ -21,6 +21,10 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 	.then( function( item ) {
 		// item.environment = _environments[item.environments.split('"')[1]];
 		$scope.item = item;
+		// get item documentation
+		AkeebaService.getItemDocumentation( item.id ).then( function( data ) {
+			$scope.item.documentation = data;
+		});
 		AkeebaService.getOtherItems( item.release.category.id, item.id )
 		.then( function( items ) {
 			$scope.otherItems = items;
