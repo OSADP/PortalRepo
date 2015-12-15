@@ -50,6 +50,7 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 						category.items.push( item );
 				})
 			});
+
 		});
 
 		// show the list and get active category item
