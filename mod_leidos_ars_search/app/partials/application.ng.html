@@ -5,7 +5,9 @@
 	<div class="ars-item__page__info row">
 
 		<div class="col-xs-6 col-sm-8">
-			<div class="ars-item__page__info__image hidden-xs"></div>
+			<div class="ars-item__page__info__image hidden-xs">
+				<img ng-src="{{item.icon_url}}" alt="">
+			</div>
 			<div class="ars-item__page__info__meta" tabindex="0">
 				<h3>{{ item.title }} </h3>
 				<p><em>Published: {{ item.release.created }}</em></p>
@@ -26,7 +28,7 @@
 					<span class="sr-only">Applications</span>
 				</a>
 			</p>
-			<a href="/osadp/{{ item.release.category.directory }}/{{ item.filename }}" class="btn btn-success pull-right" ng-if="! loggedIn">
+			<a href="/osadp/leidos/custom/services/ars/download/{{ item.id }}" class="btn btn-success pull-right" ng-if="! loggedIn">
 				<span class="fa fa-download"></span>
 				Download {{ (item.filesize / 1000).toFixed(2) }} KB 
 			</a>
@@ -39,10 +41,13 @@
 
 	<ul class="nav nav-tabs" role="tablist">
 	  <li role="tab" ng-class="{'active': activeTab == 'description'}" aria-selected="{{ activeTab == 'description'}}">
-	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'description'">Discription</a>
+	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'description'">Description</a>
 	  </li>
 	  <li role="tab" ng-class="{'active': activeTab == 'release'}" aria-selected="{{ activeTab == 'release'}}">
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'release'">Release Notes</a>
+  	</li>
+	  <li role="tab" ng-class="{'active': activeTab == 'documentation'}" aria-selected="{{ activeTab == 'documentation'}}">
+	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'documentation'">Documentation</a>
   	</li>
 	  <li role="tab" ng-class="{'active': activeTab == 'other'}" aria-selected="{{ activeTab == 'other'}}">
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'other'">Similar Applications</a>
@@ -52,6 +57,12 @@
 	<div class="" ng-bind-html="item.description" style="padding-top: 15px;" ng-show="activeTab == 'description'"></div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
 	<div class="" ng-bind-html="item.release.notes" style="padding-top: 15px;" ng-show="activeTab == 'release'"></div>
+	<!-- Displays Item Release Notes when 'release notes' tab is active -->
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'documentation'">
+		<ul>
+			<li ng-repeat="document in item.documentation"><a href="{{ document.documentation_link }}">{{ document.documentation_text }}</a></li>
+		</ul>
+	</div>
 	<!-- Displays other applications under the same category when 'other' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'other'">
 		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" item="item"></div>
@@ -59,6 +70,7 @@
 	<!-- Notifies user when no release note was found -->
 	<p ng-show="activeTab == 'description' && item.description == ''">No descriptions found..</p>
 	<p ng-show="activeTab == 'release' && item.release.notes == ''">No release notes found..</p>
+	<p ng-show="activeTab == 'documentation' && item.documentation.length == 0">No documentation found..</p>
 	<p ng-show="activeTab == 'other' && otherItems.length == 0">No similar application found..</p>
 
 
