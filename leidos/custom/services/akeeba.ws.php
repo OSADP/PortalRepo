@@ -108,7 +108,7 @@ if (isset ( $_GET ['items'] )) {
 }
 
 if (isset($_GET['download'])) {
-        $key = array_search('filename2', array_values($params));
+        $key = array_search('download', array_values($params));
         $itemId = $parts[$key+1];
 
         $arrItem = $ars->getFileNameAndDirectory($itemId);
