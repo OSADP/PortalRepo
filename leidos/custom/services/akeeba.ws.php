@@ -1,6 +1,6 @@
 <?php
-// set response as json
-// header('Content-type: application/json');
+
+
 require (dirname ( __FILE__ ) . "/services/akeeba.impl.php");
 
 $ars = new ArsService ();
@@ -110,18 +110,21 @@ if (isset ( $_GET ['items'] )) {
 }
 
 if (isset($_GET['filename'])) {
+
 	$key = array_search('filename', array_values($params));
 	$itemId = $parts[$key+1];
 	
 	$arrItem = $ars->getFileNameAndDirectory($itemId);
 	$ars->incrementItemHitCount($itemId);
 
-//	echo json_encode($arrItem);
+echo json_encode($arrItem);
+echo "<br>";
 	
 //	$baseDir = 'http://localhost/htdocs/bookshop';
-	$baseDir = $_SERVER["DOCUMENT_ROOT"] . 'htdocs/bookshop';
+	$baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
 	$trimmedDir = ltrim($arrItem["directory"], ".");
 	$filename = $arrItem["filename"];
+	$file = new ZipArchive();
 	$file = $baseDir . $trimmedDir . "/" . $filename;
 	$dirs = explode("/", $filename);
 	
@@ -134,15 +137,55 @@ if (isset($_GET['filename'])) {
 
 		echo "File found" . "<br>";
 		echo filesize($file) . "<br>";
-
-		header('Content-Type: application/zip');
-//		header('Content-Length: ' . filesize($file));
-		header('Content-Disposition: attachment; filename=' . $dirs[1]);
+/*
+		header("Content-Type: application/zip");
+		header("Content-Length: " . filesize($file));
+		header("Content-Disposition: attachment; filename=" . $dirs[1]);
 		readfile($file);
-
+*/
 	} else {
 		echo "File not found" . "<br>";
 	}
+}
+
+if (isset($_GET['filename2'])) {
+        $key = array_search('filename2', array_values($params));
+        $itemId = $parts[$key+1];
+
+        $arrItem = $ars->getFileNameAndDirectory($itemId);
+        $ars->incrementItemHitCount($itemId);
+
+
+
+//      $baseDir = 'http://localhost/htdocs/bookshop';
+        $baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
+        $trimmedDir = ltrim($arrItem["directory"], ".");
+        $filename = $arrItem["filename"];
+        $file = new ZipArchive();
+        $file = $baseDir . $trimmedDir . "/" . $filename;
+        $dirs = explode("/", $filename);
+/*
+        echo "baseDir -> " . $baseDir . "<br>";
+        echo "trimmedDir -> " . $trimmedDir . "<br>";
+        echo "filename -> " . $filename . "<br>";
+        echo "file -> " . $file . "<br>";
+*/
+        if (file_exists($file) == 1) {
+/*
+            echo "File found" . "<br>";
+            echo filesize($file) . "<br>";
+*/
+			header("Content-Type: application/zip");
+//          header("Content-Length:" . filesize($file));
+            header("Content-Disposition: attachment; filename=" . $dirs[1]);
+			header('Content-Transfer-Encoding: binary');
+
+			ob_clean();
+			flush();
+            readfile($file);
+        } else {
+            echo "File not found" . "<br>";
+        }
 }
 
 if (isset($_GET['download'])) {
@@ -185,8 +228,8 @@ if (isset($_POST['download'])) {
 	$filename = $arrItem["filename"];
 	$dirs = explode("/", $filename);
 	
-	header('HTTP 1.1 200 OK');
-	header('Content-Type: application/octet-stream');
+//	header('HTTP 1.1 200 OK');
+	header('Content-Type: application/zip');
 	header('Content-Disposition: attachment; filename=' . $dirs[1]);
 	readfile('http://localhost/htdocs/data/repository/' . $filename);
 }
