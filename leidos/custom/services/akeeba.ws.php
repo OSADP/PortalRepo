@@ -1,6 +1,4 @@
 <?php
-
-
 require (dirname ( __FILE__ ) . "/services/akeeba.impl.php");
 
 $ars = new ArsService ();
@@ -109,55 +107,13 @@ if (isset ( $_GET ['items'] )) {
 	}
 }
 
-if (isset($_GET['filename'])) {
-
-	$key = array_search('filename', array_values($params));
-	$itemId = $parts[$key+1];
-	
-	$arrItem = $ars->getFileNameAndDirectory($itemId);
-	$ars->incrementItemHitCount($itemId);
-
-echo json_encode($arrItem);
-echo "<br>";
-	
-//	$baseDir = 'http://localhost/htdocs/bookshop';
-	$baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
-	$trimmedDir = ltrim($arrItem["directory"], ".");
-	$filename = $arrItem["filename"];
-	$file = new ZipArchive();
-	$file = $baseDir . $trimmedDir . "/" . $filename;
-	$dirs = explode("/", $filename);
-	
-	echo "baseDir -> " . $baseDir . "<br>";
-	echo "trimmedDir -> " . $trimmedDir . "<br>";
-	echo "filename -> " . $filename . "<br>";
-	echo "file -> " . $file . "<br>";
-	
-	if (file_exists($file) == 1) {
-
-		echo "File found" . "<br>";
-		echo filesize($file) . "<br>";
-/*
-		header("Content-Type: application/zip");
-		header("Content-Length: " . filesize($file));
-		header("Content-Disposition: attachment; filename=" . $dirs[1]);
-		readfile($file);
-*/
-	} else {
-		echo "File not found" . "<br>";
-	}
-}
-
-if (isset($_GET['filename2'])) {
+if (isset($_GET['download'])) {
         $key = array_search('filename2', array_values($params));
         $itemId = $parts[$key+1];
 
         $arrItem = $ars->getFileNameAndDirectory($itemId);
         $ars->incrementItemHitCount($itemId);
 
-
-
-//      $baseDir = 'http://localhost/htdocs/bookshop';
         $baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
         $trimmedDir = ltrim($arrItem["directory"], ".");
         $filename = $arrItem["filename"];
@@ -188,32 +144,6 @@ if (isset($_GET['filename2'])) {
         }
 }
 
-if (isset($_GET['download'])) {
-	$key = array_search('download', array_values($params));
-	$itemId = $parts[$key+1];
-	
-	$arrItem = $ars->getItemFileName($itemId);
-	$ars->incrementItemHitCount($itemId);
-	
-	$filename = $arrItem["filename"];
-	$dirs = explode("/", $filename);
-	$file = new ZipArchive();
-	$file = ($_SERVER["DOCUMENT_ROOT"] . '/htdocs/data/repository/' . $filename);
-
-	if (file_exists($file) == 1) {
-		header('Content-Type: application/zip');
-		header('Content-Length: ' . filesize($file));
-		header('Content-Disposition: attachment; filename=' . $dirs[1]);
-		readfile($file);
-	} else {
-		http_response_code(404);
-	}
-
-//	header('Content-Disposition: attachment; filename=' . $dirs[1]);
-//	readfile('http://localhost/htdocs/data/repository/' . $filename);
-
-}
-
 if (isset($_POST['download'])) {
 	$data = json_decode(file_get_contents('php://input'), true);
 	if ($data == null) {
@@ -224,60 +154,33 @@ if (isset($_POST['download'])) {
 	$arrItem = $ars->getItemFileName($data["id"]);
 	$ars->incrementItemHitCount($data["id"]);
 	
- 	//echo $arrItem["filename"];
-	$filename = $arrItem["filename"];
-	$dirs = explode("/", $filename);
-	
-//	header('HTTP 1.1 200 OK');
-	header('Content-Type: application/zip');
-	header('Content-Disposition: attachment; filename=' . $dirs[1]);
-	readfile('http://localhost/htdocs/data/repository/' . $filename);
-}
-
+        $baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
+        $trimmedDir = ltrim($arrItem["directory"], ".");
+        $filename = $arrItem["filename"];
+        $file = new ZipArchive();
+        $file = $baseDir . $trimmedDir . "/" . $filename;
+        $dirs = explode("/", $filename);
 /*
-
-if (isset ( $_POST ['item'] )) {
-	$data = json_decode(file_get_contents('php://input'), true);
-//	print_r($data);
-//	echo $data["id"];
-	$ars->hitMeBaby($data["id"]);
-}
-
-if (isset($_GET['download'])) {
-	$release = 'INFLO';
-	$filename = $release . '-master.zip';
-	header('HTTP 1.1 200 OK');
-	header('Content-Type: application/octet-stream');
-	header('Content-Disposition: attachment; filename=' . $filename);
-	readfile('http://localhost/htdocs/data/repository/' . $release . '/' . $filename);
-	//  http://localhost/htdocs/PortalRepo/leidos/custom/services/ars/download/
-}
-
-if (isset($_GET['download_test'])) {
-	$data = json_decode(file_get_contents('php://input'), true);
-	if ($data == null) {
-		$data = array("id" => "20");
-	}
-// 	print_r($data);
-// 	echo $data["id"];
-	$arrItem = $ars->getItemFileName($data["id"]);
-	
-	header ( 'Content-type: application/json' );
-	echo json_encode ( $arrItem );
-//	echo $_SERVER['REQUEST_URI'];
-//	echo $_SERVER['REMOTE_ADDR'];
-}
-
-if (isset ( $_GET ['session'] )) {
-	if (isset($_SESSION['userlogin'])) {
-		echo $_SESSION['userlogin'];
-	} else {
-		echo "No session set";
-	}
-}
-
-
+        echo "baseDir -> " . $baseDir . "<br>";
+        echo "trimmedDir -> " . $trimmedDir . "<br>";
+        echo "filename -> " . $filename . "<br>";
+        echo "file -> " . $file . "<br>";
 */
+        if (file_exists($file) == 1) {
+/*
+            echo "File found" . "<br>";
+            echo filesize($file) . "<br>";
+*/
+			header("Content-Type: application/zip");
+//          header("Content-Length:" . filesize($file));
+            header("Content-Disposition: attachment; filename=" . $dirs[1]);
+			header('Content-Transfer-Encoding: binary');
 
-
+			ob_clean();
+			flush();
+            readfile($file);
+        } else {
+            echo "File not found" . "<br>";
+        }
+}
 ?>
