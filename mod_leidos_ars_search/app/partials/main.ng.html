@@ -25,22 +25,45 @@
 			<input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter">
 		</div>
 	</div>
+	<!-- pagination -->
+	<div class="row">
+		<select class="col-xs-4 col-sm-4" ng-options="option.value as option.name for option in limitOptions" ng-model="limit"></select>
+		<button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems('first')" title="First" ng-class="{'disabled': currentItems == 0 || items.length == 0 }">
+			&lt;&lt; <span style="text-transform: none;" class="hidden-xs hidden-sm">First</span>
+		</button>
+		<button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems(-1)" title="Previous" ng-class="{'disabled': currentItems == 0 || items.length == 0 }">
+			&lt; <span style="text-transform: none;" class="hidden-xs hidden-sm">Previous</span>
+		</button>
+		<button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems(1)" title="Next" ng-class="{'disabled': currentItems == items.length - 1 || items.length == 0 }">
+			<span style="text-transform: none;" class="hidden-xs hidden-sm">Next</span> &gt;
+		</button>
+		<button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems('last')" title="Last" ng-class="{'disabled': currentItems == items.length -1 || items.length == 0 }">
+			<span style="text-transform: none;" class="hidden-xs hidden-sm">Last</span> &gt;&gt;
+			</button>
+	</div>
+	<br>
+	<!-- // -->
 	<!-- This section displays applications based on the controls given -->
 	<div class="row ars-applications" onload="scrollGuard(e)">
 		<div class="loader" ng-show="showLoader">Loading...</div>
 		<!-- Populate items by selected category -->
 		<div >
-			<div akeebaitem item="item" ng-repeat="item in items | orderBy: ordering : reverse | filter:searchFilter" class="ars-item" ng-hide="showLoader"></div>
+			<div akeebaitem item="item" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
 		</div>
 		<!-- // -->
 		<!-- Show this when there are no applications -->
-		<div ng-show="items.length == 0 && !showLoader" style="text-align: center;">
-			<h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
-			<p><em>You can submit your application for this category by clicking this button</em></p>
-			<a href="#" class="btn btn-lg btn-success">
-				<span class="fa fa-cloud-upload"></span>
-				Upload Request
-			</a>
+		<div ng-if="items.length == 0 && !showLoader" style="text-align: center;">
+			<div ng-if="searchFilter == '' || searchFilter == null">
+				<h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
+				<p><em>You can submit your application for this category by clicking this button</em></p>
+				<a href="/bookshop/index.php/faq/open-source-upload-request" class="btn btn-lg btn-success">
+					<span class="fa fa-cloud-upload"></span>
+					Upload Request
+				</a>
+			</div>
+			<div ng-if="searchFilter != null && searchFilter != ''">
+				<h3>No <span class="text-primary">Applications</span> match your search query</h3>
+			</div>
 		</div>
 		<!-- // -->
 	</div>
