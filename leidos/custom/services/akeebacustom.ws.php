@@ -28,26 +28,28 @@ if ( isset($params['category']) ) {
 		$categoryId = $_POST['categoryId'];
 		die( json_encode($ars->getCustomById( $categoryId )) );
 	} else {
-		echo 'Error';
+		echo false;
 	}
 }
 
 if ( isset($params['item']) ) {
-	if ( isset($_POST['itemId']) && isset($_POST['iconUrl']) && isset($_POST['shortDescription']) ) {
+	if ( isset($_POST['itemId']) && isset($_POST['iconUrl']) && isset($_POST['shortDescription']) && isset($_POST['mainDiscussion']) && isset($_POST['issuesDiscussion']) ) {
 		$itemId = $_POST['itemId'];
 		$iconUrl = $_POST['iconUrl'];
 		$shortDescription = $_POST['shortDescription'];
+		$mainDiscussion = $_POST['mainDiscussion'];
+		$issuesDiscussion = $_POST['issuesDiscussion'];
 		$item = $ars->getItemCustomsById( $itemId );
 		if( isset( $item['icon_url'] )) {
-			echo $ars->updateItemCustomsById( $itemId, $iconUrl, $shortDescription );	
+			echo $ars->updateItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion );
 		} else {
-			echo $ars->insertItemCustomsById( $itemId, $iconUrl, $shortDescription );	
+			echo $ars->insertItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion );	
 		}
 	} else if ( $_POST['itemId'] ) {
 		$itemId = $_POST['itemId'];
-		die( json_encode($ars->getItemCustomsById( $itemId )));
+		echo json_encode($ars->getItemCustomsById( $itemId ));
 	} else {
-		echo 'Error';
+		echo false;
 	}
 }
 
@@ -57,18 +59,13 @@ if ( isset($params['documentation']) ) {
 		$documentation = $_POST['links']; // array
 		$item = $ars->getDocumentationsById( $itemId );
 		if( count( $item ) > 0 ) {
-			echo $ars->deleteDocumentationByItemId( $itemId );
-			foreach ($documentation as $item) {
-				if( $item['link'] != '' && $item['text'] !='' )
-					$ars->insertItemDocumentationsById( $itemId, $item['link'], $item['text'] );	
-			}
-		} else {
-			foreach ($documentation as $item) {
-				if( $item['link'] != '' && $item['text'] !='' )
-					$ars->insertItemDocumentationsById( $itemId, $item['link'], $item['text'] );	
-			}
-			echo 'Success!';
+			$ars->deleteDocumentationByItemId( $itemId );
 		}
+		foreach ($documentation as $item) {
+			if( $item['link'] != '' && $item['text'] !='' )
+				$ars->insertItemDocumentationsById( $itemId, $item['link'], $item['text'] );	
+		}
+		echo true;
 	} else if ( isset($_POST['itemId']) ) {
 		$itemId = $_POST['itemId'];
 		die( json_encode($ars->getDocumentationsById( $itemId )));
@@ -78,7 +75,7 @@ if ( isset($params['documentation']) ) {
 		if( $data->itemId != null ) {
 			echo json_encode($ars->getDocumentationsById( $data->itemId ));
 		} else {
-			echo 'Error!';
+			echo false;
 		}
 	}
 }
