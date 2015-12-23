@@ -157,7 +157,8 @@ class ArsService extends DBConfig {
 				LEFT JOIN
 					jos_akeeba_item_custom c ON i.id = c.item_id
 				INNER JOIN
-					jos_ars_releases r ON i.release_id = r.id;' );
+					jos_ars_releases r ON i.release_id = r.id
+				ORDER BY i.title');
 		$counter = 0;
 
 		// put the results in an array
