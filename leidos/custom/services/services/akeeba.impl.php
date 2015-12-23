@@ -151,7 +151,7 @@ class ArsService extends DBConfig {
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments,
-					c.icon_url, c.short_description
+					c.icon_url, c.short_description, c.discussion_url, c.issues_url
 				FROM  
 					jos_ars_items i 
 				LEFT JOIN
@@ -210,7 +210,7 @@ class ArsService extends DBConfig {
 				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 				i.published, i.language, i.environments,
-				c.icon_url, c.short_description,
+				c.icon_url, c.short_description, c.discussion_url, c.issues_url,
 		    d.documentation_link, d.documentation_text
 				FROM jos_ars_items i 
 				LEFT JOIN
