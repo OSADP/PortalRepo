@@ -80,3 +80,7 @@
 ol[role="navigation"], ul[role="navigation"] {
   list-style-type: none;
 }
+
+.osadp-custom-icons {
+  padding: 0;
+}
