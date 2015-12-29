@@ -63,7 +63,7 @@ var AkeebaService = (function( $ ) {
 		itemsPromise.done( function( data ) {
 			// get the applications from the promise
 			var applications = data;
-			applications.sort( _this.SortByTitle );
+			if( applications != null ) applications.sort( _this.SortByTitle );
 			// remove all options prior to adding new ones
 			$('#akeebaApplications').find('option').remove().end();
 			// add applications to our select element
@@ -86,13 +86,17 @@ var AkeebaService = (function( $ ) {
 		var infoPromise = $.post('/bookshop/leidos/custom/services/extras/item', data );
 		infoPromise.done( function( data ) {
 			// get the applications from the promise
-			if( data != null && data != 'null' ) {
-				var info = JSON.parse( data );
+			var info = JSON.parse( data );
+			if( info != null && info != 'null' ) {
 				$('#itemIcon').val( info.icon_url );
 				$('#description').val( info.short_description );
+				$('#mainDiscussion').val(info.discussion_url);
+				$('#issuesDiscussion').val(info.issues_url);
 			} else {
 				$('#itemIcon').val('');
 				$('#description').val('');
+				$('#mainDiscussion').val('');
+				$('#issuesDiscussion').val('');
 			}
 		});
 	};
@@ -133,9 +137,8 @@ var AkeebaService = (function( $ ) {
 		$.post('/bookshop/leidos/custom/services/extras/documentation', data, function( response ) {
 			dfd.resolve( response );
 			var docs = $('#appDocumentation li');
-
-			if( response != null && response != 'null' && response != '[]' ) {
-				var links = JSON.parse( response );
+			var links = JSON.parse( response );
+			if( links != null && links != 'null' && links != '[]' ) {
 				$.each(docs, function( index, doc ) {
 					if( links[index] != undefined ) {
 						$(doc).find('.docLink').val( links[index].documentation_link );
