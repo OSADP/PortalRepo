@@ -49,11 +49,17 @@
 				<br>
 				<span class="help-block">Any information below will be saved under the selected application.</span>
 				<br>
-				<label for="itemIcon">Application Image URL:</label>
-				<input id="itemIcon" type="text" placeholder="Enter full name">
+				<label for="itemIcon">Image Source Link:</label>
+				<input id="itemIcon" type="text" placeholder="Enter image source">
 				
-				<label for="description">Short Description:</label>
+				<label for="description">Full Name:</label>
 				<input id="description" type="text" placeholder="Enter full name">
+
+				<label for="mainDiscussion">Main Discussion Link:</label>
+				<input id="mainDiscussion" type="text" placeholder="Enter main discussion link">
+				
+				<label for="issuesDiscussion">Issues Discussion Link:</label>
+				<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link">
 				
 				<br>
 				<br>
@@ -180,39 +186,50 @@
 					iconUrl: $('#categoryIcon').val()
 				}
 				akeeba.saveCategoryInfo( data ).then( function( response ) {
-					if( response == 'Success!' ) alert('Category Icon for ' + $('#akeebaCategories option:selected').text() + ' is saved.');
+					if( response ) alert('Category Icon for ' + $('#akeebaCategories option:selected').text() + ' is saved.');
 				})
 			});
 			// save information given for selected application
 			$('#akeebaItemSave').click(function( evnt ) {
 				evnt.preventDefault();
 				var data = {
-					itemId: parseInt($('#akeebaApplications option:selected').val()),
+					itemId: $('#akeebaApplications option:selected').val(),
 					iconUrl: $('#itemIcon').val(),
-					shortDescription: $('#description').val()
+					shortDescription: $('#description').val(),
+					mainDiscussion: $('#mainDiscussion').val(),
+					issuesDiscussion: $('#issuesDiscussion').val()
 				}
-
-				akeeba.saveApplicationInfo( data ).done( function( response ) {
-					if( response == 'Success!' ) alert('Application Information for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
-				})
+				if( ! isNaN(data.itemId) ) {
+					akeeba.saveApplicationInfo( data ).done( function( response ) {
+						response = response.replace(/\s/g, '');
+						if( response ) alert('Application Information for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
+					})
+				} else {
+					alert('Error: No valid application selected.');
+				}
 			});
 			// save documentations for selected application
 			$('#akeebaDocSave').click( function( evnt ) {
 				evnt.preventDefault();
 				var docs = $('#appDocumentation li');
 				var data = {
-					itemId: parseInt($('#akeebaApplications option:selected').val()),
+					itemId: $('#akeebaApplications option:selected').val(),
 					links: []
 				}
-				$.each(docs, function( index, doc ) {
-					data.links.push({
-						link: $(doc).find('.docLink').val(),
-						text: $(doc).find('.docText').val()
+				if( ! isNaN( data.itemId ) ) {
+					$.each(docs, function( index, doc ) {
+						data.links.push({
+							link: $(doc).find('.docLink').val(),
+							text: $(doc).find('.docText').val()
+						})
+					});
+					akeeba.saveApplicationDocs( data ).done( function( response ) {
+						response.replace(/\s/g, '');
+						if( response ) alert('Documentation for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
 					})
-				});
-				akeeba.saveApplicationDocs( data ).done( function( response ) {
-					if( response == 'Success!' ) alert('Documentation for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
-				})
+				} else {
+					alert('Error: No valid application selected.');
+				}
 			})
 
 		})
