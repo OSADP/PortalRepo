@@ -8,7 +8,9 @@ class ArsService extends DBConfig {
 	function getAllCategories() {
 		// prepare the statement
 		$stmt = $this->db->query ( 
-				'SELECT category.*, custom.icon_url
+				'SELECT category.id, category.alias, category.title,
+				category.description, category.created, category.modified,
+				category.type, category.directory, custom.icon_url
 				FROM jos_ars_categories AS category
 				LEFT JOIN jos_akeeba_category_custom AS custom
 				ON category.id = custom.category_id');
@@ -27,8 +29,11 @@ class ArsService extends DBConfig {
 	function getCategory($categoryId) {
 		// prepare the statement
 		$stmt = $this->db->query ( 
-				'SELECT id, alias, title, description, created, modified, type, directory 
-				FROM jos_ars_categories 
+				'SELECT category.id, category.alias, category.title,
+				category.description, category.created, category.modified,
+				category.type, category.directory, custom.icon_url
+				FROM jos_ars_categories AS category
+				LEFT JOIN jos_akeeba_category_custom AS custom
 				WHERE id=' . $categoryId );
 				
 		// should only return one result.  put that row in a variable
