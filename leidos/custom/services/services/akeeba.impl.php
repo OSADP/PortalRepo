@@ -8,8 +8,10 @@ class ArsService extends DBConfig {
 	function getAllCategories() {
 		// prepare the statement
 		$stmt = $this->db->query ( 
-				'SELECT id, alias, title, description, created, modified, type, directory 
-				FROM jos_ars_categories' );
+				'SELECT category.*, custom.icon_url
+				FROM jos_ars_categories AS category
+				LEFT JOIN jos_akeeba_category_custom AS custom
+				ON category.id = custom.category_id');
 		
 		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
