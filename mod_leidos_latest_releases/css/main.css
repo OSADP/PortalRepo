@@ -10,3 +10,7 @@
   font-size: 12px;
   font-family: 'Roboto Slab', Georgia, Times, serif;
 }
+
+.latest-releases__item > a {
+	display: block;
+}
