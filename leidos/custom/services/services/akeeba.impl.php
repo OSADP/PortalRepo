@@ -145,19 +145,20 @@ class ArsService extends DBConfig {
 	function getAllItemsRest() {
 		// prepare the items statement
 		$stmt = $this->db->query (
-				'SELECT
-					i.id, i.release_id, i.title, i.alias, i.description, i.type,
-					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
-					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
-					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
-					i.published, i.language, i.environments,
-					c.icon_url, c.short_description
-				FROM  
-					jos_ars_items i 
-				LEFT JOIN
-					jos_akeeba_item_custom c ON i.id = c.item_id
-				INNER JOIN
-					jos_ars_releases r ON i.release_id = r.id;' );
+			'SELECT
+				i.id, i.release_id, i.title, i.alias, i.description, i.type,
+				i.filename, i.url, i.updatestream, i.md5, i.sha1,
+				ROUND(i.filesize/1048576, 2) AS "filesize",
+				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
+				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
+				i.published, i.language, i.environments,
+				c.icon_url, c.short_description
+			FROM  
+				jos_ars_items i 
+			LEFT JOIN
+				jos_akeeba_item_custom c ON i.id = c.item_id
+			INNER JOIN
+				jos_ars_releases r ON i.release_id = r.id;' );
 		$counter = 0;
 
 		// put the results in an array
@@ -206,16 +207,17 @@ class ArsService extends DBConfig {
 		$stmt = $this->db->query (
 			'SELECT 
 				i.id, i.release_id, i.title, i.alias, i.description, i.type,
-				i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+				i.filename, i.url, i.updatestream, i.md5, i.sha1,
+				ROUND(i.filesize/1048576, 2) AS "filesize",
 				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 				i.published, i.language, i.environments,
 				c.icon_url, c.short_description,
-		    d.documentation_link, d.documentation_text
-				FROM jos_ars_items i 
-				LEFT JOIN
+				d.documentation_link, d.documentation_text
+			FROM jos_ars_items i 
+			LEFT JOIN
 				jos_akeeba_item_custom c ON i.id = c.item_id
-				LEFT JOIN
+			LEFT JOIN
 				jos_akeeba_item_documentation d ON i.id = d.item_id
 			WHERE i.id=' . $itemId );
 		
@@ -267,7 +269,8 @@ class ArsService extends DBConfig {
 		$stmt = $this->db->query (
 				'SELECT 
 					i.id, i.release_id, i.title, i.alias, i.description, i.type,
-					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+					i.filename, i.url, i.updatestream, i.md5, i.sha1,
+					ROUND(i.filesize/1048576, 2) AS "filesize",
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments
@@ -333,7 +336,8 @@ class ArsService extends DBConfig {
 		$stmt = $this->db->query (
 				'SELECT
 					i.id, i.release_id, i.title, i.alias, i.description, i.type,
-					i.filename, i.url, i.updatestream, i.md5, i.sha1, i.filesize,
+					i.filename, i.url, i.updatestream, i.md5, i.sha1,
+					ROUND(i.filesize/1048576, 2) AS "filesize",
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments
@@ -446,7 +450,6 @@ class ArsService extends DBConfig {
 		$stmt->execute ();
 		$stmt->close ();
 	}
-
 }
 
 ?>
