@@ -1,0 +1,12 @@
+
+
+.latest-releases__container {
+	list-style-type: initial !important;
+	margin-left: 20px !important;
+}
+
+.latest-releases__item {
+  padding-bottom: 10px;
+  font-size: 12px;
+  font-family: 'Roboto Slab', Georgia, Times, serif;
+}

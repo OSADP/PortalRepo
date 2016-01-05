@@ -4,10 +4,10 @@
 <?php JHTML::script('modules/mod_leidos_custom_icons/js/main.js'); ?>
 
 
-<ol class="row" role="navigation">
+<ol class="osadp-custom-icons row" role="navigation">
 	
 	<li class="col-xs-6 col-lg-3 card">
-		<a href="<?php echo $applicationLink; ?>" class="iconlink" title="Explore Applications">
+		<a href="<?php echo $applicationsLink; ?>" class="iconlink" title="Explore Applications">
 			<span class="btn btn-primary btn-circle animation-target" aria-hidden="true">
 				<i class="fa fa-puzzle-piece"></i>
 			</span>

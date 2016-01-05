@@ -8,8 +8,12 @@ class ArsService extends DBConfig {
 	function getAllCategories() {
 		// prepare the statement
 		$stmt = $this->db->query ( 
-				'SELECT id, alias, title, description, created, modified, type, directory 
-				FROM jos_ars_categories' );
+				'SELECT category.id, category.alias, category.title,
+				category.description, category.created, category.modified,
+				category.type, category.directory, custom.icon_url
+				FROM jos_ars_categories AS category
+				LEFT JOIN jos_akeeba_category_custom AS custom
+				ON category.id = custom.category_id');
 		
 		// put the results in an array
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
@@ -25,8 +29,11 @@ class ArsService extends DBConfig {
 	function getCategory($categoryId) {
 		// prepare the statement
 		$stmt = $this->db->query ( 
-				'SELECT id, alias, title, description, created, modified, type, directory 
-				FROM jos_ars_categories 
+				'SELECT category.id, category.alias, category.title,
+				category.description, category.created, category.modified,
+				category.type, category.directory, custom.icon_url
+				FROM jos_ars_categories AS category
+				LEFT JOIN jos_akeeba_category_custom AS custom
 				WHERE id=' . $categoryId );
 				
 		// should only return one result.  put that row in a variable
@@ -152,13 +159,14 @@ class ArsService extends DBConfig {
 				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 				i.published, i.language, i.environments,
-				c.icon_url, c.short_description
+				c.icon_url, c.short_description, c.discussion_url, c.issues_url
 			FROM  
 				jos_ars_items i 
 			LEFT JOIN
 				jos_akeeba_item_custom c ON i.id = c.item_id
 			INNER JOIN
-				jos_ars_releases r ON i.release_id = r.id;' );
+				jos_ars_releases r ON i.release_id = r.id;
+			ORDER BY i.title' );
 		$counter = 0;
 
 		// put the results in an array
@@ -212,7 +220,7 @@ class ArsService extends DBConfig {
 				i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 				i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 				i.published, i.language, i.environments,
-				c.icon_url, c.short_description,
+				c.icon_url, c.short_description, c.discussion_url, c.issues_url,
 				d.documentation_link, d.documentation_text
 			FROM jos_ars_items i 
 			LEFT JOIN

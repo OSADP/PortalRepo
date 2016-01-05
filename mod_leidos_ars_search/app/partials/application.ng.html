@@ -49,29 +49,50 @@
 	  <li role="tab" ng-class="{'active': activeTab == 'documentation'}" aria-selected="{{ activeTab == 'documentation'}}">
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'documentation'">Documentation</a>
   	</li>
+	  <li role="tab" ng-class="{'active': activeTab == 'discussion'}" aria-selected="{{ activeTab == 'discussion'}}">
+	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'discussion'">Discussion</a>
+  	</li>
 	  <li role="tab" ng-class="{'active': activeTab == 'other'}" aria-selected="{{ activeTab == 'other'}}">
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'other'">Similar Applications</a>
   	</li>
 	</ul>
 	<!-- Display Item Description when 'description' tab is active -->
-	<div class="" ng-bind-html="item.description" style="padding-top: 15px;" ng-show="activeTab == 'description'"></div>
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'description'">
+		<p ng-if="item.description == '' || item.description.length == 0">No descriptions found..</p>
+		<div ng-bind-html="item.description"></div>
+	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
-	<div class="" ng-bind-html="item.release.notes" style="padding-top: 15px;" ng-show="activeTab == 'release'"></div>
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'release'">
+		<p ng-if="item.release.notes == ''">No release notes found..</p>
+		<div ng-bind-html="item.release.notes"></div>
+	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'documentation'">
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'documentation'">
+		<p ng-if="item.documentation.length == 0">No documentation found..</p>
 		<ul>
 			<li ng-repeat="document in item.documentation"><a href="{{ document.documentation_link }}">{{ document.documentation_text }}</a></li>
 		</ul>
 	</div>
+
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'discussion'">
+		<p ng-if="item.discussion_url == null || item.discussion_url == '' && item.issues_url == null || item.issues_url == ''">No discussion found..</p>
+		<ul ng-if="item.discussion_url != null || item.issues_url != null">
+			<li ng-if="item.discussion_url != null && item.discussion_url != '' ">
+				<a href="{{ item.discussion_url }}">
+					Main Discussion
+				</a>
+			</li>
+			<li ng-if="item.issues_url != null && item.issues_url != ''">
+				<a href="{{ item.issues_url }}">
+					Issues Discussion
+				</a>
+			</li>
+		</ul>
+	</div>
 	<!-- Displays other applications under the same category when 'other' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'other'">
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'other'">
+		<p ng-if="otherItems.length == 0">No similar application found..</p>
 		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" item="item"></div>
 	</div>
-	<!-- Notifies user when no release note was found -->
-	<p ng-show="activeTab == 'description' && item.description == ''">No descriptions found..</p>
-	<p ng-show="activeTab == 'release' && item.release.notes == ''">No release notes found..</p>
-	<p ng-show="activeTab == 'documentation' && item.documentation.length == 0">No documentation found..</p>
-	<p ng-show="activeTab == 'other' && otherItems.length == 0">No similar application found..</p>
-
 
 </div>
