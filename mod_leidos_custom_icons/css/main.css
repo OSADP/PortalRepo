@@ -82,5 +82,6 @@ ol[role="navigation"], ul[role="navigation"] {
 }
 
 .osadp-custom-icons {
-  padding: 0;
+  margin: 0! important;
+  padding: 0 !important;
 }
