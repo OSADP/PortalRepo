@@ -41,8 +41,10 @@ class ArsService extends DBConfig {
 				jos_ars_categories AS category
 			LEFT JOIN 
 				jos_akeeba_category_custom AS custom
+			ON 
+				category.id = custom.category_id
 			WHERE 
-				id=' . $categoryId );
+				category.id=' . $categoryId );
 				
 		// should only return one result.  put that row in a variable
 		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
