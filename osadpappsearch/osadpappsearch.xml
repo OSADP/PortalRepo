@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="search" method="upgrade">
+	<name>osadpappsearch</name>
+	<author>Leidos: Robert Roth</author>
+	<creationDate>January 6, 2016</creationDate>
+	<copyright>Leidos</copyright>
+	<license>GNU/GPL</license>
+	<authorEmail>robert.m.roth@leidos.com</authorEmail>
+	<authorUrl>www.leidos.com</authorUrl>
+	<version>0.0.1</version>
+	<description>Plugin to add akeeba managed applications available for searching in Joomla.</description>
+	
+	<files>
+	   <filename plugin="osadpappsearch">osadpappsearch.php</filename>
+	</files>
+</extension>
