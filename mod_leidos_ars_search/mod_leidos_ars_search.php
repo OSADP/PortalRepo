@@ -16,9 +16,7 @@ $page_header = $params->get('header', 'Applications');
 // user
 $user = JFactory::getUser();
 // require our helper class ArsSearcher
-require_once (dirname(__FILE__).'/helper.php');
-// get akeeba releases data from our helper class
-$releases = ArsSearcher::getReleases();
+// require_once (dirname(__FILE__).'/helper.php');
 //
 require JModuleHelper::getLayoutPath('mod_leidos_ars_search', $layout);
 ?>

@@ -9,6 +9,7 @@
 .ars-categories__item:focus {
   box-shadow: 0 0 10px #07b;
 }
+
 .ars-categories__item > a {
   display: block;
   padding: 10px;
@@ -97,13 +98,21 @@
   animation: osadp_fadein .3s linear;
 }
 
-.ars-item:hover {
+.ars-item:hover, .ars-item:focus {
   box-shadow: 0px 4px 8px #ddd;
+}
+
+.ars-item__link {
+  display: block;
 }
 
 .ars-item__link, .ars-item__link:hover, .ars-item__link:focus {
   overflow: auto;
   color: inherit;
+}
+
+.ars-item__link:focus {
+  box-shadow: 0px 4px 8px #ddd;
 }
 
 .ars-item__image-container {

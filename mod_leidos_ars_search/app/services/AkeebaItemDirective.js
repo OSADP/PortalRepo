@@ -15,7 +15,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 		// require: 'ngModel', // Array = multiple requires, ? = optional, ^ = check parent elements
 		restrict: 'EA', // E = Element, A = Attribute, C = Class, M = Comment
 		// template: '',
-		templateUrl: '/bookshop/modules/mod_leidos_ars_search/app/partials/item.ng.html',
+		templateUrl: '/modules/mod_leidos_ars_search/app/partials/item.ng.html',
 		// replace: true,
 		// transclude: true,
 		// compile: function(tElement, tAttrs, function transclude(function(scope, cloneLinkingFn){ return function linking(scope, elm, attrs){}})),

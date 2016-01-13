@@ -1,7 +1,6 @@
 
 
 <div class="ars-item__page col-xs-12" ng-cloak>
-
 	<div class="ars-item__page__info row">
 
 		<div class="col-xs-6 col-sm-8">
@@ -30,7 +29,7 @@
 			</p>
 			<a href="/osadp/leidos/custom/services/ars/download/{{ item.id }}" class="btn btn-success pull-right" ng-if="! loggedIn">
 				<span class="fa fa-download"></span>
-				Download {{ (item.filesize / 1000).toFixed(2) }} KB 
+				Download {{ item.filesize }} MB
 			</a>
 			<a href="/osadp/login" class="btn btn-success pull-right" ng-if="loggedIn">
 				<span class="fa fa-sign-in"></span>
@@ -75,7 +74,7 @@
 	</div>
 
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'discussion'">
-		<p ng-if="item.discussion_url == null || item.discussion_url == '' && item.issues_url == null || item.issues_url == ''">No discussion found..</p>
+		<p ng-if="(item.discussion_url == null || item.discussion_url == '') && (item.issues_url == null || item.issues_url == '')">No discussion found..</p>
 		<ul ng-if="item.discussion_url != null || item.issues_url != null">
 			<li ng-if="item.discussion_url != null && item.discussion_url != '' ">
 				<a href="{{ item.discussion_url }}">

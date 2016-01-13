@@ -10,21 +10,21 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	var _this = this;
 
 	_this.getAllCategories = function() {
-		return $http.get('/bookshop/leidos/custom/services/ars/categories')
+		return $http.get('/leidos/custom/services/ars/categories')
 			.then( function( promise ) {
 				return promise.data;
 			})
 	}
 
 	_this.getCategory = function( categoryId ) {
-		return $http.get('/bookshop/leidos/custom/services/ars/categories/' + categoryId)
+		return $http.get('/leidos/custom/services/ars/categories/' + categoryId)
 			.then( function( promise ) {
 				return promise.data;
 			})
 	}
 
 	_this.getAllItems = function() {
-		return $http.get('/bookshop/leidos/custom/services/ars/items')
+		return $http.get('/leidos/custom/services/ars/items')
 			.then( function( promise ) {
 				angular.forEach( promise.data, function( item ) {
 					item.environments = envToFontAwesome( item.environments );
@@ -34,7 +34,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	}
 
 	_this.getItemsByCategory = function( categoryId ) {
-		return $http.get('/bookshop/leidos/custom/services/ars/items')
+		return $http.get('/leidos/custom/services/ars/items')
 			.then( function( promise ) {
 				var _parsedItems= [];
 				angular.forEach( promise.data, function( item ) {
@@ -48,7 +48,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	}
 
 	_this.getOtherItems = function( categoryId, itemId ) {
-		return $http.get('/bookshop/leidos/custom/services/ars/items')
+		return $http.get('/leidos/custom/services/ars/items')
 			.then( function( promise ) {
 				var _parsedItems= [];
 				angular.forEach( promise.data, function( item ) {
@@ -62,7 +62,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	}
 
 	_this.getItem = function( itemId ) {
-		return $http.get('/bookshop/leidos/custom/services/ars/items/' + itemId)
+		return $http.get('/leidos/custom/services/ars/items/' + itemId)
 			.then( function( promise ) {
 				promise.data.environments = envToFontAwesome( promise.data.environments );
 				return promise.data;
@@ -70,7 +70,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	}
 
 	_this.getItemDocumentation = function( itemId ) {
-		return $http.post('/bookshop/leidos/custom/services/extras/documentation', { itemId: parseInt( itemId ) })
+		return $http.post('/leidos/custom/services/extras/documentation', { itemId: parseInt( itemId ) })
 			.then( function( promise ) {
 				return promise.data;
 			})

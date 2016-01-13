@@ -33,17 +33,28 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 	<div class="" ng-cloak>
 		<!-- LEFT SIDE DISPLAY A LIST OF CATEGORIES -->
 		<div class="ars-categories col-xs-12 col-md-4 col-lg-4" class="ars-categories" ng-controller="CategoryListCtrl" ng-hide="hideView">
-			<div class="ars-categories--mobile visible-xs visible-sm pull-right">
-				<button type="button" class="btn btn-primary">
+			<div class="ars-categories--mobile visible-xs visible-sm">
+				<button type="button" class="btn btn-lg btn-block btn-primary" style="border-radius: 0;">
 					{{ currentCategory.title }}
 					<span class="fa fa-angle-down"></span>
 					<span class="sr-only">Show Categories</span>
 				</button>
 			</div>
-			<h4 class="ars-categories__heading">Application Categories</h4>
+			<h4 class="ars-categories__heading hidden-xs hidden-sm">Application Categories</h4>
 			<!-- LIST ALL OUR CATEGORIES -->
 			<div class="ars-categories__item hidden-xs hidden-sm" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories | orderBy: 'title'" role="tabslist" aria-title="Browse Application Categories" aria-selected="{{ category.active }}">
-				<a href="#/{{ category.id }}" ng-click="categoryChange( this )" role="tab">{{ category.title }} <span class="badge pull-right">{{ category.items.length }} <span class="sr-only">Applications</span></span></a>
+				<a href="#/{{ category.id }}" ng-click="categoryChange( this )" role="tab">
+					<span class="ars-categories__icon" style="display: inline-block;
+				    position: relative;
+				    height: 20px;
+				    width: 20px;
+				    vertical-align: top;
+				    background: url({{ category.icon_url }});
+				    background-size: cover;
+				    margin-right: 5px;">
+			    </span>
+					{{ category.title }} <span class="badge pull-right">{{ category.items.length }} <span class="sr-only">Applications</span></span>
+				</a>
 			</div>
 		</div>
 		<!-- // -->

@@ -22,7 +22,8 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 		if( $scope.categories.length > 0 ) {
 			$scope.currentCategory = {
 				title: 'All Releases',
-				id: 'all'
+				id: 'all',
+				icon_url: '/modules/mod_leidos_ars_search/images/osadp-logo.png'
 			}
 			// unshift() adds object to the beginning of the array
 			$scope.categories.unshift( $scope.currentCategory );
@@ -50,7 +51,6 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 						category.items.push( item );
 				})
 			});
-
 		});
 
 		// show the list and get active category item
