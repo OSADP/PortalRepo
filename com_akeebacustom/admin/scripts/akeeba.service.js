@@ -31,7 +31,7 @@ var AkeebaService = (function( $ ) {
 		}
 		if( data.categoryId == 0 ) {
 			$('#categoryIcon').attr('disabled', 'disabled');
-			var promise = $.post('/bookshop/leidos/custom/services/extras/category', data);
+			var promise = $.post('/leidos/custom/services/extras/category', data);
 			promise.done( function( data ) {
 				data = (typeof data == 'string') ? JSON.parse( data ) : data;
 				var categoryIcon = ( data != null ) ? data.icon_url : '';
@@ -41,7 +41,7 @@ var AkeebaService = (function( $ ) {
 		} else {
 			$('#categoryIcon').attr('disabled', false);
 			// request for data of the selected category
-			var promise = $.post('/bookshop/leidos/custom/services/extras/category', data);
+			var promise = $.post('/leidos/custom/services/extras/category', data);
 			promise.done( function( data ) {
 				data = (typeof data == 'string') ? JSON.parse( data ) : data;
 				var categoryIcon = ( data != null ) ? data.icon_url : '';
@@ -55,9 +55,9 @@ var AkeebaService = (function( $ ) {
 		var _this = this;
 		var categoryId = $('#akeebaCategories option:selected').val();
 		if( categoryId == 0 ) {
-			var itemsPromise = $.getJSON('/bookshop/leidos/custom/services/ars/items');
+			var itemsPromise = $.getJSON('/leidos/custom/services/ars/items');
 		} else {
-			var itemsPromise = $.getJSON('/bookshop/leidos/custom/services/ars/items/category/' + categoryId);
+			var itemsPromise = $.getJSON('/leidos/custom/services/ars/items/category/' + categoryId);
 		}
 		var defer = $.Deferred();
 		itemsPromise.done( function( data ) {
@@ -83,7 +83,7 @@ var AkeebaService = (function( $ ) {
 		var data = {
 			'itemId': $('#akeebaApplications option:selected').val()
 		}
-		var infoPromise = $.post('/bookshop/leidos/custom/services/extras/item', data );
+		var infoPromise = $.post('/leidos/custom/services/extras/item', data );
 		infoPromise.done( function( data ) {
 			// get the applications from the promise
 			var info = JSON.parse( data );
@@ -103,7 +103,7 @@ var AkeebaService = (function( $ ) {
 
 	AkeebaService.prototype.saveCategoryInfo = function( data ) {
 		var dfd = $.Deferred();
-		$.post('/bookshop/leidos/custom/services/extras/category', data, function( response ) {
+		$.post('/leidos/custom/services/extras/category', data, function( response ) {
 			dfd.resolve( response );
 		})
 
@@ -112,7 +112,7 @@ var AkeebaService = (function( $ ) {
 
 	AkeebaService.prototype.saveApplicationInfo = function( data ) {
 		var dfd = $.Deferred();
-		$.post('/bookshop/leidos/custom/services/extras/item', data, function( response ) {
+		$.post('/leidos/custom/services/extras/item', data, function( response ) {
 			dfd.resolve( response );
 		})
 
@@ -121,7 +121,7 @@ var AkeebaService = (function( $ ) {
 
 	AkeebaService.prototype.saveApplicationDocs = function( data ) {
 		var dfd = $.Deferred();
-		$.post('/bookshop/leidos/custom/services/extras/documentation', data, function( response ) {
+		$.post('/leidos/custom/services/extras/documentation', data, function( response ) {
 			dfd.resolve( response );
 		})
 
@@ -134,7 +134,7 @@ var AkeebaService = (function( $ ) {
 			itemId: parseInt($('#akeebaApplications option:selected').val())
 		}
 
-		$.post('/bookshop/leidos/custom/services/extras/documentation', data, function( response ) {
+		$.post('/leidos/custom/services/extras/documentation', data, function( response ) {
 			dfd.resolve( response );
 			var docs = $('#appDocumentation li');
 			var links = JSON.parse( response );

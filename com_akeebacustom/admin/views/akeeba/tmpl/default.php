@@ -186,7 +186,7 @@
 					iconUrl: $('#categoryIcon').val()
 				}
 				akeeba.saveCategoryInfo( data ).then( function( response ) {
-					if( response ) alert('Category Icon for ' + $('#akeebaCategories option:selected').text() + ' is saved.');
+					if( response == 'Success!' ) alert('Category Icon for ' + $('#akeebaCategories option:selected').text() + ' is saved.');
 				})
 			});
 			// save information given for selected application
@@ -202,7 +202,7 @@
 				if( ! isNaN(data.itemId) ) {
 					akeeba.saveApplicationInfo( data ).done( function( response ) {
 						response = response.replace(/\s/g, '');
-						if( response ) alert('Application Information for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
+						if( response == true ) alert('Application Information for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
 					})
 				} else {
 					alert('Error: No valid application selected.');
@@ -225,7 +225,7 @@
 					});
 					akeeba.saveApplicationDocs( data ).done( function( response ) {
 						response.replace(/\s/g, '');
-						if( response ) alert('Documentation for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
+						if( response == true ) alert('Documentation for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
 					})
 				} else {
 					alert('Error: No valid application selected.');
