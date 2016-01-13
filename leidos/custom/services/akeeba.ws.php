@@ -114,7 +114,7 @@ if (isset($_GET['download'])) {
         $arrItem = $ars->getFileNameAndDirectory($itemId);
         $ars->incrementItemHitCount($itemId);
 
-        $baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
+        $baseDir = $_SERVER["DOCUMENT_ROOT"];
         $trimmedDir = ltrim($arrItem["directory"], ".");
         $filename = $arrItem["filename"];
         $file = new ZipArchive();
@@ -154,7 +154,7 @@ if (isset($_POST['download'])) {
 	$arrItem = $ars->getItemFileName($data["id"]);
 	$ars->incrementItemHitCount($data["id"]);
 	
-        $baseDir = $_SERVER["DOCUMENT_ROOT"] . "/bookshop";
+        $baseDir = $_SERVER["DOCUMENT_ROOT"];
         $trimmedDir = ltrim($arrItem["directory"], ".");
         $filename = $arrItem["filename"];
         $file = new ZipArchive();
