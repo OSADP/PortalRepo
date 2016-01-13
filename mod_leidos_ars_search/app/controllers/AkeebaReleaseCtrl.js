@@ -49,20 +49,16 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 				$scope.currentItems = 0;
 			});
 			// watch for a change in the ordering variable and do an ngFilter: orderBy function
-			$scope.$watch('ordering', function() {
+			$scope.$watchGroup(['ordering', 'reverse'], function() {
 				$scope.items = paginate(sortItems( items, $scope.ordering, $scope.reverse ), $scope.limit);
-			})
-			// this toggles ascending and descending of filtered items
-			$scope.$watch('reverse', function() {
-				$scope.items = paginate(sortItems( items, $scope.ordering, $scope.reverse ), $scope.limit);
-			})
+			});
 			// filter rersults based on the searchFilter variable
 			$scope.$watch('searchFilter', function() {
 				if( $scope.searchFilter != undefined ) {
 					$scope.items = paginate(sortItems( items, $scope.ordering, $scope.reverse ), $scope.limit);
 					$scope.currentItems = 0;
 				}
-			})
+			});
 		} else {
 			// display items based on current category id
 			var categorizedItems = [];
@@ -78,13 +74,9 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 				$scope.currentItems = 0;
 			});
 			// watch for a change in the ordering variable and do an ngFilter: orderBy function
-			$scope.$watch('ordering', function() {
+			$scope.$watchGroup(['ordering', 'reverse'], function() {
 				$scope.items = paginate(sortItems( categorizedItems, $scope.ordering, $scope.reverse ), $scope.limit);
-			})
-			// this toggles ascending and descending of filtered items
-			$scope.$watch('reverse', function() {
-				$scope.items = paginate(sortItems( categorizedItems, $scope.ordering, $scope.reverse ), $scope.limit);
-			})
+			});
 			// filter rersults based on the searchFilter variable
 			$scope.$watch('searchFilter', function() {
 				if( $scope.searchFilter != undefined ) {
