@@ -1,0 +1,272 @@
+
+
+/* NOTE: We're using the BEM methodology. Somewhat. */
+.ars-categories {
+  padding-left: 0;
+}
+
+.ars-categories__item {}
+.ars-categories__item:focus {
+  box-shadow: 0 0 10px #07b;
+}
+.ars-categories__item > a {
+  display: block;
+  padding: 10px;
+  margin-top: 2px;
+  border: solid 1px #0077bb;
+  font-size: 1.4rem;
+}
+
+.ars-categories__item > a:hover, .ars-categories__item > a:focus {
+  background: #eee;
+}
+
+.ars-categories__item--active > a {
+  background: #0077bb !important;
+  color: #ffffff !important;
+  cursor: default;
+  /* bounce animation */
+  -webkit-animation: animation 700ms linear both;
+  animation: animation 700ms linear both;
+}
+
+.ars-categories__item--active .badge {
+  background: #ffffff;
+  color: #07b;
+}
+
+.ars-categories__heading {
+  margin: 13px 0 15px 0;
+  text-transform: uppercase;
+}
+
+.ars-container {
+  padding: 0;
+}
+
+.osadp_research {
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 920px) {
+  .ars-categories {
+    padding: 0;
+  }
+  .ars-categories--mobile {
+    padding-top: 10px;
+  }
+  .ars-categories__item {
+    /*display: none;*/
+  }
+/*  .ars-categories__item--active {
+    display: block !important;
+  }*/
+  .osadp_research__sort {
+    padding-top: 15px;
+  }
+  .osadp_research__sort > select {
+    /*width: 100%;*/
+  }
+  .osadp_research__search {
+    padding-top: 15px;
+    padding-bottom: 5px;
+  } 
+}
+
+.ars-item {
+  background: #ffffff;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  min-height: 158px;
+  max-width: 767px;
+  margin: 0;
+  margin-bottom: 10px;
+  border: solid 1px #ddd;
+  transition: .3s;
+  cursor: pointer;
+  /* animations */
+  -webkit-animation: osadp_fadein .3s linear;
+  -o-animation: osadp_fadein .3s linear;
+  animation: osadp_fadein .3s linear;
+}
+
+.ars-item:hover {
+  box-shadow: 0px 4px 8px #ddd;
+}
+
+.ars-item__link, .ars-item__link:hover, .ars-item__link:focus {
+  overflow: auto;
+  color: inherit;
+}
+
+.ars-item__image-container {
+  float: left;
+  padding: 0;
+  height: 156px;
+  width: 156px;
+}
+
+.ars-item__image-container__image {
+  width: 100%;
+  height: 100%;
+  background: #eee;
+  background-position: center;
+}
+
+.ars-item__image-container__image img {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.ars-item__info {
+  padding: 10px;
+  padding-left: 167px;
+  padding-bottom: 0px;
+}
+/*remove wide padding on smaller screens since we hide the 
+item image anyways */
+@media screen and (max-width: 767px) {
+  .ars-item__info {
+    padding-left: 10px !important;
+  }
+}
+
+.ars-item__info-title {
+  font-weight: bold;
+  font-size: 1.6rem;
+  color: #0077bb;
+  margin: 0px;
+}
+
+.ars-item__info__badge {
+  text-transform: uppercase;
+  background-color: #1BBC9B;
+}
+
+.ars-item__info__badge.alpha {
+  background-color: #F7CA18;
+}
+
+/**
+* Specifically for application.ng.html
+*/
+.ars-item__page {
+  padding: 0;
+  padding-top: 20px;
+  font-size: 1.1em;
+}
+.ars-item__page__info {
+  padding-bottom: 15px;
+}
+.ars-item__page__info__image {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: #f8f8f8;
+  vertical-align: top;
+  margin-right: 10px;
+}
+.ars-item__page__info__image img {
+  height: 100%;
+  width: 100%;
+}
+.ars-item__page__info__meta {
+  display: inline-block;
+  /*padding-left: 10px;*/
+}
+.ars-item__page__info__meta h3 {
+  margin-top: 0;
+}
+.ars-item__page__info__meta h3, p {
+  margin-bottom: 5px;
+}
+.ars-item__info__badge--left {
+  /*margin-top: 2px;*/
+  float: left;
+}
+.fa.display {
+  font-size: 1.6rem;
+  padding-left: 5px;
+}
+@media screen and (max-width: 920px) and (orientation: portrait) {
+  .ars-item__page {
+    font-size: 1em;
+  }
+  .ars-item__info {
+    width: 100% !important;
+  }
+}
+/***/
+
+/* This is for the 3 balls fading in and out 
+which acts as our loader while the DOM loads
+each Akeeba release */
+.loader:before,
+.loader:after,
+.loader {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  font-size: 10px;
+  margin: 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em #1BBC9B;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 #0077bb;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em #1BBC9B;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0 #0077bb;
+  }
+}
+/***/
+
+/* Standard fadein animation */
+@keyframes osadp_fadein {
+  from { opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
+
+@-webkit-keyframes osadp_fadein {
+  from { opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
+/***/
