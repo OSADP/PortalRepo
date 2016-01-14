@@ -19,7 +19,7 @@ angular.module('Leidos.OSADP.Research.Tools')
 	// main state of our application
 	.state('main', {
 		url: '/',
-		templateUrl: '/osadp/modules/mod_leidos_research_tools/app/partials/main.ng.html',
+		templateUrl: '/modules/mod_leidos_research_tools/app/partials/main.ng.html',
 		controller: 'MainCtrl'
 	})
 	// set default route to display all releases
