@@ -23,7 +23,7 @@
 		<span>Modified: <strong>{{ item.release.modified }}</strong><br></span>
 		<!-- Environment | float right -->
 		<span class="pull-right">
-			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
+			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display" title="{{ environment.name }}"></span>
 		</span>
 		<!-- Number of Hits -->
 		Downloads: <strong>{{ item.hits }}</strong>

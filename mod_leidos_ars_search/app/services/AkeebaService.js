@@ -79,10 +79,16 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	// parse environments to match equivalent fontawesome icons
 	function envToFontAwesome( items ) {
 		items = items.split('"');
-		var _fontAwesome = ["-", "-", "linux", "apple", "apple", "windows", "android"];
-		var _parsedItems = [];
+		var _fontAwesome = ["-", "-", "linux", "osx", "ios", "windows", "android"];
+		var _parsedItems = [], environment;
 		angular.forEach( items, function( item, index ) {
-			if( index % 2 ) _parsedItems.push( _fontAwesome[ item ] );
+			if( index % 2 ) {
+				environment = _fontAwesome[ item ];
+				_parsedItems.push({
+					icon: ( environment == 'osx' || environment == 'ios' ) ? 'apple' : environment,
+					name: environment
+				});
+			}
 		});
 
 		return _parsedItems;

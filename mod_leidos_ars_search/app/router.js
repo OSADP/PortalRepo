@@ -19,13 +19,13 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	// main state of our application
 	.state('main', {
 		url: '/:categoryId',
-		templateUrl: '/osadp/modules/mod_leidos_ars_search/app/partials/main.ng.html',
+		templateUrl: '/modules/mod_leidos_ars_search/app/partials/main.ng.html',
 		controller: 'AkeebaReleasesCtrl'
 	})
 	// this route show individual applications
 	.state('application', {
 		url: '/:categoryId/:itemId',
-		templateUrl: '/osadp/modules/mod_leidos_ars_search/app/partials/application.ng.html',
+		templateUrl: '/modules/mod_leidos_ars_search/app/partials/application.ng.html',
 		controller: 'ApplicationCtrl',
 		onEnter: function() {
 			// scroll to top in application pages for better browsing experience

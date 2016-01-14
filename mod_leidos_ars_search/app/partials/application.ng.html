@@ -14,7 +14,7 @@
 				<p>
 					<!-- Maturity Badge -->
 					<span class="ars-item__info__badge ars-item__info__badge--left badge {{ item.release.maturity }} display">{{ item.release.maturity }}</span>
-					<span ng-repeat="environment in item.environments" class="fa fa-{{ environment }} display" title="{{ environment }}"></span>
+					<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display" title="{{ environment.name }}"></span>
 				</p>
 			</div>
 		</div>
