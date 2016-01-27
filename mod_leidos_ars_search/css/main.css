@@ -255,6 +255,33 @@ each Akeeba release */
   top: 0;
 }
 
+.osadp__login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.3);
+}
+
+.osadp__login__form {
+  padding: 15px 15px 10px 15px;
+  position: absolute;
+  background: #F3F3F3;
+  top: 25%;
+  left: 50%;
+  width: 280px;
+  margin-left: -140px;
+  box-shadow: 0 0 15px;
+  -webkit-animation: osadp_login .5s;
+  -o-animation: osadp_login .5s;
+  animation: osadp_login .5s;
+}
+
+.osadp__login__form input[type="text"], .osadp__login__form input[type="password"] {
+  width: 100%;
+}
+
 @-webkit-keyframes load7 {
   0%,
   80%,
@@ -284,5 +311,16 @@ each Akeeba release */
 
 @-webkit-keyframes osadp_fadein {
   from { opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
+/***/
+/***/
+
+/* Standard fadein animation */
+@keyframes osadp_login {
+  from { top:-70px; opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
+}
+
+@-webkit-keyframes osadp_login {
+  from {  top:-70px; opacity:0; /*transform:translateY(5%) scale(0.95);*/ }
 }
 /***/

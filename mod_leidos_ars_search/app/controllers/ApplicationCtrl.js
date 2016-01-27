@@ -9,9 +9,17 @@
 * from ARS.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('ApplicationCtrl', ['$rootScope', '$scope', '$stateParams', 'AkeebaService', '$state', ApplicationCtrl])
+.controller('ApplicationCtrl', ['$rootScope', '$scope', '$stateParams', 'AkeebaService', '$state', '$timeout', ApplicationCtrl])
 
-function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $state ) {
+function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $state, $timeout ) {
+	// here we control the tabs and texts to display
+	$scope.activeTab = 'description';
+	$scope.login = false;
+	// this changes the width of the RIGHT panel to full width
+	$state.applicationWidth = 'col-xs-12';
+	// get base64 of href
+	$scope.redirect = btoa( location.href );
+	$scope.token = window.getToken().split('"')[3];
 	// broadcast the state since the category list is not part of the routing config
 	$rootScope.$broadcast('application:visible');
 	var _environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
@@ -31,8 +39,20 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 		})
 	})
 
-	// here we control the tabs and texts to display
-	$scope.activeTab = 'description';
-	// this changes the width of the RIGHT panel to full width
-	$state.applicationWidth = 'col-xs-12';
+	// this toggle the login form in the ui
+	$scope.toggleLogin = function( $event ) {
+		$scope.login = ! $scope.login;
+		$timeout(function() {
+			document.querySelector('.osadp__form__username').focus();
+		}, 100)
+	}
+
+	// this toggle the login form in the ui
+	$scope.closeLogin = function( $event ) {
+		$scope.login = ! $scope.login;
+		$timeout(function() {
+			document.querySelector('.osadp__close__login').focus();
+		}, 100)
+	}
+
 }

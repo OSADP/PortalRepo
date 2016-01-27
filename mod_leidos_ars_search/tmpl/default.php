@@ -69,4 +69,7 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 		window.isGuest = function() {
 			return <?php echo $user->guest;?> == 0;
 		}
+		window.getToken = function() {
+			return '<?php echo JHtml::_('form.token'); ?>';
+		}
 	</script>

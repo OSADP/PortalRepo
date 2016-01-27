@@ -31,7 +31,7 @@
 				<span class="fa fa-download"></span>
 				Download {{ item.filesize }} MB
 			</a>
-			<a href="/login" class="btn btn-success pull-right" ng-if="loggedIn">
+			<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="btn btn-success osadp__close__login pull-right" ng-if="loggedIn" ng-click="toggleLogin( $event )" tabindex="0">
 				<span class="fa fa-sign-in"></span>
 				Login to Download
 			</a>
@@ -88,10 +88,50 @@
 			</li>
 		</ul>
 	</div>
+
 	<!-- Displays other applications under the same category when 'other' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'other'">
 		<p ng-if="otherItems.length == 0">No similar application found..</p>
 		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" item="item"></div>
+	</div>
+
+
+	<div class="osadp__login" ng-if="login == true" style="width: 100%; height" ng-click="closeLogin()">
+		<form action="/login?task=user.login" method="post" name="login" class="osadp__login__form" ng-click="$event.stopPropagation()">
+			<button type="button" class="osadp__login__form-close pull-right" title="Close"
+				ng-click="closeLogin()">
+				<span class="fa fa-remove"></span>
+			</button>
+			<br>
+			<input type="hidden" name="{{ token }}" value="1">
+			<input type="hidden" name="return" value="{{ redirect }}">
+			<div class="input">
+				<span>
+					Username:
+					<input type="text" name="username" class="inputbox ks osadp__form__username" alt="username" size="18">
+				</span>
+				<span>
+					Password:
+					<input type="password" name="password" class="inputbox ks" size="18" alt="password">
+				</span>
+				<p>Remember me <input type="checkbox" name="remember" alt="" value="1"></p>
+				<button type="submit" class="btn btn-info" name="submit" class="kbutton">
+					Login
+				</button>
+				<a href="/login?view=registration" class="btn btn-primary">
+					Register
+				</a>
+			</div>
+			<p aria-hidden="true"></p>
+			<div>
+				<p>
+					<a href="/login?view=reset" rel="nofollow">Forgot your password?</a>
+				</p>
+				<p>
+					<a href="/login?view=remind" rel="nofollow">Forgot your username?</a>
+				</p>
+			</div>
+		</form>
 	</div>
 
 </div>
