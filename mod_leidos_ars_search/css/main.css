@@ -203,7 +203,8 @@ item image anyways */
 }
 .fa.display {
   font-size: 1.6rem;
-  padding-left: 5px;
+  padding-left: 4px;
+  padding-right: 2px;
 }
 @media screen and (max-width: 920px) and (orientation: portrait) {
   .ars-item__page {

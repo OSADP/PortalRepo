@@ -7,8 +7,14 @@
 		</div>
 	</div>
 	<div class="ars-item__info">
-		<!-- Maturity Badge -->
-		<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
+		<!-- Environment | float right -->
+		<div class="pull-right">
+			<!-- Maturity Badge -->
+			<span class="ars-item__info__badge badge {{ item.release.maturity }}">{{ item.release.maturity }}</span>
+			<p class="">
+				<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display pull-right" title="{{ environment.name }}"></span>
+			</p>
+		</div>
 		<!-- Release Name -->
 		<p class="ars-item__info-title">
 			{{ item.title }}
@@ -21,10 +27,6 @@
 		<span>Version: <strong>{{ item.release.version }}</strong><br></span>
 		<!-- Date Created -->
 		<span>Modified: <strong>{{ item.release.modified }}</strong><br></span>
-		<!-- Environment | float right -->
-		<span class="pull-right">
-			<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display" title="{{ environment.name }}"></span>
-		</span>
 		<!-- Number of Hits -->
 		Downloads: <strong>{{ item.hits }}</strong>
 	</div>
