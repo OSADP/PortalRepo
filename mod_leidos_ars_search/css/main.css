@@ -201,6 +201,13 @@ item image anyways */
   /*margin-top: 2px;*/
   float: left;
 }
+
+.ars-item__environments {
+  clear: both;
+  overflow: auto;
+  padding-top: 5px;
+}
+
 .fa.display {
   font-size: 1.6rem;
   padding-left: 4px;

@@ -10,8 +10,8 @@
 		<!-- Environment | float right -->
 		<div class="pull-right">
 			<!-- Maturity Badge -->
-			<span class="ars-item__info__badge badge {{ item.release.maturity }}">{{ item.release.maturity }}</span>
-			<p class="">
+			<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
+			<p class="ars-item__environments">
 				<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display pull-right" title="{{ environment.name }}"></span>
 			</p>
 		</div>
@@ -19,9 +19,6 @@
 		<p class="ars-item__info-title">
 			{{ item.title }}
 			<p><em>{{ item.short_description }}</em></p>
-<!-- 						<a href="" class="btn btn-small btn-success" title="Download">
-				<span class="fa fa-download"></span> DOWNLOAD
-			</a> -->
 		</p>
 		<!-- Release Version -->
 		<span>Version: <strong>{{ item.release.version }}</strong><br></span>
