@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1.0" client="site" method="upgrade">
-    <name>Custom Icon Links</name>
+    <name>OSADP Custom Icon Links</name>
     <author>Leidos|Robert Roth</author>
     <version>0.3.0</version>
     <description>A custom module made by Leidos for OSADP to showcase icons as links to different services in the OSADP website.</description>
