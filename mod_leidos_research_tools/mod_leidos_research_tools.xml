@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1.0" client="site" method="upgrade">
-    <name>Leidos OSADP Research and Tools</name>
+    <name>Leidos OSADP Resources and Tools</name>
     <author>Leidos|Robert Roth</author>
     <version>0.11.3</version>
     <description>A custom module made by Leidos for OSADP displaying resources and other tools.</description>
@@ -35,7 +35,80 @@
     <config>
         <fields name="params">
             <fieldset name="basic">
-                <field name="header" type="text" default="Module Header" label="Enter Module Header" description="Text entered here will be displayed as the modules header." size="20" />
+                <field name="header" type="text" label="Enter Module Header"
+                    description="Text entered here will be displayed as the modules header." size="20" />
+                <!-- Link 1 -->
+                <field type="spacer" name="myspacer" label="&lt;hr/&gt;Link 1:" />
+                <field name="link1_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 1." size="20" />
+                <field name="link1_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 1." size="20" />
+                <field name="link1_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 2 -->
+                <field type="spacer" name="myspacer2" label="&lt;hr/&gt;Link 2:" />
+                <field name="link2_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 2." size="20" />
+                <field name="link2_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 2." size="20" />
+                <field name="link2_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 3 -->
+                <field type="spacer" name="myspacer3" label="&lt;hr/&gt;Link 3:" />
+                <field name="link3_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 3." size="20" />
+                <field name="link3_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 3." size="20" />
+                <field name="link3_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 4 -->
+                <field type="spacer" name="myspacer4" label="&lt;hr/&gt;Link 4:" />
+                <field name="link4_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 4." size="20" />
+                <field name="link4_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 4." size="20" />
+                <field name="link4_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 5 -->
+                <field type="spacer" name="myspacer5" label="&lt;hr/&gt;Link 5:" />
+                <field name="link5_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 5." size="20" />
+                <field name="link5_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 5." size="20" />
+                <field name="link5_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 6 -->
+                <field type="spacer" name="myspacer6" label="&lt;hr/&gt;Link 6:" />
+                <field name="link6_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 6." size="20" />
+                <field name="link6_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 6." size="20" />
+                <field name="link6_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 7 -->
+                <field type="spacer" name="myspacer7" label="&lt;hr/&gt;Link 7:" />
+                <field name="link7_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 7." size="20" />
+                <field name="link7_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 7." size="20" />
+                <field name="link7_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
+                <!-- Link 8 -->
+                <field type="spacer" name="myspacer8" label="&lt;hr/&gt;Link 8:" />
+                <field name="link8_name" type="text" default="" label="Text"
+                    description="Text entered here will be for Link 8." size="20" />
+                <field name="link8_url" type="text" default="" label="Hyperlink"
+                    description="Text entered here will be the Hyperlink for Link 8." size="20" />
+                <field name="link8_icon" type="text" default="" label="Icon"
+                    description="Using FontAwesome, enter the icon without the prefix 'fa'" size="20" />
+                <!-- // -->
             </fieldset>
         </fields>
     </config>
