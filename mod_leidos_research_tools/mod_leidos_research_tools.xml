@@ -2,35 +2,19 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos OSADP Resources and Tools</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.11.3</version>
+    <version>0.12.0</version>
     <description>A custom module made by Leidos for OSADP displaying resources and other tools.</description>
     <files>
+        <filename>index.html</filename>
         <filename>mod_leidos_research_tools.xml</filename>
         <filename module="mod_leidos_research_tools">mod_leidos_research_tools.php</filename>
-        <filename>index.html</filename>
         <filename>helper.php</filename>
-        <filename>tmpl/default.php</filename>
+
         <filename>tmpl/index.html</filename>
+        <filename>tmpl/default.php</filename>
 
         <filename>css/index.html</filename>
-        <filename>css/bounce.animation.css</filename>
         <filename>css/main.css</filename>
-
-        <filename>images/index.html</filename>
-        <filename>images/releaseprocess1.png</filename>
-        <filename>images/releaseprocess2.png</filename>
-        <filename>images/releaseprocess3.png</filename>
-        <filename>images/releaseprocess4.png</filename>
-
-        <filename>app/index.html</filename>
-        <filename>app/main.js</filename>
-        <filename>app/router.js</filename>
-
-        <filename>app/controllers/index.html</filename>
-        <filename>app/controllers/MainCtrl.js</filename>
-
-        <filename>app/partials/index.html</filename>
-        <filename>app/partials/main.ng.html</filename>
     </files>
     <config>
         <fields name="params">
