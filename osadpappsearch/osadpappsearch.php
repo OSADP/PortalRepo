@@ -30,6 +30,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 	 * @param       array   $config  An array that holds the plugin configuration
 	 * @since       1.6
 	 */
+
 	public function __construct(& $subject, $config)
 	{
 		parent::__construct($subject, $config);
@@ -156,10 +157,10 @@ class PlgSearchOsadpappsearch extends JPlugin
 		// Set query
 		$this->db->setQuery( $query, 0, $limit );
 		$rows = $this->db->loadObjectList();
- 
 		// The 'output' of the displayed link. Again a demonstration from the newsfeed search plugin
 		foreach($rows as $key => $row) {
-			$rows[$key]->href = '2015-10-22-21-56-19/all-applications#/'.$row->catId.'/'. $row->itemId;
+			$link = $this->params['applications_page'] . '#/';
+			$rows[$key]->href = $link . $row->catId.'/'. $row->itemId;
 		}
  
 	//Return the search results in an array

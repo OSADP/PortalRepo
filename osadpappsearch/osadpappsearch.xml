@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.1" type="plugin" group="search" method="upgrade">
-	<name>osadpappsearch</name>
+	<name>OSADP Explore Applications Search Plugin</name>
 	<author>Leidos: Robert Roth</author>
 	<creationDate>January 6, 2016</creationDate>
 	<copyright>Leidos</copyright>
 	<license>GNU/GPL</license>
 	<authorEmail>robert.m.roth@leidos.com</authorEmail>
 	<authorUrl>www.leidos.com</authorUrl>
-	<version>0.0.1</version>
+	<version>0.0.3</version>
 	<description>Plugin to add akeeba managed applications available for searching in Joomla.</description>
 	
 	<files>
 	   <filename plugin="osadpappsearch">osadpappsearch.php</filename>
 	</files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="applications_page" type="text"
+						default="applications"
+						description="Enter the actual link to the Explore Applications page."
+						label="Explore Applications Link"
+						size=""
+					/>
+			</fieldset>
+		</fields>
+	</config>
 </extension>
