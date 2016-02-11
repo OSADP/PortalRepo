@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Leidos OSADP Footer</name>
+    <author>Robert Roth - Software Developer @ Leidos</author>
+    <version>1.0.1</version>
+    <description>A custom module made by Leidos for OSADP display a better functioning footer.</description>
+    <files>
+        <filename>mod_leidos_osadp_footer.xml</filename>
+        <filename module="mod_leidos_osadp_footer">mod_leidos_osadp_footer.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+
+        <filename>css/index.html</filename>
+        <filename>css/osadp.footer.css</filename>
+
+        <filename>js/index.html</filename>
+        <filename>js/osadp.footer.js</filename>
+    </files>
+    <config>
+<!--         <fields name="params">
+            <fieldset name="basic">
+                <field name="applicationsLink" type="text" default="" label="Enter Explore Applications URL:" description="This will be the link for the Explore Applications Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="releasesLink" type="text" default="" label="Enter Upcoming Releases URL:" description="This will be the link for the Upcoming Releases Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="resourcesLink" type="text" default="" label="Enter Resources and Tools URL:" description="This will be the link for the Resources and Tools Icon" size="256" />
+            </fieldset>
+            <fieldset name="basic">
+                <field name="discussionsLink" type="text" default="" label="Enter Discussion Forum URL:" description="This will be the link for the Discussion Forum Icon" size="256" />
+            </fieldset>
+        </fields> -->
+    </config>
+</extension>
