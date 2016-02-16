@@ -24,6 +24,8 @@ class DBConfig {
 	}
 	protected function database_connect() {
 		$config = new mysqli ( $this->host, $this->username, $this->password, $this->schema );
+		// restrict character encoding to UTF-8
+		$config->set_charset("utf8");
 		$config->autocommit ( FALSE );
 		return $config;
 	}
