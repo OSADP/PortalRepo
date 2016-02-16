@@ -4,11 +4,12 @@
 .container.t3-masstop { z-index: 2; }
 
 .osadp-footer-container {
-  position: fixed;
+  position: fixed !important;
   bottom: 0;
-  left: 0;
+  left: 0 !important;
   width: 100%;
   height: 80px;
+  z-index: 2;
 }
 
 .osadp-footer {
