@@ -7,7 +7,7 @@
 	<authorUrl>http://itsforge.org</authorUrl>
 	<copyright></copyright>
 	<license></license>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<description>COM_MULTICATEGORIES_DESCRIPTION</description>
 
 	<install>
@@ -27,6 +27,7 @@
 			<folder>languages</folder>
 			<folder>models</folder>
 			<folder>views</folder>
+			<folder>css</folder>
 			<folder>scripts</folder>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
@@ -36,8 +37,8 @@
 		</files>  
 
 		<languages folder="admin">
-			<language tag="en-GB">languages/en-GB/en-GB.com_leidos_akeeba_multicategories.ini</language>
-			<language tag="en-GB">languages/en-GB/en-GB.com_leidos_akeeba_multicategories.sys.ini</language>
+			<language tag="en-GB">languages/en-GB/en-GB.com_multicategories.ini</language>
+			<language tag="en-GB">languages/en-GB/en-GB.com_multicategories.sys.ini</language>
 		</languages>
 
 	</administration>
