@@ -18,7 +18,8 @@
 		var multiService = new MultiCategoriesService();
 		multiService.initialize( window._itemId, window._mainCategory )
 		.then( function( data ) {
-			data.category_ids = data.category_ids.split(',');
+			if( data.category_ids )
+				data.category_ids = data.category_ids.split(',');
 			loadCategories( listCategories, data.category_ids );
 		});
 		// instantiate our alert class
