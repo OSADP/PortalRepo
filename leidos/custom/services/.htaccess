@@ -1,2 +1,4 @@
 RewriteRule ^ars/ akeeba.ws.php
 RewriteRule ^extras/ akeebacustom.ws.php
+
+RewriteRule ^multi/ multicategories/multicategories.ws.php
