@@ -97,6 +97,7 @@ class ArsService extends DBConfig {
 				jos_akeeba_item_custom c ON i.id = c.item_id
 			INNER JOIN
 				jos_ars_releases r ON i.release_id = r.id
+			WHERE i.published = 1
 			ORDER BY i.title');
 		$counter = 0;
 
@@ -130,6 +131,15 @@ class ArsService extends DBConfig {
 
 	 			// add the release to the item
 	 			$arrItems[$counter]["release"] = $rel;
+				// @author Robert Roth
+				// @desc get all category ids from our database by item id
+				$statement4 = $this->db->query('SELECT * FROM jos_akeeba_multicategories WHERE item_id='. $arrItems[$counter]['id']);
+				$item['category_ids'] = [];
+				if( $statement4 ){
+					$arrItems[$counter]['category_ids'] = $statement4->fetch_assoc();
+				}
+				$statement4->close();
+				//--
  			}
 
  			$counter++;
@@ -165,7 +175,7 @@ class ArsService extends DBConfig {
 				i.id=' . $itemId );
 		
 		// should only return one result.  put that row in a variable
-		while ( $row = $stmt->fetch_array ( MYSQL_ASSOC ) ) {
+		while ( $row = $stmt->fetch_assoc() ) {
 			$item = $row;
 		}
 		$releaseId = $item['release_id'];
@@ -176,7 +186,7 @@ class ArsService extends DBConfig {
 			WHERE id=' . $releaseId );
 
 		// should only return one result.  put that row in a variable
-		while ( $row2 = $stmt2->fetch_array ( MYSQL_ASSOC ) ) {
+		while ( $row2 = $stmt2->fetch_assoc() ) {
 			$rel = $row2;
 		}
 		$categoryId = $rel['category_id'];
@@ -188,10 +198,19 @@ class ArsService extends DBConfig {
 				WHERE id=' . $categoryId );
 
 		// should only return one result.  put that row in a variable
-		while ( $row3 = $stmt3->fetch_array ( MYSQL_ASSOC ) ) {
+		while ( $row3 = $stmt3->fetch_assoc() ) {
 			$cat = $row3;
 		}
-		
+		// @author Robert Roth
+		// @desc get all category ids from our database by item id
+		$statement4 = $this->db->query('SELECT * FROM jos_akeeba_multicategories WHERE item_id='. $itemId);
+		$item['category_ids'] = [];
+		if( $statement4 ){
+			$item['category_ids'] = $statement4->fetch_assoc();
+		}
+		$statement4->close();
+		//--
+
 		// add the category to the release
 		$rel['category'] = $cat;
 		// add the release to the item
