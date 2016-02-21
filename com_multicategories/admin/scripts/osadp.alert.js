@@ -39,12 +39,14 @@ if( jQuery ) {
 		};
 		// set alert as a success
 		OsadpAlert.prototype.success = function() {
+			this._element.removeClass('fail');
 			this._element.addClass('success');
 			// enable chaning of functions
 			return this;
 		};
 		// set alert as a failure
 		OsadpAlert.prototype.fail = function() {
+			this._element.removeClass('success');
 			this._element.addClass('fail');
 			// enable chaning of functions
 			return this;
