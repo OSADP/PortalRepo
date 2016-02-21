@@ -20,7 +20,6 @@
 		.then( function( data ) {
 			if( data.category_ids ) {
 				data.category_ids = data.category_ids.split(',');
-				data.category_ids.push( window._mainCategory );
 			}
 			loadCategories( listCategories, data.category_ids );
 		});
@@ -82,6 +81,7 @@
 
 		function selectedCategories () {
 			var result = [];
+			result.push( window._mainCategory );
 			for( var i = 0, len = listCategories.length; i < len; i++ ) {
 				var item = $( listCategories[i] );
 				if( item.hasClass('selected') ) {
