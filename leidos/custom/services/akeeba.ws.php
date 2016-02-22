@@ -133,7 +133,7 @@ if (isset($_GET['download'])) {
 */
 			header("Content-Type: application/zip");
 //          header("Content-Length:" . filesize($file));
-            header("Content-Disposition: attachment; filename=" . $dirs[1]);
+            header("Content-Disposition: attachment; filename="  . basename($file));
 			header('Content-Transfer-Encoding: binary');
 
 			ob_clean();
@@ -173,7 +173,7 @@ if (isset($_POST['download'])) {
 */
 			header("Content-Type: application/zip");
 //          header("Content-Length:" . filesize($file));
-            header("Content-Disposition: attachment; filename=" . $dirs[1]);
+            header("Content-Disposition: attachment; filename="  . basename($file));
 			header('Content-Transfer-Encoding: binary');
 
 			ob_clean();
