@@ -13,11 +13,26 @@
 
     class OSADPStatistics {
 
-        function getReleases() {
+        function getAllReleases() {
             // create our database object
             $db = JFactory::getDbo();
             // create our SQL query
             $query = "SELECT COUNT(*) FROM #__ars_items as i INNER JOIN #__ars_releases as r ON i.release_id = r.id";
+            // query the database
+            $db->setQuery( $query );
+            // return our result
+            return $db->loadResult();
+        }
+
+        function getActiveReleases() {
+            // create our database object
+            $db = JFactory::getDbo();
+            // create our SQL query
+            $query = "SELECT COUNT(*) 
+            FROM #__ars_items as i 
+            INNER JOIN #__ars_releases as r 
+            ON i.release_id = r.id
+            WHERE i.published = 1";
             // query the database
             $db->setQuery( $query );
             // return our result

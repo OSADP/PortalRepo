@@ -13,10 +13,13 @@ defined('_JEXEC') or die;
 $layout = $params->get('layout', 'default');
 // require our helper class OSADPStatistics
 require_once (dirname(__FILE__).'/helper.php');
+$helper = new OSADPStatistics;
 // get the number of releases data from our helper class
-$totalReleases = OSADPStatistics::getReleases();
+$totalReleases = $helper->getAllReleases();
+// get the number of Published/Active releases
+$activeReleases = $helper->getActiveReleases();
 // get the total number of downloads/hits on akeeba items with releases
-$totalDownloads = OSADPStatistics::getDownloads();
+$totalDownloads = $helper->getDownloads();
 //
 require JModuleHelper::getLayoutPath('mod_leidos_statistics', $layout);
 ?>

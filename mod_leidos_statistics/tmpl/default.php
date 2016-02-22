@@ -10,5 +10,8 @@
 		<li class="statistics__item">
 			Application Downloads: <?php echo $totalDownloads; ?>
 		</li>
+		<li class="statistics__item">
+			Active Releases: <?php echo $activeReleases; ?>
+		</li>
 	</ul>
 </div>
