@@ -19,22 +19,25 @@
 			</div>
 		</div>
 		<div class="col-xs-6 col-sm-4">
-			<p style="text-align: right;">
-				Category: 
-				<a href="#/{{ item.release.category.id }}" class="">
-					<span class="sr-only">Browse</span> 
-					{{ item.release.category.title }}
+			<div class="clearfix">
+				<a href="/leidos/custom/services/ars/download/{{ item.id }}" class="btn btn-success pull-right" ng-if="! loggedIn">
+					<span class="fa fa-download"></span>
+					Download {{ item.filesize }} MB
+				</a>
+				<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="btn btn-success osadp__close__login pull-right" ng-if="loggedIn" ng-click="toggleLogin( $event )" tabindex="0">
+					<span class="fa fa-sign-in"></span>
+					Login to Download
+				</a>
+			</div>
+			<div class="pull-left">Categories: </div>
+			<div ng-repeat="(key, value) in item.categories" class="pull-left" style="display: inline-block;">
+				<a href="#/{{ value.id }}" class="">
+					<span class="sr-only">{{ value.title }}</span> 
+					{{ value.title }}
 					<span class="sr-only">Applications</span>
 				</a>
-			</p>
-			<a href="/leidos/custom/services/ars/download/{{ item.id }}" class="btn btn-success pull-right" ng-if="! loggedIn">
-				<span class="fa fa-download"></span>
-				Download {{ item.filesize }} MB
-			</a>
-			<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="btn btn-success osadp__close__login pull-right" ng-if="loggedIn" ng-click="toggleLogin( $event )" tabindex="0">
-				<span class="fa fa-sign-in"></span>
-				Login to Download
-			</a>
+				<span ng-if="key + 1 != item.categories.length" style="margin-right: 5px;">,</span>
+			</div>
 		</div>
 	</div>
 

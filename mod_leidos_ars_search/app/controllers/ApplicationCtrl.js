@@ -36,8 +36,25 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 		AkeebaService.getOtherItems( item.release.category.id, item.id )
 		.then( function( items ) {
 			$scope.otherItems = items;
-		})
-	})
+		});
+		// get multiple categories id, and title
+		AkeebaService.getAllCategories()
+		.then( function( categories ) {
+			// holder for our categories' id and title
+			$scope.item.categories = [];
+			angular.forEach($scope.item.category_ids, function( category_id ) {
+				angular.forEach( categories, function( category ) {
+					if( category_id == category.id ) {
+						$scope.item.categories.push({
+							id: category.id,
+							title: category.title
+						});
+					}
+				});
+			});
+			console.log( $scope.item );
+		});
+	});
 
 	// this toggle the login form in the ui
 	$scope.toggleLogin = function( $event ) {

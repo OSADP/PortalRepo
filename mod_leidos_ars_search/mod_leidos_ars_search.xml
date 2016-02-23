@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1.0" client="site" method="upgrade">
-    <name>Leidos Akeeba Release Application Search</name>
+    <name>Leidos Akeeba Realease Application Search</name>
     <author>Leidos|Robert Roth</author>
     <version>0.13.1</version>
     <description>A custom module made by Leidos for OSADP to showcase ARS items as a slider.</description>

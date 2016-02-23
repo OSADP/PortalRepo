@@ -26,9 +26,9 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 	_this.getAllItems = function() {
 		return $http.get('/leidos/custom/services/ars/items')
 			.then( function( promise ) {
-				angular.forEach( promise.data, function( item ) {
-					item.environments = envToFontAwesome( item.environments );
-				});
+					angular.forEach( promise.data, function( item ) {
+						item.environments = envToFontAwesome( item.environments );
+					});
 				return promise.data;
 			})
 	}

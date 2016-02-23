@@ -63,10 +63,14 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 			// display items based on current category id
 			var categorizedItems = [];
 			angular.forEach( items, function( item ) {
-				if( item.release.category_id == _categoryId ) {
-					categorizedItems.push( item );
-				}
-			})
+				// NEW: Multicategory implementation
+				// @author Robert Roth
+				angular.forEach( item.category_ids, function( category_id ) {
+					if( category_id == _categoryId ) {
+						categorizedItems.push( item );
+					}
+				});
+			});
 			$scope.items = paginate(sortItems( categorizedItems, $scope.ordering, $scope.reverse ), $scope.limit);
 			// this limits how many items are shown: pagination
 			$scope.$watch('limit', function() {

@@ -21,7 +21,7 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 		// Akeeba Release System database
 		if( $scope.categories.length > 0 ) {
 			$scope.currentCategory = {
-				title: 'All Releases',
+				title: 'All Active Releases',
 				id: 'all',
 				icon_url: '/modules/mod_leidos_ars_search/images/osadp-logo.png'
 			}
@@ -47,8 +47,16 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 				category.items = [];
 				if( category.id == 'all' ) category.items = _items;
 				angular.forEach( _items, function( item ) {
-					if( item.release.category_id == category.id )
-						category.items.push( item );
+					// NEW 02-21-2016
+					// @author Robert Roth
+					// @desc Multicategory implementation for counting items in badge
+					angular.forEach( item.category_ids, function( category_id ) {
+						if( category_id == category.id ) {
+							category.items.push( item );
+						}
+					})
+					// if( item.release.category_id == category.id )
+					// 	category.items.push( item );
 				})
 			});
 		});
