@@ -17,12 +17,12 @@
             // create our database object
             $db = JFactory::getDbo();
             // create our SQL query
-            $query = "SELECT i.id, i.release_id, i.title, i.created, c.short_description, r.category_id
+            $query = "SELECT i.id, i.release_id, i.title, i.created, c.short_description, r.category_id, r.created
             FROM #__ars_items AS i 
             LEFT JOIN #__akeeba_item_custom AS c ON i.id = c.item_id
             INNER JOIN #__ars_releases AS r ON i.release_id = r.id
             WHERE i.published = 1 
-            ORDER BY i.created DESC
+            ORDER BY r.created DESC
             LIMIT 10";
             // query the database
             $db->setQuery( $query );
