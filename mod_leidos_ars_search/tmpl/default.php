@@ -66,10 +66,16 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 
 
 	<script>
-		window.isGuest = function() {
-			return <?php echo $user->guest;?> == 0;
-		}
-		window.getToken = function() {
-			return '<?php echo JHtml::_('form.token'); ?>';
+		window.__internal = {
+			userId: '<?php echo dechex( $user->id + 618 );?>',
+			isGuest: function() {
+				return <?php echo $user->guest;?> == 0;
+			},
+			getUserId: function() {
+				return '<?php echo dechex( $user->id + 618 );?>'
+			},
+			getToken: function() {
+				return '<?php echo JHtml::_('form.token'); ?>';
+			}
 		}
 	</script>

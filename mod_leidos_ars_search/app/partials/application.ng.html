@@ -20,7 +20,7 @@
 		</div>
 		<div class="col-xs-6 col-sm-4">
 			<div class="clearfix">
-				<a href="/leidos/custom/services/ars/download/{{ item.id }}" class="btn btn-success pull-right" ng-if="! loggedIn">
+				<a href="/leidos/custom/services/ars/download?itemId={{ item.id }}&amp;userId={{ userId }}" class="btn btn-success pull-right" ng-if="! loggedIn">
 					<span class="fa fa-download"></span>
 					Download {{ item.filesize }} MB
 				</a>

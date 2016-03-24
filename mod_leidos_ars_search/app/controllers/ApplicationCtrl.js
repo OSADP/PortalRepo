@@ -19,12 +19,13 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 	$state.applicationWidth = 'col-xs-12';
 	// get base64 of href
 	$scope.redirect = btoa( location.href );
-	$scope.token = window.getToken().split('"')[3];
+	$scope.token = window.__internal.getToken().split('"')[3];
+	$scope.userId = window.__internal.getUserId();
 	// broadcast the state since the category list is not part of the routing config
 	$rootScope.$broadcast('application:visible');
 	var _environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
 	// get our application details based on the route's parameters
-	$scope.loggedIn = ! window.isGuest();
+	$scope.loggedIn = ! window.__internal.isGuest();
 	AkeebaService.getItem( $stateParams.itemId )
 	.then( function( item ) {
 		// item.environment = _environments[item.environments.split('"')[1]];
@@ -45,14 +46,10 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 			angular.forEach($scope.item.category_ids, function( category_id ) {
 				angular.forEach( categories, function( category ) {
 					if( category_id == category.id ) {
-						$scope.item.categories.push({
-							id: category.id,
-							title: category.title
-						});
+						$scope.item.categories.push({id: category.id, title: category.title});
 					}
 				});
 			});
-			console.log( $scope.item );
 		});
 	});
 
