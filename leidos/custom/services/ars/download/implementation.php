@@ -46,7 +46,7 @@
 				      die("Error: File not found.");
 				    }
 				  } else {
-				  	die('Error: File is not published.')
+				  	die('Error: File is not published.');
 				  }
 				}
 			}
