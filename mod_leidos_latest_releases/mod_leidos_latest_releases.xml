@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>OSADP Akeeba Latest Releases</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <description>A custom module made by Leidos for OSADP to display the top 10 latest Akeeba Releases.</description>
     <files>
         <filename>mod_leidos_latest_releases.xml</filename>

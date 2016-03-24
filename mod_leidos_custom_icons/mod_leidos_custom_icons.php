@@ -13,14 +13,16 @@ defined('_JEXEC') or die;
 $layout = $params->get('layout', 'default');
 // require our helper class ArsRelease
 require_once (dirname(__FILE__).'/helper.php');
+// instantiate our helper class
+$arsRelease = new ArsRelease();
 // get akeeba releases data from our helper class
-$releases = ArsRelease::getReleases();
+$releases = $arsRelease->getReleases();
 // get akeeba releases data from our helper class
-$items = ArsRelease::getItems();
+$items = $arsRelease->getItems();
 // get joomla users data from our helper class
-$users = ArsRelease::getUsers();
+$users = $arsRelease->getUsers();
 // get forum topics data from our helper class
-$discussions = ArsRelease::getDiscussions();
+$discussions = $arsRelease->getDiscussions();
 // get the link for Explore Applications from our params
 $applicationsLink = $params->get('applicationsLink');
 // get the link for Upcoming Releases from our params

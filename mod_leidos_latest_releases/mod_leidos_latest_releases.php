@@ -13,8 +13,10 @@ defined('_JEXEC') or die;
 $layout = $params->get('layout', 'default');
 // require our helper class OSADPStatistics
 require_once (dirname(__FILE__).'/helper.php');
+// instantiate helper class
+$helper = new LatestReleases();
 // get the number of releases data from our helper class
-$latestReleases = LatestReleases::getLatest();
+$latestReleases = $helper->getLatest();
 // get explore applications link from params
 $applicationsLink = $params->get('application', '');
 // get the limit for displaying releases from module params
