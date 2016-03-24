@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>Leidos ARS Display Categories</name>
+    <author>Leidos - Robert Roth</author>
+    <version>0.1.1</version>
+    <description>A custom module made by Leidos for OSADP to showcase ARS Categories with icons and serving as links to the Leidos ARS Explore Applications Module.</description>
+    <files>
+        <filename>mod_leidos_ars_categories.xml</filename>
+        <filename module="mod_leidos_ars_categories">mod_leidos_ars_categories.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <filename>css/main.css</filename>
+        <filename>css/index.html</filename>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field name="application_module" type="text" default="" label="Enter Explore Application Link" description="Enter link where the Leidos ARS Explore Application module is found." size="255" />
+            </fieldset>
+        </fields>
+    </config>
+</extension>
