@@ -1,0 +1,11 @@
+# route to for our ARS Releases web service
+RewriteRule ^releases/ releases/service.php
+
+# route to for our ARS Items web service
+RewriteRule ^items/ items/service.php
+
+# route to for our ARS Categories web service
+RewriteRule ^categories/ categories/service.php
+
+# route to for our ARS Downloads web service
+RewriteRule ^download/ download/service.php
