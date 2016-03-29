@@ -1,7 +1,4 @@
-
-
 'use strict';
-
 /**
 * Angular UI-Router Configuration
 *
