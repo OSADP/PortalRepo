@@ -106,7 +106,7 @@
 		// increment download hit on successful application download
 		function insertDownloadLogs( $userId, $itemId ) {
 			// get current date and time
-			$accessedOn = date('Y-m-d H:m:s');
+			$accessedOn = gmdate('Y-m-d H:m:s');
 			// the URL where the request was initiated
 			$referer = $_SERVER['HTTP_REFERER'];
 			// the IP address of the machine that initiated the request
