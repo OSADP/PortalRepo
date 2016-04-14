@@ -1,0 +1,104 @@
+
+	.chart-legent {
+		list-style-type: none;
+	}
+	.chart-legend li span{
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+	}
+
+	.thumbnail {
+		height: 370px;
+		margin-bottom: 10px;
+		padding: 4px 12px;
+		color: rgb(52, 73, 94);
+		border-radius: 0;
+		overflow: auto;
+	}
+	.thumbnail h3 {
+		color: rgb(52, 73, 94);
+	}
+	.thumbnail p {
+		color: rgb(103, 128, 159);
+	}
+	.accent-blue {
+		border-top: 3px solid rgb(129, 207, 224);
+	}
+	.accent-red {
+		border-top: 3px solid rgb(210, 77, 87);
+	}
+	.accent-green {
+		border-top: 3px solid rgb(38, 194, 129);
+	}
+	.accent-yellow {
+		border-top: 3px solid rgb(244, 208, 63);
+	}
+	.accent-purple {
+		border-top: 3px solid rgb(155, 89, 182);
+	}
+
+	.span4 .btn {
+		margin-top: 8px;
+	}
+	.row {
+		margin: 0;
+	}
+	.span6 {
+		margin-left: 15px !important;
+	}
+	.table, .table * {
+		border-radius: 0 !important;
+	}
+	.table th {
+		text-align: center;
+	}
+	.centered {
+		text-align: center !important;
+	}
+
+	.row-fluid [class*="span"] {
+		margin: 0 15px 15px 0;
+	}
+	
+	.row-fluid [class*="span"].fullscreen {
+		display: block;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    top: 0;
+    margin-top: 31px;
+    padding-bottom: 50px;
+    left: 0;
+    z-index: 9999;
+	}
+	.row-fluid [class*="span"].fullscreen .table {
+		width: 50%;
+	}
+
+	@media print {
+		.row [class*="span"] {
+			border: none;
+			max-width: 100% !important;
+			width: 100% !important;
+		}
+		.row {
+			page-break-after: always;
+		}
+	}
+
+	/* highcharts styling */
+	.highcharts-button, .highcharts-tooltip+text {
+		display: none !important;
+	}
+
+	.inline-container {
+		display: inline-block;
+		vertical-align: middle;
+	}
+
+	.container-main * {
+		border-radius: 0 !important;
+	}
