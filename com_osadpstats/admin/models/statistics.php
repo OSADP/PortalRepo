@@ -47,6 +47,7 @@ class OsadpModelsStatistics extends JModelBase
     $query = $db->getQuery(true);
     $query->select( $db->quoteName(array('id', 'release_id', 'title', 'hits')) )
           ->from( $db->quoteName('#__ars_items') )
+          ->where($db->quoteName('hits') . '> 0')
           ->order('hits DESC');
     $db->setQuery($query);
     $stats['top_downloads'] = $db->loadObjectList();
@@ -108,15 +109,16 @@ class OsadpModelsStatistics extends JModelBase
    * @param  int $limit Will be the amount of applications returned.
    * @return array|null A list of the latest applications created.
    */
-  function getLatestApplications( $limit ) {
-    $limit = (isset($limit)) ? $limit : 5; // set default as 5
+  function getLatestApplications( $from, $until ) {
     $db = JFactory::getDbo();
-    $query = $db->getQuery( true );
-    $query->select( $db->quoteName( array('i.id','i.title', 'r.created') ) )
-    ->from( $db->quoteName('#__ars_items', 'i'))
-    ->join('LEFT', $db->quoteName('#__ars_releases', 'r') . ' ON (' . $db->quoteName('i.release_id') . ' = ' . $db->quoteName('r.id') . ')')
-    ->order('r.created DESC')
-    ->setLimit( $limit );
+
+    $query = "SELECT i.id, i.title, r.created
+    FROM jos_ars_items as i
+    LEFT JOIN jos_ars_releases as r
+    ON i.release_id = r.id
+    WHERE r.created BETWEEN '$from' AND '$until'
+    ORDER BY r.created DESC";
+
     $db->setQuery($query);
 
     return $db->loadObjectList();
@@ -129,15 +131,17 @@ class OsadpModelsStatistics extends JModelBase
    * @param int $year integer representing a year e.g. 2015.
    * @return array|null a list of downloads by day
    */
-  function getUsersByMonth( $month, $year ) {
+  function getUsersByMonth( $from, $until ) {
     $db = JFactory::getDbo();
-    $from = $year . '-' . $month . '-' . '1';
-    $until = $year . '-' . ($month + 1) . '-' . '1';
-    $query = "SELECT id, username, email, registerDate, activation
-              FROM jos_users WHERE registerDate BETWEEN '$from' AND '$until'
-              ORDER BY registerDate DESC";
-    $db->setQuery( $query );
-    return $db->loadObjectList();
+    if( isset($from) && isset($until) ) {
+      $query = "SELECT id, username, email, registerDate, activation
+                FROM jos_users WHERE registerDate BETWEEN '$from' AND '$until'
+                ORDER BY registerDate DESC";
+      $db->setQuery( $query );
+      return $db->loadObjectList();
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -149,11 +153,22 @@ class OsadpModelsStatistics extends JModelBase
    */
   function getDownloadsByMonth( $from, $until ) {
     $db = JFactory::getDbo();
-    // $from = $year . '-' . $month . '-' . '1';
-    // $until = $year . '-' . ($month + 1) . '-' . '1';
     $query = "SELECT COUNT(*) as downloads, DAY(accessed_on) as day, MONTH(accessed_on) as month
               FROM jos_ars_log WHERE authorized = 1 AND accessed_on BETWEEN '$from' AND '$until'
               GROUP BY DAY(accessed_on), MONTH(accessed_on)";
+    $db->setQuery( $query );
+    return $db->loadObjectList();
+  }
+
+  function getItemsThisPeriod( $from, $until ) {
+    $db = JFactory::getDbo();
+    $query = "SELECT COUNT(*) as downloads, log.item_id as id, log.accessed_on as 'date', item.title
+              FROM jos_ars_log as log
+              INNER JOIN jos_ars_items as item
+              ON log.item_id = item.id
+              WHERE log.accessed_on BETWEEN '$from' AND '$until'
+              GROUP BY item.title
+              ORDER BY downloads DESC";
     $db->setQuery( $query );
     return $db->loadObjectList();
   }

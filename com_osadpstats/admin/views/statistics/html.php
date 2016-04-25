@@ -20,27 +20,48 @@ class OsadpViewsStatisticsHtml extends JViewHtml
   }
 
   /**
+   * Get top downloaded items within the given period.
+   * @param  string $from  starting date period
+   * @param  string $until ending date period
+   * @return array
+   */
+  function getItemsThisPeriod( $from, $until ) {
+    $modelStats = new OsadpModelsStatistics();
+    if( ! isset($from) && ! isset($until) ) {
+      $from = $year . '-' . $month . '-' . '1';
+      $until = $year . '-' . ($month + 1) . '-' . '1';
+    }
+    $from .= ' 00:00:00';
+    $until .= ' 23:59:59';
+
+    return $modelStats->getItemsThisPeriod( $from, $until );
+  }
+
+  /**
    * Query database for recently created apps.
    * @param $limit - integer that we use to set the limit in our query.
    * @since 0.0.12
    */
-  function getLatestApplications( $limit ) {
+  function getLatestApplications( $from, $until ) {
     $modelStats = new OsadpModelsStatistics();
+    if( ! isset($from) && ! isset($until) ) {
+      $from = $year . '-' . $month . '-' . '1';
+      $until = $year . '-' . ($month + 1) . '-' . '1';
+    }
+    $from .= ' 00:00:00';
+    $until .= ' 23:59:59';
     // return our item/s
-    return $modelStats->getLatestApplications( $limit );
+    return $modelStats->getLatestApplications( $from, $until );
   }
 
-  /* Get downloads this current month */
-  // function getDownloadsThisMonth( $month ) {
-  //   $modelStats = new OsadpModelsStatistics();
-  //   $month = ( isset( $month ) ) ? $month : date('n');
-  //   $year = date('Y');
-  //   return $modelStats->getDownloadsByMonth($month, $year);
-  // }
   function getDownloadsThisMonth( $from, $until ) {
     $modelStats = new OsadpModelsStatistics();
-    // $month = ( isset( $month ) ) ? $month : date('n');
-    // $year = date('Y');
+    if( ! isset($from) && ! isset($until) ) {
+      $from = $year . '-' . $month . '-' . '1';
+      $until = $year . '-' . ($month + 1) . '-' . '1';
+    }
+    $from .= ' 00:00:00';
+    $until .= ' 23:59:59';
     return $modelStats->getDownloadsByMonth($from, $until);
   }
   /**
@@ -49,13 +70,17 @@ class OsadpViewsStatisticsHtml extends JViewHtml
   * @param $year - integer representing a year e.g. 2015
   * @since 0.1.0
   */
-  function getUsersThisMonth( $month ) {
+  function getUsersThisMonth( $from, $until) {
     // instantiate our Statistics model
     $modelStats = new OsadpModelsStatistics();
-    $month = ( isset( $month ) ) ? $month : date('n');
-    $year = date('Y');
+    if( ! isset($from) && ! isset($until) ) {
+      $from = $year . '-' . $month . '-' . '1';
+      $until = $year . '-' . ($month + 1) . '-' . '1';
+    }
+    $from .= ' 00:00:00';
+    $until .= ' 23:59:59';
     // return our item/s
-    return $modelStats->getUsersByMonth( $month, $year );
+    return $modelStats->getUsersByMonth( $from, $until );
   }
   /**
   * @since 0.1.0

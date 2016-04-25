@@ -6,7 +6,7 @@ window.OSADP = window.OSADP || {};
 window.OSADP.topDownloadsChart = function ( container, items ) {
 		var labels = [];
 		var dataset = [];
-		for( var x = 0; x < 5; x ++ ) {
+		for( var x = 0, len = items.length; x < len; x ++ ) {
 			labels.push(items[x].title);
 			dataset.push(parseInt(items[x].hits));
 		}

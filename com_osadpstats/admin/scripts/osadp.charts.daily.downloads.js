@@ -76,7 +76,7 @@ window.OSADP.dailyDownloadsChart = function ( container, items, _from, _until ) 
 window.OSADP.getRange = function(startDate, stopDate) {
     var dateArray = new Array();
     var currentDate = startDate;
-    while (currentDate < stopDate) {
+    while (currentDate <= stopDate) {
         dateArray.push( new Date (currentDate) )
         currentDate = currentDate.addDays(1);
     }

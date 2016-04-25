@@ -30,8 +30,8 @@
 			$from = $_GET['from'];
 			$until = $_GET['until'];
 		} else {
-			$from = date('Y-n-') . 1;
-			$until = date('Y') . '-' . (date('n') + 1) . '-1';
+			$from = date('Y-n-') . '1';
+			$until = date("Y-m-t", strtotime($from));
 		}
 		// get the month from our starting range string
 		$month = explode('-', $from)[1];
@@ -83,9 +83,13 @@
 
 	.btn.btn-osadp {
 		margin-top: 8px;
+		margin-left: 5px;
 	}
 	.row {
 		margin: 0;
+	}
+	.row [class*="span"] {
+		margin-left: 0 !important;
 	}
 	.span6 {
 		margin-left: 15px !important;
@@ -128,6 +132,11 @@
 		}
 		.row {
 			page-break-after: always;
+		}
+		.users__container {
+			display: block;
+			width: 100%;
+			overflow: all;
 		}
 	}
 
@@ -178,6 +187,7 @@
 	</div>
 	<!-- 1st row -->
 	<div class="row">
+		<!--  -->
 		<div class="span3 thumbnail accent-red users__container">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
@@ -191,23 +201,28 @@
 				<canvas id="usersChart" style="width: 100%; height: 100%;"></canvas>
 			</div>
 		</div>
-
+		<!--  -->
 		<div class="span5 thumbnail accent-green downloads__container" style="margin-left:0 !important;">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
 			</button>
-			<h3 class="hidden-print">Monthly User Registrations</h3>
+			<h3 class="hidden-print">User Registrations</h3>
 			<p class="hidden-print">Display the number of user registrations per month for this year as well as the previous year for comparison.</p>
 			<div id="userRegistrations" style="min-width: 310px; min-height: 280px; margin: 0 auto"></div>
 		</div>
-
-		<div class="span4	thumbnail accent-yellow">
+		<!--  -->
+		<div class="span4	thumbnail accent-blue">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
 			</button>
-			<h3>Registered Users</h3>
-			<p>Shows users who registered in the month selected.</p>
-			<table class="table table-striped table-bordered" id="latestUsers">
+			<a href="#" class="btn btn-osadp btn-csv-export expander hidden-print pull-right">
+				<span class="icon-download"></span>
+			</a>
+			<?php $users = $this->getUsersThisMonth( $from, $until ); ?>
+			<h3>Registered Users ( <?php echo count($users); ?> )</h3>
+			<p>Shows users who registered in the given period.</p>
+			<table class="table table-striped table-bordered"
+				data-filename="osadp-registered-users_<?php echo $from; ?>-<?php echo $until; ?>" id="latestUsers">
 				<tr>
 					<th>ID</th>
 					<th>Username</th>
@@ -216,7 +231,6 @@
 					<th class="hidden-phone">Activated</th>
 				</tr>
 				<?php
-					$users = $this->getUsersThisMonth( $month );
 					foreach ($users as $key => $user) {
 						$active = ( empty( $user->activation ) ) ? 'Yes': 'No';
 						$date = date_create($user->registerDate);
@@ -232,19 +246,21 @@
 				 ?>
 			</table>
 		</div>
+		<!--  -->
 	</div>
 	
 	<!-- 2nd row -->
 	<div class="row">
+		<!--  -->
 		<div class="span4 thumbnail accent-blue downloads__container highcharts-nolabels" style="margin-left:0 !important;">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
 			</button>
 			<h3 class="hidden-print">Top Downloaded Items</h3>
 			<p class="hidden-print">List of most downloaded applications sorted by number of downloads.</p>
-			<div id="highchartsContainer" style="min-width: 310px; min-height: 280px; margin: 0 auto"></div>
+			<div id="highchartsContainer" style="min-width: 310px; min-height: 580px; margin: 0 auto"></div>
 		</div>
-
+		<!--  -->
 		<div class="span5 thumbnail accent-red downloads__container highcharts-nolabels">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
@@ -253,43 +269,50 @@
 			<p class="hidden-print">Show the daily downloads for this month.</p>
 			<div id="downloadsChart" style="min-width: 310px; min-height: 280px; margin: 0 auto"></div>
 		</div>
-
-		<div class="span3 thumbnail accent-green">
+		<!--  -->
+		<div class="span3 thumbnail accent-yellow hidden-print">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
 			</button>
-			<h3 class="hidden-print">Latest Applications</h3>
-			<p class="hidden-print">List of newest applications in OSADP.</p>
-			<table class="table table-bordered table-striped">
+			<a href="#" class="btn btn-osadp btn-csv-export expander hidden-print pull-right">
+				<span class="icon-download"></span>
+			</a>
+			<h3>Top Downloads this Period</h3>
+			<p>Shows the top downloaded applications during a given period.</p>
+			<table class="table table-bordered table-striped" data-filename="osadp-top-downloads_<?php echo $from; ?>-<?php echo $until; ?>">
 				<tr>
-					<th>ID</th>
 					<th>Title</th>
-					<th>Created</th>
+					<th>Date</th>
+					<th>Downloads</th>
 				</tr>
-			<?php 
-					$latestApps = $this->getLatestApplications( 6 );
-					foreach ($latestApps as $key => $value) { ?>
+				<?php 
+				$apps = $this->getItemsThisPeriod( $from, $until );
+				foreach ($apps as $key => $value) { ?>
 				<tr>
-					<td><?php echo $value->id; ?></td>
+					<!-- <td><?php //echo $value->id; ?></td> -->
 					<td><?php echo $value->title; ?></td>
-					<td><?php echo date_format( date_create($value->created), 'M d, Y - h:i:s a'); ?></td>
+					<td style="text-align: center;"><?php echo $value->date; ?></td>
+					<td style="text-align: right;"><?php echo $value->downloads; ?></td>
 				</tr>
-			<?php } ?>
+				<?php } ?>
 			</table>
 		</div>
+	<!--  -->
 	</div>
 	<!-- eof 2nd row -->
-
 	<!-- 3rd row -->
 	<div class="row">
 		<!-- -->
-		<div class="span4 thumbnail accent-purple hidden-print">
+		<div class="span4 thumbnail accent-green hidden-print">
 			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
 				<span class="icon-expand"></span>
 			</button>
+			<a href="#" class="btn btn-osadp btn-csv-export expander hidden-print pull-right">
+				<span class="icon-download"></span>
+			</a>
 			<h3>Applications Released</h3>
 			<p>Shows any applications released during this period.</p>
-			<table class="table table-bordered table-striped">
+			<table class="table table-bordered table-striped" data-filename="osadp-applications-released_<?php echo $from; ?>-<?php echo $until; ?>">
 				<tr>
 					<th>ID</th>
 					<th>Title</th>
@@ -306,90 +329,128 @@
 				<?php } ?>
 			</table>
 		</div>
+		<!-- -->
+		<div class="span5 thumbnail accent-purple">
+			<button class="btn btn-osadp btn-fullscreen expander hidden-print pull-right">
+				<span class="icon-expand"></span>
+			</button>
+			<a href="#" class="btn btn-osadp btn-csv-export expander hidden-print pull-right">
+				<span class="icon-download"></span>
+			</a>
+			<h3 class="hidden-print">Latest Applications</h3>
+			<p class="hidden-print">List of newest applications in OSADP.</p>
+			<table class="table table-bordered table-striped" data-filename="osadp-latest-applications_<?php echo $from; ?>-<?php echo $until; ?>">
+				<tr>
+					<th>ID</th>
+					<th>Title</th>
+					<th>Created</th>
+				</tr>
+			<?php 
+					$latestApps = $this->getLatestApplications( $from, $until );
+					foreach ($latestApps as $key => $value) { ?>
+				<tr>
+					<td><?php echo $value->id; ?></td>
+					<td><?php echo $value->title; ?></td>
+					<td><?php echo date_format( date_create($value->created), 'M d, Y - h:i:s a'); ?></td>
+				</tr>
+			<?php } ?>
+			</table>
+		</div>
+		<!--  -->
 	</div>
-<script src="/administrator/components/com_osadpstats/vendor/jquery-ui/jquery-ui.js"></script>
-<script type="text/javascript">
-	(function() {
-		// chart for top downloads
-		var items = <?php echo json_encode($this->modelStatistics['top_downloads']); ?>;
-		window.OSADP.topDownloadsChart( '#highchartsContainer', items );
-		// chart for user registrations
-		var current = <?php echo json_encode($this->getRegistrationsThisYear()); ?>;
-		var previous = <?php echo json_encode($this->getRegistrationsLastYear()); ?>;
-		window.OSADP.registrationsChart( '#userRegistrations', current, previous );
-		// chart for downloads this month
-		var downloadLogs = <?php echo json_encode($this->getDownloadsThisMonth( $from, $until )); ?>;
-		window.OSADP.dailyDownloadsChart('#downloadsChart', downloadLogs,
-			<?php echo json_encode(explode('-', $from)); ?>,
-			<?php echo json_encode(explode('-', $until)); ?>);
-	})();
+	<script src="/administrator/components/com_osadpstats/vendor/jquery-ui/jquery-ui.js"></script>
+	<script src="/administrator/components/com_osadpstats/scripts/table.csv.download.js"></script>
+	<script type="text/javascript">
+		(function() {
+			// chart for top downloads
+			var items = <?php echo json_encode($this->modelStatistics['top_downloads']); ?>;
+			window.OSADP.topDownloadsChart( '#highchartsContainer', items );
+			// chart for user registrations
+			var current = <?php echo json_encode($this->getRegistrationsThisYear()); ?>;
+			var previous = <?php echo json_encode($this->getRegistrationsLastYear()); ?>;
+			window.OSADP.registrationsChart( '#userRegistrations', current, previous );
+			// chart for downloads this month
+			var downloadLogs = <?php echo json_encode($this->getDownloadsThisMonth( $from, $until )); ?>;
+			console.log(downloadLogs);
+			window.OSADP.dailyDownloadsChart('#downloadsChart', downloadLogs,
+				<?php echo json_encode(explode('-', $from)); ?>,
+				<?php echo json_encode(explode('-', $until)); ?>);
+		})();
 
-	(function(window, document, $, undefined) {
-		'use strict';
+		(function(window, document, $, undefined) {
+			'use strict';
 
-		$(function() {
-			// start of jquery.ready scope
-			// 
-			$('#usersChart').ready(function() {
-				var data = [
-					{
-						value: parseInt(<?php echo $this->modelStatistics['total_active_users']; ?>),
-						label: 'Active Users',
-						color: '#03C9A9',
-						highlight: '#36D7B7'
-					},
-					{
-						value: parseInt(<?php echo $this->modelStatistics['total_inactive_users']; ?>),
-						label: 'Inactive Users',
-						color: '#F4D03F',
-						highlight: '#F5D76E'
+			$(function() {
+				// start of jquery.ready scope
+				// 
+				$('#usersChart').ready(function() {
+					var data = [
+						{
+							value: parseInt(<?php echo $this->modelStatistics['total_active_users']; ?>),
+							label: 'Active Users',
+							color: '#03C9A9',
+							highlight: '#36D7B7'
+						},
+						{
+							value: parseInt(<?php echo $this->modelStatistics['total_inactive_users']; ?>),
+							label: 'Inactive Users',
+							color: '#F4D03F',
+							highlight: '#F5D76E'
+						}
+					];
+					var options  = {
+						responsive: true,
+						legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\" style=\"list-style-type: none; margin: 0;\">" +
+						"<% var total = 0; for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span>" +
+						"<%if(segments[i].label){%><%=segments[i].label%> - <%=segments[i].value%> <% total = total + segments[i].value } %></li><%}%>" +
+						'<li><span style="background-color: #999;"></span>Total - <%= total %> </li></ul>'
 					}
-				];
-				var options  = {
-					responsive: true,
-					legendTemplate: "<ul class=\"<%=name.toLowerCase()%>-legend\" style=\"list-style-type: none; margin: 0;\">" +
-					"<% var total = 0; for (var i=0; i<segments.length; i++){%><li><span style=\"background-color:<%=segments[i].fillColor%>\"></span>" +
-					"<%if(segments[i].label){%><%=segments[i].label%> - <%=segments[i].value%> <% total = total + segments[i].value } %></li><%}%>" +
-					'<li><span style="background-color: #999;"></span>Total - <%= total %> </li></ul>'
-				}
-				var ctx = $("#usersChart").get(0).getContext("2d");
-				var usersPieChart = new Chart( ctx ).Doughnut(data, options);
-				$('#usersLegend').html( usersPieChart.generateLegend() );
-			})
+					var ctx = $("#usersChart").get(0).getContext("2d");
+					var usersPieChart = new Chart( ctx ).Doughnut(data, options);
+					$('#usersLegend').html( usersPieChart.generateLegend() );
+				})
 
-			$('.btn-fullscreen').click( function() {
-				var btn = $(this);
-				var container = btn.closest('[class*="span"]');
-				if( btn.hasClass('expander') ) {
-					btn.addClass('collapser').removeClass('expander')
-					 .find('span').removeClass('icon-expand')
-					 .addClass('icon-remove');
-					container.addClass('fullscreen');
-				} else {
+				$('.btn-fullscreen').click( function() {
+					var btn = $(this);
 					var container = btn.closest('[class*="span"]');
-					btn.addClass('expander').removeClass('collapser')
-						 .find('span').removeClass('icon-remove')
-						 .addClass('icon-expand');
-					container.removeClass('fullscreen');
-				}
-			});
+					if( btn.hasClass('expander') ) {
+						btn.addClass('collapser').removeClass('expander')
+						 .find('span').removeClass('icon-expand')
+						 .addClass('icon-remove');
+						container.addClass('fullscreen');
+					} else {
+						var container = btn.closest('[class*="span"]');
+						btn.addClass('expander').removeClass('collapser')
+							 .find('span').removeClass('icon-remove')
+							 .addClass('icon-expand');
+						container.removeClass('fullscreen');
+					}
+				});
 
-			$('#btnMenu').click( function() {
-				$('#menuItems').toggleClass('hide');
+				$('#btnMenu').click( function() {
+					$('#menuItems').toggleClass('hide');
+				})
+
+				$('#dateFrom, #dateUntil').datepicker({
+					dateFormat: 'yy-m-d'
+				});
+
+				$('#dateFrom').ready(function() {
+					$('#dateFrom').val('<?php echo $from; ?>')
+				})
+
+				$('#dateUntil').ready(function() {
+					$('#dateUntil').val('<?php echo $until; ?>')
+				})
+
+				$('.osadp-datepicker').change( function() {
+					var fromDate = $('#dateFrom').val();
+					var untilDate = $('#dateUntil').val();
+					console.log(fromDate);
+					$('#datepickerSubmit').attr('href', '/administrator/index.php?option=com_osadpstats&from='+fromDate+'&until='+untilDate);
+				})
+
+				// end of jquery.ready scope
 			})
-
-			$('#dateFrom, #dateUntil').datepicker({
-				dateFormat: 'yy-mm-dd'
-			});
-
-			$('.osadp-datepicker').change( function() {
-				var fromDate = $('#dateFrom').val();
-				var untilDate = $('#dateUntil').val();
-				console.log(fromDate);
-				$('#datepickerSubmit').attr('href', '/administrator/index.php?option=com_osadpstats&from='+fromDate+'&until='+untilDate);
-			})
-
-			// end of jquery.ready scope
-		})
-	})(window, document, jQuery);
-</script>
+		})(window, document, jQuery);
+	</script>
