@@ -25,7 +25,7 @@ class OsadpViewsStatisticsHtml extends JViewHtml
    * @param  string $until ending date period
    * @return array
    */
-  function getItemsThisPeriod( $from, $until ) {
+  function getTopDownloadsThisPeriod( $from, $until ) {
     $modelStats = new OsadpModelsStatistics();
     if( ! isset($from) && ! isset($until) ) {
       $from = $year . '-' . $month . '-' . '1';
@@ -34,7 +34,7 @@ class OsadpViewsStatisticsHtml extends JViewHtml
     $from .= ' 00:00:00';
     $until .= ' 23:59:59';
 
-    return $modelStats->getItemsThisPeriod( $from, $until );
+    return $modelStats->getTopDownloadsByPeriod( $from, $until );
   }
 
   /**

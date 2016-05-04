@@ -282,11 +282,11 @@
 			<table class="table table-bordered table-striped" data-filename="osadp-top-downloads_<?php echo $from; ?>-<?php echo $until; ?>">
 				<tr>
 					<th>Title</th>
-					<th>Date</th>
+					<th>Last Downloaded</th>
 					<th>Downloads</th>
 				</tr>
 				<?php 
-				$apps = $this->getItemsThisPeriod( $from, $until );
+				$apps = $this->getTopDownloadsThisPeriod( $from, $until );
 				foreach ($apps as $key => $value) { ?>
 				<tr>
 					<!-- <td><?php //echo $value->id; ?></td> -->
@@ -311,10 +311,10 @@
 				<span class="icon-download"></span>
 			</a>
 			<h3>Applications Released</h3>
-			<p>Shows any applications released during this period.</p>
+			<p>Shows any application released during this period.</p>
 			<table class="table table-bordered table-striped" data-filename="osadp-applications-released_<?php echo $from; ?>-<?php echo $until; ?>">
 				<tr>
-					<th>ID</th>
+					<!-- <th>ID</th> -->
 					<th>Title</th>
 					<th>Created</th>
 				</tr>
@@ -322,9 +322,9 @@
 				$apps = $this->getItemsThisMonth( $month );
 				foreach ($apps as $key => $value) { ?>
 				<tr>
-					<td><?php echo $value->id; ?></td>
+					<!-- <td><?php echo $value->id; ?></td> -->
 					<td><?php echo $value->title; ?></td>
-					<td><?php echo $value->created; ?></td>
+					<td class="centered"><?php echo $value->created; ?></td>
 				</tr>
 				<?php } ?>
 			</table>
@@ -351,7 +351,7 @@
 				<tr>
 					<td><?php echo $value->id; ?></td>
 					<td><?php echo $value->title; ?></td>
-					<td><?php echo date_format( date_create($value->created), 'M d, Y - h:i:s a'); ?></td>
+					<td class="centered"><?php echo date_format( date_create($value->created), 'M d, Y - h:i:s a'); ?></td>
 				</tr>
 			<?php } ?>
 			</table>
