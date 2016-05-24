@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos Akeeba Realease Application Search</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.13.2</version>
+    <version>0.13.3</version>
     <description>A custom module made by Leidos for OSADP to provide a better user interface for showcasing ARS Applications.</description>
     <files>
         <filename>mod_leidos_ars_search.xml</filename>
@@ -17,7 +17,8 @@
         <filename>css/main.css</filename>
 
         <filename>images/index.html</filename>
-        <filename>images/osadp-logo.png</filename>
+        <filename>images/osadp-logo-blue.png</filename>
+        <filename>images/osadp-logo-white.png</filename>
 
         <filename>app/index.html</filename>
         <filename>app/main.js</filename>

@@ -41,6 +41,16 @@
   text-transform: uppercase;
 }
 
+.ars-categories__icon {
+  display: inline-block;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  vertical-align: top;
+  background-size: cover !important;
+  margin-right: 5px;
+}
+
 .ars-container {
   padding: 0;
 }

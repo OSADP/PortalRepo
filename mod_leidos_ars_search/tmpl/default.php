@@ -44,14 +44,7 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 			<!-- LIST ALL OUR CATEGORIES -->
 			<div class="ars-categories__item hidden-xs hidden-sm" ng-class="{ 'ars-categories__item--active': category.active }" ng-repeat="category in categories | orderBy: 'title'" role="tabslist" aria-title="Browse Application Categories" aria-selected="{{ category.active }}">
 				<a href="#/{{ category.id }}" ng-click="categoryChange( this )" role="tab">
-					<span class="ars-categories__icon" style="display: inline-block;
-				    position: relative;
-				    height: 20px;
-				    width: 20px;
-				    vertical-align: top;
-				    background: url({{ category.icon_url }});
-				    background-size: cover;
-				    margin-right: 5px;">
+					<span class="ars-categories__icon" style="background: url({{ (category.id == 'all') ? (category.active) ? category.icon_url_alt : category.icon_url : category.icon_url }});">
 			    </span>
 					{{ category.title }} <span class="badge pull-right">{{ category.items.length }} <span class="sr-only">Applications</span></span>
 				</a>

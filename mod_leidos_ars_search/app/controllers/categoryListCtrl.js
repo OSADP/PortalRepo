@@ -23,7 +23,8 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
 			$scope.currentCategory = {
 				title: 'All Active Releases',
 				id: 'all',
-				icon_url: '/modules/mod_leidos_ars_search/images/osadp-logo.png'
+				icon_url: '/modules/mod_leidos_ars_search/images/osadp-logo-blue.png',
+				icon_url_alt: '/modules/mod_leidos_ars_search/images/osadp-logo-white.png'
 			}
 			// unshift() adds object to the beginning of the array
 			$scope.categories.unshift( $scope.currentCategory );
