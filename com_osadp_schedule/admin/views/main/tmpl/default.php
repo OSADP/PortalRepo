@@ -6,7 +6,7 @@
 	<div class="" style="">
 		<!-- SEARCH BAR -->
 		<div class="row-fluid">
-			<div class="input-append span4">
+			<div class="input-append pull-left">
 				<form action="/administrator/index.php?option=com_osadp_schedule" method="post">
 				  <input name="searchParam" type="text" value="<?php echo $this->param; ?>"
 				  	placeholder="Search Projects">
@@ -14,19 +14,28 @@
 				  	<span class="icon-search"></span>
 				  </button>
 			  </form>
-			</div>
+		  </div>
+			<form action="/administrator/index.php?option=com_osadp_schedule" method="post" class="pull-left">
+			  <input name="clearSearch" type="text" value=""
+			  	placeholder="Search Projects"
+			  	style="display: none;">
+			  <button class="btn" type="submit" style="margin-left: 5px;">
+			  	<span class="icon-undo-2"></span>
+			  	Clear
+			  </button>
+		  </form>
 		</div>
 		<!-- END SEARCH -->
 
 		<p><em>Note: Click the Project to Edit.</em></p>
 		<table class="table table-bordered table-striped">
 			<tr>
-				<th class="span3">Project</th>
-				<th>URL</th>
-				<th>Notes</th>
-				<th>Capabilities</th>
+				<th class="centered span3">Project</th>
+				<th class="centered">URL</th>
+				<th class="centered">Notes</th>
+				<th class="centered">Capabilities</th>
 				<th class="centered span2">Date</th>
-				<th class="centered">Full Date</th>
+				<th class="centered" style="min-width: 80px;">Full Date</th>
 				<th class="centered">DMA</th>
 				<th class="centered">Available</th>
 				<th class="centered">Published</th>

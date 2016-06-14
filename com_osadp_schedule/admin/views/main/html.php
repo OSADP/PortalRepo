@@ -8,11 +8,14 @@ class OsadpViewsMainHtml extends JViewHtml
    
     //retrieve task list from model
     $modelSchedules = new OsadpModelsSchedule();
+
     // delete schedule when requested
     if( isset($_POST['id']) ) {
       $id = $_POST['id'];
       $modelSchedules->deleteSchedule( $id );
     }
+
+    // search projects
     if(isset($_POST['searchParam'])) {
       $this->param = $_POST['searchParam'];
       $this->schedules = $modelSchedules->searchScheduleByName($this->param);
@@ -21,6 +24,11 @@ class OsadpViewsMainHtml extends JViewHtml
       // get Schedule items from our model
       $this->schedules = $modelSchedules->getSchedules();
     }
+
+    // clear search
+    if(isset($_POST['clearSearch']))
+      header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . '/administrator/index.php?option=com_osadp_schedule');
+
     // add a toolbar if available
     $this->addToolbar();
     // render our tmpl/default
