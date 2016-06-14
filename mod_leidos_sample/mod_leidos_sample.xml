@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>NAME</name>
+    <author>Robert Roth @ Leidos</author>
+    <version>0.0.0</version>
+    <description>DESCRIPTION</description>
+    <files>
+        <filename>mod_leidos_sample.xml</filename>
+        <filename module="mod_leidos_sample">mod_leidos_sample.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <filename>tmpl/default.php</filename>
+        <filename>tmpl/index.html</filename>
+        <filename>styles/main.css</filename>
+        <filename>scripts/main.js</filename>
+    </files>
+    <config>
+    </config>
+</extension>
