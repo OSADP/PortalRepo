@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.1.0" client="site" method="upgrade">
+    <name>OSADP Release Schedule</name>
+    <author>Robert Roth @ Leidos</author>
+    <version>0.0.0</version>
+    <description>Display OSADP Release Schedule in tabular form.</description>
+    <files>
+        <filename>mod_leidos_schedule.xml</filename>
+        <filename module="mod_leidos_schedule">mod_leidos_schedule.php</filename>
+        <filename>index.html</filename>
+        <filename>helper.php</filename>
+        <folder>tmpl/</folder>
+        <folder>styles/</folder>
+        <folder>scripts/</folder>
+        <folder>lib/</folder>
+    </files>
+    <config>
+    </config>
+</extension>

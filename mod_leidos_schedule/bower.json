@@ -1,0 +1,30 @@
+{
+  "name": "mod_leidos_schedule",
+  "homepage": "www.itsforge.net",
+  "authors": [
+    "Robert Roth rothrob@leidos.com"
+  ],
+  "description": "Joomla Module for displaying OSADP Release Schedules",
+  "main": "mod_leidos_schedule.xml",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "moment": "^2.13.0",
+    "angular-ui-router": "^0.3.1",
+    "angular-sanitize": "^1.5.6",
+    "angular-moment": "^0.10.3"
+  },
+  "resolutions": {
+    "angular": "^1.5.6",
+    "moment": "^2.13.0"
+  }
+}

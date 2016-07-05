@@ -1,0 +1,15 @@
+
+
+.toolbar {
+
+
+  &__select {
+    &-pagination {
+      display: inline-block;
+      height: 26px;
+      border: 0;
+      width: 57px;
+      text-align-last: center;
+    }
+  }
+}

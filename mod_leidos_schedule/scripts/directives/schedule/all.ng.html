@@ -1,0 +1,52 @@
+
+<div class="osadp-schedule__card">
+  <span class="hidden-xs osadp-schedule__card-new" ng-show="schedule.isNew">
+    NEW
+  </span>
+  <!-- // -->
+  <div class="clearfix">
+    <!-- SCHDULED DATE -->
+    <div class="osadp-schedule__card-date pull-right">
+      <div class="day" ng-bind="day" ng-if="schedule.full_date == 1"></div>
+      <div class="day" ng-if="schedule.full_date == 0">-</div>
+      <div class="date" ng-bind="date"></div>
+    </div>
+    <!-- PROJECT IMAGE & NAME -->
+    <div class="pull-left osadp-schedule__card-name">
+      <div class="osadp-schedule__card-image-container">
+        <img ng-src="{{ image }}" class="osadp-schedule__card-image">
+      </div>
+      <h3 class="release">
+        <a href="{{ schedule.url }}" ng-if="schedule.url != ''" ng-bind="schedule.name"></a>
+        <span ng-if="schedule.url == ''" ng-bind="schedule.name"></span>
+      </h3>
+    </div>
+  </div>
+  <div class="badge primary" ng-show="schedule.dma == 1">
+    <div style="display: none; background: rgba(255,255,255,.3); border: solid 1px rgba(255,255,255, .5); border-radius: 999px; width: 14px; height: 14px; padding: 1px; box-sizing: border-box;"><span class="icon-question"></span></div>
+    DMA
+  </div>
+
+  <div class="badge" ng-show="schedule.available == 1">Available</div>
+  <div class="badge warning" ng-show="schedule.available == 0">Soon</div>
+
+  <div class="notes-container row" ng-class="{ 'notes-expand' : schedule.readmore }">
+    <div class="col-lg-12">
+      <p><strong>Notes:</strong></p>
+      <p ng-bind-html="schedule.notes"></p>
+    </div>
+    <div class="col-lg-12">
+      <p><strong>Capabilities:</strong></p>
+      <p ng-bind-html="schedule.capabilities"></p>
+    </div>
+  </div>
+
+  <div class="row osadp-schedule__card-readmore" ng-click="schedule.readmore = ! schedule.readmore">
+    <div class="col-lg-12">
+      <span class="icon-chevron-down" ng-hide="schedule.readmore"></span>
+      <span class="icon-chevron-up" ng-show="schedule.readmore"></span>
+      Click to <span ng-bind="(schedule.readmore) ? 'Collapse' : 'Expand'"></span>
+    </div>
+  </div>
+  <!-- // -->
+</div>

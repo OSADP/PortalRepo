@@ -1,0 +1,44 @@
+
+<div class="osadp-schedule__card">
+  <span class="hidden-xs osadp-schedule__card-new" ng-show="new">
+    NEW
+  </span>
+  <!-- // -->
+  <div class="clearfix">
+    <!-- SCHDULED DATE -->
+    <div class="osadp-schedule__card-date pull-right">
+      <div class="day" ng-bind="day"></div>
+      <div class="date" ng-bind="date"></div>
+    </div>
+    <!-- PROJECT IMAGE & NAME -->
+    <div class="pull-left osadp-schedule__card-name">
+      <img ng-src="{{ image }}" class="osadp-schedule__card-image">
+      <h4>
+        <a href="{{ url }}" ng-if="url != ''">
+          <span>{{ name }}</span>
+        </a>
+        <span ng-if="url == ''">{{ name }}</span>
+      </h4>
+    </div>
+  </div>
+
+  <div class="notes-container row" ng-class="{ 'notes-expand' : readmore }">
+    <div class="col-lg-12">
+      <p><strong>Notes:</strong></p>
+      <p ng-bind-html="notes"></p>
+    </div>
+    <div class="col-lg-12">
+      <p><strong>Capabilities:</strong></p>
+      <p ng-bind-html="capabilities"></p>
+    </div>
+  </div>
+
+  <div class="row osadp-schedule__card-readmore" ng-click="readmore = ! readmore">
+    <div class="col-lg-12">
+      <span class="icon-chevron-down" ng-hide="readmore"></span>
+      <span class="icon-chevron-up" ng-show="readmore"></span>
+      Click to <span ng-bind="(readmore) ? 'Collapse' : 'Expand'"></span>
+    </div>
+  </div>
+  <!-- // -->
+</div>

@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="margin-bottom: 15px;">
+    <label for="searchText" style="font-size: 12px;">Search: </label>
+    <div class="input-group" style="width: 100%;">
+      <span class="input-group-addon">
+        <span class="fa fa-search"></span>
+      </span>
+      <input class="osadp-schedule__search col-lg-4 col-xs-10" name="searchText" type="text" ng-model="search" placeholder="">
+    </div>
+  </div>
+  <div class="input-append col-xs-12 col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 15px;">
+    <label style="font-size: 12px;" for="sortBy">Sort: </label>
+    <select class="form-control" name="sortBy" ng-model="order">
+      <option value="-date">Date</option>
+      <option value="name">Name</option>
+      <option value="created">Newly Added</option>
+    </select>
+  </div>
+  <div class="input-append col-xs-12 col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 15px;">
+    <label style="font-size: 12px;" for="limit">Show: </label>
+    <select class="form-control" name="limit" ng-model="limit">
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="all">All</option>
+    </select>
+  </div>
+  <div class="input-append col-xs-12 col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 15px;">
+    <label style="font-size: 12px;" for="availability">Availability: </label>
+    <select class="form-control" name="availability" ng-model="availability">
+      <option value="">All</option>
+      <option value="1">Available</option>
+      <option value="0">Coming Soon</option>
+    </select>
+  </div>
+  <div class="input-append col-xs-12 col-sm-6 col-md-3 col-lg-2" style="margin-bottom: 15px;">
+    <label style="font-size: 12px;" for="">Pages: </label>
+    <div style="margin-top: 2px;">
+      <button type="button" class="btn btn-sm btn-primary" ng-click="updatePage(-1)" ng-class="{disabled: page == 0}">Prev</button>
+      <div style="border: solid 1px #0067a2; display: inline-block;">
+        <select name="" id="" ng-model="selectedPage" class="toolbar__select-pagination"
+          ng-change="changePage($event)">
+          <option ng-repeat="option in pagesOption" value="{{ option.number }}">{{ option.number }}</option>
+        </select>
+      </div>
+      <!-- <button type="button" class="btn btn-sm" ng-class="{'btn-info': item.active}" ng-repeat="item in arrPages" ng-click="changePage(item.number)">{{ item.number }}</button> -->
+      <button type="button" class="btn btn-sm btn-primary" ng-click="updatePage(1)" ng-class="{disabled: page == pages -1}">Next</button>
+    </div>
+  </div>
+</div>
