@@ -4,7 +4,7 @@
 
   angular.module('ScheduleApp', ['SchedulesValue', 'ScheduleDirective', 'ScheduleToolbar', 'ngSanitize'])
   // Controller for release schedules yet to be released
-  .controller('ComingSoonCtrl', [/*'ComingSoonSchedules'*/'AllSchedules', '$scope', ScheduleCtrl])
+  .controller('ComingSoonCtrl', ['AllSchedules', '$scope', ScheduleCtrl])
   // Controller for available release schedules
   // .controller('AvailableCtrl', ['AvailableSchedules', '$scope', ScheduleCtrl])
 
@@ -26,7 +26,9 @@
     // add a new flag to schedules that are newly created
     schedules.forEach( function(schedule, index) {
       var thisDate = moment(schedule.created).startOf('day')
-      var weekAgo = moment().subtract(7, 'days').startOf('day')
+      // days_new defines how many days this schedule will be 
+      // considered new
+      var weekAgo = moment().subtract(schedule.days_new, 'days').startOf('day')
       schedule.isNew = thisDate.isAfter(weekAgo)
     });
     // use our paginate function to paginate schedules
@@ -40,7 +42,6 @@
       else
         ctrl.schedules = paginate(schedules, ctrl.limit)
     }
-
   }
 
   // allows to simulate pagination by creating an array that holds
