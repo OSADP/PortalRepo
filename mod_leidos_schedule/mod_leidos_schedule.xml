@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>OSADP Release Schedule</name>
     <author>Robert Roth @ Leidos</author>
-    <version>0.6.0</version>
+    <version>0.7.0</version>
     <description>Display OSADP Release Schedule in list form.</description>
     <files>
         <filename>mod_leidos_schedule.xml</filename>
