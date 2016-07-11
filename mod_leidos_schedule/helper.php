@@ -20,7 +20,7 @@
             // create our database object
             $db = JFactory::getDbo();
             // create our SQL query
-            $query = "SELECT * FROM #__osadp_release_schedule WHERE published = 1";
+            $query = "SELECT * FROM #__osadp_release_schedule WHERE published = 1 ORDER BY date DESC";
             // query the database
             $db->setQuery( $query );
             // return our result
