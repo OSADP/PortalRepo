@@ -40,6 +40,22 @@ angular.module('ScheduleToolbar', [])
         }
       })
 
+      $scope.$watch('availability', function(newVal, oldVal) {
+        if( newVal !== oldVal ) {
+          $scope.$parent.updatePagination()
+          buildPages()
+          $scope.page = 0
+        }
+      })
+
+      $scope.$watch('order', function(newVal, oldVal) {
+        if( newVal !== oldVal ) {
+          $scope.$parent.updatePagination()
+          buildPages()
+          $scope.page = 0
+        }
+      })
+
       // GOTO: 63
       buildPages()
 
@@ -90,8 +106,14 @@ angular.module('ScheduleToolbar', [])
           var scrollTop = $(this).scrollTop()
           if ( scrollTop > topDistance ) {
               _toolbar.addClass('fixed-top')
+                      .removeClass('row')
+                      .find('.toolbar-container')
+                      .addClass('container')
           } else if( scrollTop < topDistance ) {
             _toolbar.removeClass('fixed-top')
+                    .addClass('row')
+                    .find('.toolbar-container')
+                    .removeClass('container')
           }
         })
       }

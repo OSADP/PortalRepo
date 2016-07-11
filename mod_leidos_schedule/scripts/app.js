@@ -1,28 +1,30 @@
 ;(function() {
 
   'use strict';
-
+  
   angular.module('ScheduleApp', ['SchedulesValue', 'ScheduleDirective', 'ScheduleToolbar', 'ngSanitize'])
   // Controller for release schedules yet to be released
-  .controller('ComingSoonCtrl', ['AllSchedules', '$scope', ScheduleCtrl])
+  .controller('ComingSoonCtrl', ['AllSchedules', '$scope', '$filter', ScheduleCtrl])
   // Controller for available release schedules
   // .controller('AvailableCtrl', ['AvailableSchedules', '$scope', ScheduleCtrl])
 
-  function ScheduleCtrl( schedules, $scope ){
+  function ScheduleCtrl( schedules, $scope, $filter ){
     $scope.loading = true
     $scope.hideLoader = function() {
       $scope.loading = false
     }
+    // cache our controller
+    var ctrl = this;
     // the current page in the pagination
-    this.page = 0;
+    ctrl.page = 0;
     // add moment to our controller's space
-    this.moment = moment
+    ctrl.moment = moment
     // the ordering of the schedules
-    this.order = '-date'
+    ctrl.order = '-date'
     // the number of schedules to display
-    this.limit = '5'
+    ctrl.limit = '5'
     // filter availability, default is blank which display all
-    this.availability == ''
+    ctrl.availability == ''
     // add a new flag to schedules that are newly created
     schedules.forEach( function(schedule, index) {
       var thisDate = moment(schedule.created).startOf('day')
@@ -32,18 +34,27 @@
       schedule.isNew = thisDate.isAfter(weekAgo)
     });
     // use our paginate function to paginate schedules
-    this.schedules = paginate(schedules, this.limit)
-    // cache our controller
-    var ctrl = this;
+    ctrl.schedules = paginater(schedules, ctrl.limit)
     // this function is in the scope to $digest changes
     $scope.changeLimit = function() {
       if(ctrl.limit == 'all')
-        ctrl.schedules = paginate(schedules, 0)
+        ctrl.schedules = paginater(schedules, 0)
       else
-        ctrl.schedules = paginate(schedules, ctrl.limit)
+        ctrl.schedules = paginater(schedules, ctrl.limit)
+    }
+
+    $scope.updatePagination = function() {
+      ctrl.schedules = paginater(schedules, ctrl.limit)
+      return ctrl.schedules
+    }
+
+
+    function paginater(schedules, limit) {
+      var filterByAvail = $filter('filter')(schedules, {available: ctrl.availability})
+      var filterByOrder = $filter('orderBy')(filterByAvail, ctrl.order)
+      return paginate(filterByOrder, limit)
     }
   }
-
   // allows to simulate pagination by creating an array that holds
   // items depending on the 'limit' variable of our scope
   function paginate( items, limit ) {
