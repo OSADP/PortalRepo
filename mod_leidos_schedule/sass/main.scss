@@ -18,10 +18,6 @@
   }
 
   &__card {
-    &.span6 {
-      width: 49.5% !important;
-    }
-    
     font-size: 14px;
     padding: 0 15px;
     margin: 0 0 15px 0;
@@ -30,6 +26,22 @@
     box-sizing: border-box;
     box-shadow: 5px 5px 0px rgba(0, 0, 0, .1);
     transition: .3s;
+
+    animation-name: fadeIn;
+    animation-duration: 1s;
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    &.span6 {
+      width: 49.5% !important;
+    }
     
     &:nth-child(odd) {
       margin-right: 0;
@@ -52,16 +64,16 @@
     &-image-container {
       display: inline-block;
       vertical-align: middle;
-      width: 112px;
+      width: 127px;
       height: 127px;
-      padding: 15px 15px 15px 0;
+      padding: 15px 15px 0 0;
     }
 
     &-image {
       width: 100%;
       height: 100%;
       border: solid 1px #aaa;
-      border-radius: 999px;
+      border-radius: 0;
       background-position: center;
       background-size: cover;
       background-color: #aaa;
@@ -104,7 +116,7 @@
     }
 
     .notes-container {
-      max-height: 120px;
+      max-height: 100px;
       overflow: hidden;
     }
     .notes-expand {
@@ -139,7 +151,8 @@
         width: 100%;
         height: 58px;
         text-align: center;
-        font-size: 42px;
+        font-size: 30px;
+        padding-top: 7px;
         background-image: -webkit-linear-gradient(top left, lighten(lightslategray, 10%), lightslategray);
         background-image: -o-linear-gradient(top left, lighten(lightslategray, 10%), lightslategray);
         background-image: linear-gradient(to bottom right, lighten(lightslategray, 10%), lightslategray);

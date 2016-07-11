@@ -153,6 +153,10 @@
   }
 }
 
+.toolbar {
+  transition: .3s;
+}
+
 .toolbar__select-pagination {
   display: inline-block;
   height: 26px;
@@ -160,6 +164,16 @@
   width: 57px;
   -moz-text-align-last: center;
        text-align-last: center;
+}
+
+.toolbar.fixed-top {
+  position: fixed;
+  background: #ffffff;
+  border-bottom: solid 1px #aaa;
+  top: 0;
+  left: 0;
+  padding: 10px 40px 0 40px;
+  z-index: 1;
 }
 
 .osadp-schedule__search {
@@ -175,6 +189,28 @@
   box-sizing: border-box;
   box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.1);
   transition: .3s;
+  -webkit-animation-name: fadeIn;
+          animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .osadp-schedule__card.span6 {
@@ -203,16 +239,16 @@
 .osadp-schedule__card-image-container {
   display: inline-block;
   vertical-align: middle;
-  width: 112px;
+  width: 127px;
   height: 127px;
-  padding: 15px 15px 15px 0;
+  padding: 15px 15px 0 0;
 }
 
 .osadp-schedule__card-image {
   width: 100%;
   height: 100%;
   border: solid 1px #aaa;
-  border-radius: 999px;
+  border-radius: 0;
   background-position: center;
   background-size: cover;
   background-color: #aaa;
@@ -252,7 +288,7 @@
 }
 
 .osadp-schedule__card .notes-container {
-  max-height: 120px;
+  max-height: 100px;
   overflow: hidden;
 }
 
@@ -285,7 +321,8 @@
   width: 100%;
   height: 58px;
   text-align: center;
-  font-size: 42px;
+  font-size: 30px;
+  padding-top: 7px;
   background-image: linear-gradient(to bottom right, #94a2af, lightslategray);
   background-color: lightslategray;
 }
