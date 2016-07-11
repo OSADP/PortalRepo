@@ -82,6 +82,19 @@ angular.module('ScheduleToolbar', [])
         // run callback if available
         if( callback ) callback()
       }
-    }
-  };
+
+      if( window.mobilecheck() == false ) {
+        var _toolbar = $('.toolbar')
+        var topDistance = _toolbar.offset().top
+        $(window).on('scroll', function() {
+          var scrollTop = $(this).scrollTop()
+          if ( scrollTop > topDistance ) {
+              _toolbar.addClass('fixed-top')
+          } else if( scrollTop < topDistance ) {
+            _toolbar.removeClass('fixed-top')
+          }
+        })
+      }
+    } // link
+  }// return
 })
