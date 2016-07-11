@@ -1,15 +1,17 @@
 <?php defined('_JEXEC') or die; ?>
 
-<?php JHTML::script('modules/mod_leidos_schedule/lib/angular/angular.js'); ?>
+<?php JHTML::script('//code.jquery.com/jquery-1.12.4.min.js'); ?>
+
+<?php JHTML::script('modules/mod_leidos_schedule/lib/angular/angular.min.js'); ?>
 <?php JHTML::script('modules/mod_leidos_schedule/lib/angular-sanitize/angular-sanitize.min.js'); ?>
 <?php JHTML::script('modules/mod_leidos_schedule/lib/moment/min/moment.min.js'); ?>
 
 <?php JHTML::stylesheet('modules/mod_leidos_schedule/styles/main.css'); ?>
 <?php JHTML::script('modules/mod_leidos_schedule/scripts/main.js'); ?>
+
 <?php JHTML::script('modules/mod_leidos_schedule/scripts/directives/schedule/directive.js'); ?>
 <?php JHTML::script('modules/mod_leidos_schedule/scripts/directives/toolbar/directive.js'); ?>
 <?php JHTML::script('modules/mod_leidos_schedule/scripts/app.js'); ?>
-<?php //JHTML::script('//ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js'); ?>
 
 
 <div class="module-name-content" ng-app="ScheduleApp">
@@ -17,14 +19,13 @@
     <h2>OPEN SOURCE RELEASE SCHEDULE</h2>
   </div>
   <div class="osadp-schedule clearfix" ng-controller="ComingSoonCtrl as soon">
-    <!-- <h3 class="">Coming Soon</h3> -->
-    <p class="loader" ng-if="loading">Loading...</p>
+    <p class="loader" ng-show="loading">Loading...</p>
     <!-- Toolbar directive -->
     <div data-schedule-toolbar data-search="soon.searchText" data-order="soon.order" data-limit="soon.limit" data-page="soon.page" data-pages="soon.schedules.length" data-availability="soon.availability"></div>
     <!-- Display releases -->
     <div class="row">
       <!-- Display all Coming Soon releases filter by availability -->
-      <div class="col-lg-12 col-xs-12" ng-repeat="(kay, schedule) in soon.schedules[soon.page] | filter: soon.searchText | filter: { available: soon.availability } | orderBy: soon.order">
+      <div class="col-lg-12 col-xs-12 osadp-schedule__card-container" ng-repeat="(kay, schedule) in soon.schedules[soon.page] | filter: soon.searchText | filter: { available: soon.availability } | orderBy: soon.order">
         <div data-schedule-item
           schedule="schedule"
           name="schedule.name"
@@ -34,7 +35,7 @@
         : soon.moment(schedule.date).format('MMMM')"
           notes="schedule.notes"
           capabilities="schedule.capabilities"
-          image="http://www.itsforge.net/images/ForApplications/CV-DSRC-Msg-Parser.png"
+          image="{{ schedule.image || 'http://www.itsforge.net/images/uploads/image_unavailable.jpg' }}"
           url="schedule.url"
           new="schedule.isNew">
         </div>
