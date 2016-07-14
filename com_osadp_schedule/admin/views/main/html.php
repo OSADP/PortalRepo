@@ -5,10 +5,8 @@ class OsadpViewsMainHtml extends JViewHtml
   function render()
   {
     $app = JFactory::getApplication();
-   
     //retrieve task list from model
     $modelSchedules = new OsadpModelsSchedule();
-
     // delete schedule when requested
     if( isset($_POST['id']) ) {
       $id = $_POST['id'];
@@ -22,9 +20,9 @@ class OsadpViewsMainHtml extends JViewHtml
     } else {
       $this->param = '';
       // get Schedule items from our model
-      $this->schedules = $modelSchedules->getSchedules();
+      $this->schedules = $modelSchedules->getData();
     }
-
+    $this->pagination = $modelSchedules->getPagination();
     // clear search
     if(isset($_POST['clearSearch']))
       header("Location: " . "http://" . $_SERVER['HTTP_HOST'] . '/administrator/index.php?option=com_osadp_schedule');

@@ -1,35 +1,16 @@
+.release-table > tbody > tr:hover > td {
+  cursor: pointer;
+  background: #E4F1FE !important;
+}
 
-/**** EDIT ****/
-.applist {
-  margin: 0;
-  margin-top: 15px;
-  list-style-type: none;
+.release-table > tbody > tr:focus > td {
+  background: #E4F1FE !important;
 }
-.applist > li {
-  margin-bottom: 15px;
-}
-.applist > li > input {
-  margin: 0;
-}
-.applist > li > button {
-  padding: 4px 10px;
-}
+
 .centered {
   text-align: center !important;
 }
 
-.table td > .text-fit {
-  font-size: 13px;
-  height: 17px;
-  overflow: hidden;
-}
-
-label, .label {
-  font-weight: bold !important;
-}
-
-.required div {
-  -webkit-box-shadow: 0 0 5px rgba(255, 0, 0, .5);
-  box-shadow: 0 0 5px rgba(255, 0, 0, .5);
-  border-color: red;
+.clickable {
+  cursor: pointer;
 }

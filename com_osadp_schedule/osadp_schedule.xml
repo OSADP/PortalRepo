@@ -18,15 +18,8 @@
 
 	<scriptfile>install.php</scriptfile>
 
-	<files>
-		<filename component="com_osadp_schedule2">osadp_schedule_component.php</filename>
-		<filename>controller.php</filename>
-		<filename>index.html</filename>
-		<folder>views/</folder>
-	</files>
-
 	<administration>
-		<menu link="option=com_osadp_schedule2">COM_OSADP_SCHEDULE</menu>
+		<menu link="option=com_osadp_schedule">COM_OSADP_SCHEDULE</menu>
 
 		<files folder="admin">
 			<folder>controllers</folder>

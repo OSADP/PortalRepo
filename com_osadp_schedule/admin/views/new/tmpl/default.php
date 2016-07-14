@@ -23,15 +23,21 @@
 				<legend>New Schedule</legend>
 				<p><em>Note: Save and Edit an application in order to add applications.</em></p>
 				<div class="row-fluid">
-					<div class="span4">
+					<div class="span6">
 						<label for="name">Project Name:</label>
 						<input type="text" name="name" id="name" required>
 					</div>
-					<div class="span4">
+					<div class="span6">
+						<label for="image">Project Image:</label>
+						<input type="text" name="image" id="image">
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span6">
 						<label for="url">Project URL:</label>
 						<input type="text" name="url" id="url">
 					</div>
-					<div class="span4">
+					<div class="span6">
 						<label for="date">Date:</label>
 						<input type="text" name="date" id="date" required>
 					</div>
@@ -62,7 +68,7 @@
 				
 				<div class="row-fluid">
 					<br>
-					<label>Is this Available or Coming Soon?</label>
+					<label>Is this Available? (or Coming Soon)</label>
 					<input type="radio" name="available" value="1"> Yes
 					<input type="radio" name="available" value="0" checked="checked"> No
 				</div>
@@ -79,6 +85,12 @@
 					<label>Published</label>
 					<input type="radio" name="published" value="1"> Yes
 					<input type="radio" name="published" value="0" checked="checked"> No
+				</div>
+
+				<div class="row-fluid">
+					<br>
+					<label>How many days will this be considered new?</label>
+					<input type="number" name="daysNew" id="daysNew" value="30" style="width: 40px;">
 				</div>
 
 			</fieldset>

@@ -38,7 +38,7 @@
         dateFormat: 'mm-dd-yy'
       })
       // trigger submit on joomla toolbar save button click event
-      $('#toolbar-save').find('button').click(function(e) {
+      $('#toolbar-apply, #toolbar-save > button').find('button').click(function(e) {
         e.stopPropagation()
         $('#btnSubmit').trigger('click')
       })

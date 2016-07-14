@@ -1,0 +1,11 @@
+'use strict';
+
+(function (window, document, $, undefined) {
+	$(function() {
+		// confirm delete schedule
+		$('.btn-delete').click( function(e) {
+			e.stopPropagation()
+			return confirm('Are you sure you want to DELETE the Schedule?');
+		})
+	})
+})(window, document, jQuery)

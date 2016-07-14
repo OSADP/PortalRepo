@@ -3,16 +3,108 @@
 defined( '_JEXEC' ) or die( 'Restricted access' ); 
  
 class OsadpModelsSchedule extends JModelBase {
+	protected $limit = null;
+	protected $limitstart = null;
+	/**
+   * Items total
+   * @var integer
+   */
+  var $_total = null;
+ 
+  /**
+   * Pagination object
+   * @var object
+   */
+  var $_pagination = null;
 	/**
 	 * Get all schedule saved from the DB
 	 * @return array List of Schedules
 	 */
 	public function getSchedules() {
 		$db = JFactory::getDbo();
-		$query = "SELECT * FROM jos_osadp_release_schedule";
-		$db->setQuery( $query );
+		$query = "SELECT SQL_CALC_FOUND_ROWS * FROM jos_osadp_release_schedule ORDER BY name";
 
-		return $db->loadObjectList();
+    $application = JFactory::getApplication();
+
+    $config = JFactory::getConfig(); 
+
+    $this->limitstart = JRequest::getInt( 'limitstart', 0 );
+    $this->limit = $application->getUserStateFromRequest( 'global.list.limit', 
+        'limit', $config->get('config.list_limit'), 'int' ); 
+
+		$db->setQuery( $query, $this->limitstart, $this->limit );
+		$_data = $db->loadObjectList();
+		$db->setQuery('SELECT FOUND_ROWS();');
+		
+		jimport('joomla.html._pagination');
+		$this->_pagination = new JPagination( $db->loadResult(), $this->limitstart, $this->limit );
+		$this->_data = $_data;
+		return $_data;
+	}
+	public function _getList($query, $limitstart, $limit) {
+		$db = JFactory::getDbo();
+    $application = JFactory::getApplication();
+    $config = JFactory::getConfig(); 
+
+		$db->setQuery( $query, $limitstart, $limit );
+		$_data = $db->loadObjectList();
+		$db->setQuery('SELECT FOUND_ROWS();');
+		
+		return $_data;
+	}
+	public function _getListCount($query) {
+		$db = JFactory::getDbo();
+    $application = JFactory::getApplication();
+    $config = JFactory::getConfig(); 
+
+		$db->setQuery( $query, $this->limitstart, $this->limit );
+		$_data = $db->loadObjectList();
+		
+		return count($_data);
+	}
+
+	function getData() 
+  {
+	 	// if data hasn't already been obtained, load it
+	 	if (empty($this->_data)) {
+	 	    $query = "SELECT SQL_CALC_FOUND_ROWS * FROM jos_osadp_release_schedule ORDER BY name";
+	 	    $this->_data = $this->_getList($query, $this->limitstart, $this->limit);
+	 	}
+	 	return $this->_data;
+  }
+	function getTotal()
+  {
+	 	// Load the content if it doesn't already exist
+	 	if (empty($this->_total)) {
+	 	    $query = "SELECT SQL_CALC_FOUND_ROWS * FROM jos_osadp_release_schedule ORDER BY name";
+	 	    $this->_total = $this->_getListCount($query);	
+	 	}
+	 	return $this->_total;
+  }
+
+	function getPagination()
+  {
+	 	// Load the content if it doesn't already exist
+	 	if (empty($this->_pagination)) {
+	 	    jimport('joomla.html.pagination');
+	 	    $this->_pagination = new JPagination($this->getTotal(), $this->limitstart, $this->limit );
+	 	}
+	 	return $this->_pagination;
+  }
+
+	public function getSchedules3($lim0, $lim) {
+		$db = JFactory::getDbo();
+
+    $db->setQuery('SELECT SQL_CALC_FOUND_ROWS * FROM jos_osadp_release_schedule',$lim0, $lim);
+    $rL=&$db->loadAssocList();
+    if (empty($rL)) {
+    	$jAp->enqueueMessage($db->getErrorMsg(),'error'); return;
+  	} else {
+	    ////Here the beauty starts
+	    $db->setQuery('SELECT FOUND_ROWS();'); 
+
+			return $db->loadAssocList();
+		}
 	}
 	/**
 	 * Get Schedule information by Project Id
@@ -45,11 +137,12 @@ class OsadpModelsSchedule extends JModelBase {
 	 * @param  string $username  Username of who created this Schedule
 	 * @return boolean           Success or Fail
 	 */
-	public function saveSchedule($name, $url, $date, $fullDate, $notes, $capabilities, $dma, $available, $published, $username)
+	public function saveSchedule($name, $image, $url, $date, $fullDate, $notes, $capabilities, $dma, $available, $published, $daysNew, $username)
 	{
 		$db = JFactory::getDbo();
 
 		$name = $db->escape($name);
+		$image = $db->escape($image);
 		$url = $db->escape($url);
 		$notes = $db->escape($notes);
 		$capabilities = $db->escape($capabilities);
@@ -58,8 +151,8 @@ class OsadpModelsSchedule extends JModelBase {
 		$date = date_format(date_create_from_format('m-d-Y H:i:s', $date . ' 00:00:00'), 'Y-m-d H:i:s');
 
 		$query = "INSERT INTO jos_osadp_release_schedule
-							(name, url, date, full_date, notes, capabilities, dma, available, published, created, created_by)
-							VALUES ('$name', '$url', '$date', $fullDate, '$notes', '$capabilities', $dma, $available, $published, '$created', '$username')";
+							(name, image, url, date, full_date, notes, capabilities, dma, available, published, days_new, created, created_by)
+							VALUES ('$name', '$image', '$url', '$date', $fullDate, '$notes', '$capabilities', $dma, $available, $published, $daysNew, '$created', '$username')";
 		$db->setQuery($query);
 		return $db->execute();
 	}
@@ -75,11 +168,12 @@ class OsadpModelsSchedule extends JModelBase {
 	 * @param  string $username  Username of who created this Schedule
 	 * @return boolean           Success or Fail
 	 */
-	public function updateSchedule($id, $name, $url, $date, $fullDate, $notes, $capabilities, $dma, $available, $published, $username)
+	public function updateSchedule($id, $name, $image, $url, $date, $fullDate, $notes, $capabilities, $dma, $available, $published, $daysNew, $username)
 	{
 		$db = JFactory::getDbo();
 
 		$name = $db->escape($name);
+		$image = $db->escape($image);
 		$url = $db->escape($url);
 		$date = $db->escape($date);
 		$notes = $db->escape($notes);
@@ -91,6 +185,7 @@ class OsadpModelsSchedule extends JModelBase {
 		$query = "UPDATE jos_osadp_release_schedule
 							SET
 								name='$name',
+								image='$image',
 								url='$url',
 								date='$date',
 								full_date=$fullDate,
@@ -100,7 +195,8 @@ class OsadpModelsSchedule extends JModelBase {
 								available=$available,
 								published=$published,
 								modified='$modified',
-								last_modified_by='$username'
+								last_modified_by='$username',
+								days_new='$daysNew'
 							WHERE id=$id";
 		$db->setQuery($query);
 		return $db->execute();

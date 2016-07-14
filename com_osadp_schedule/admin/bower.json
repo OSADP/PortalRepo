@@ -1,0 +1,22 @@
+{
+  "name": "com_osadp_schedule",
+  "homepage": "https://github.com/scotch-io/scotch-box",
+  "authors": [
+    "Rob Roth <robroth@leidos.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-sanitize": "^1.5.7",
+    "moment": "^2.14.1"
+  }
+}
