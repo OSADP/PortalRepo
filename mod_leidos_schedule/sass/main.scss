@@ -1,170 +1,67 @@
-
-
-
+@import "variables";
 @import "loader";
 @import "toolbar";
 
 .osadp-schedule {
-  $mainColor: #0077bb;
-  $lightMainColor: lighten($mainColor, 60%);
-  // $darkMainColor: desaturate($mainColor, 50%);
-  $darkMainColor: #004a71;
-  $altColor: lighten($darkMainColor, 50%);
-  $accentColor: #1BBC9B;
-  $actionColor: #2ABB9B;
+  &__header {
+    &-link {
+      &.explore-applications {
+        color: #2ABB9B;
+        max-width: 145px;
+        // max-height: 30px;
+        margin-top: 21px;
+        margin-right: 10px;
+        padding: 5px 0;
+        overflow: hidden;
+        transition: 500ms;
+
+        &:hover {
+          padding-right: 7px;
+          box-shadow: inset 200px 0 0 #2ABB9B;
+          color: #FFFFFF;
+
+          .icon-container {
+            // animation: moveLeft 500ms ease-in;
+            transform: rotate(360deg);
+          }
+
+          @keyframes moveLeft {
+            to {
+              transform: rotateX(90deg);
+            }
+          }
+        }
+      }
+    }
+
+    .icon-container {
+      display: inline-block;
+      padding: 5px;
+      // padding-right: 2px;
+      // margin-right: 5px;
+      text-align: center;
+      transition: 500ms;
+
+      &.green {
+        background: #2ABB9B;
+        color: #FFFFFF;
+      }
+
+      &.circle {
+        border-radius: 9000px;
+      }
+
+      .icon {
+        margin-left: 2px;
+      }
+    }
+  }
 
   &__search {
     width: 100% !important;
   }
 
-  &__card {
-    font-size: 14px;
-    padding: 0 15px;
-    margin: 0 0 15px 0;
-    margin-right: 1% !important;
-    border: solid 1px $darkMainColor;
-    box-sizing: border-box;
-    box-shadow: 5px 5px 0px rgba(0, 0, 0, .1);
-    transition: .3s;
-
-    animation-name: fadeIn;
-    animation-duration: 1s;
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-      }
-      to {
-        opacity: 1;
-      }
-    }
-
-    &.span6 {
-      width: 49.5% !important;
-    }
-    
-    &:nth-child(odd) {
-      margin-right: 0;
-    }
-
-    &.active {
-      background: $lightMainColor;
-      border-color: lighten($mainColor, 40%);
-      border-bottom-color: $lightMainColor;
-    }
-
-    &-name {
-      width: 80%;
-      .release {
-        display: inline-block;
-        width: 75%;
-      }
-    }
-    
-    &-image-container {
-      display: inline-block;
-      vertical-align: middle;
-      width: 127px;
-      height: 127px;
-      padding: 15px 15px 0 0;
-    }
-
-    &-image {
-      width: 100%;
-      height: 100%;
-      border: solid 1px #aaa;
-      border-radius: 0;
-      background-position: center;
-      background-size: cover;
-      background-color: #aaa;
-    }
-
-    &-new {
-      background-image: linear-gradient(45deg, #F2784B, #D91E18);
-      background-color: #D91E18;
-      color: $lightMainColor;
-      padding: 0px 15px;
-      // height: 40px;
-      // width: 40px;
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-align: center;
-      position: absolute;
-      right: 0px;
-      /* transform: rotate(-45deg)*/
-      top: -10px;
-      border-radius: 99px 0;
-    }
-
-    &-expanded {
-      // background: $lightMainColor;
-      border-right: none;
-      border-top: none;
-      padding-top: 15px;
-    }
-
-    &-readmore {
-      background: $actionColor;
-      color: $lightMainColor;
-      letter-spacing: 1px;
-      text-align: center;
-      cursor: pointer;
-
-      &:hover {
-        background: lighten($actionColor, 10%);
-      }
-    }
-
-    .notes-container {
-      max-height: 100px;
-      overflow: hidden;
-    }
-    .notes-expand {
-      max-height: 9090px;
-      -webkit-transition: max-height .3s ease-in;
-      -moz-transition: max-height .3s ease-in;
-      transition: max-height .3s ease-in;
-    }
-
-    h4 {
-      padding: 15px 0;
-      margin: 0 0 15px 0;
-    }
-
-    .badge {
-      background: $accentColor;
-      font-weight: 100;
-      margin-top: 15px;
-    }
-    
-    &-date {
-      width: 80px;
-      height: 80px;
-      background-image: -webkit-linear-gradient(top left, #6C7A89, $darkMainColor);
-      background-image: -o-linear-gradient(top left, #6C7A89, $darkMainColor);
-      background-image: linear-gradient(to bottom right, #6C7A89, $darkMainColor);
-      background-color: $darkMainColor;
-      color: $lightMainColor;
-      margin: 0 -15px 0 0;
-    
-      .day {
-        width: 100%;
-        height: 58px;
-        text-align: center;
-        font-size: 30px;
-        padding-top: 7px;
-        background-image: -webkit-linear-gradient(top left, lighten(lightslategray, 10%), lightslategray);
-        background-image: -o-linear-gradient(top left, lighten(lightslategray, 10%), lightslategray);
-        background-image: linear-gradient(to bottom right, lighten(lightslategray, 10%), lightslategray);
-        background-color: lightslategray;
-      }
-    
-      .date {
-        width: 100%;
-        text-align: center;
-      }
-    }
-  }
+  @import "card";
 
 }
 
