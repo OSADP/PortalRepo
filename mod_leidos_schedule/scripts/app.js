@@ -13,18 +13,16 @@
     $scope.hideLoader = function() {
       $scope.loading = false
     }
-    // cache our controller
-    var ctrl = this;
-    // the current page in the pagination
-    ctrl.page = 0;
-    // add moment to our controller's space
-    ctrl.moment = moment
-    // the ordering of the schedules
-    ctrl.order = '-date'
-    // the number of schedules to display
-    ctrl.limit = '5'
-    // filter availability, default is blank which display all
-    ctrl.availability == ''
+    var settings = {
+      page: 0, // current page
+      order: '-date', // sorting order
+      limit: '5', // number of items to display
+      availability: '0', // 0 = Coming Soon
+      moment: moment // just referencing momentJS `bad practice`
+    }
+    // cache our controller adding our settings
+    var _ctrl = angular.extend(this, settings);
+
     // add a new flag to schedules that are newly created
     schedules.forEach( function(schedule, index) {
       var thisDate = moment(schedule.created).startOf('day')
@@ -34,24 +32,24 @@
       schedule.isNew = thisDate.isAfter(weekAgo)
     });
     // use our paginate function to paginate schedules
-    ctrl.schedules = paginater(schedules, ctrl.limit)
+    _ctrl.schedules = paginater(schedules, _ctrl.limit)
     // this function is in the scope to $digest changes
     $scope.changeLimit = function() {
-      if(ctrl.limit == 'all')
-        ctrl.schedules = paginater(schedules, 0)
+      if(_ctrl.limit == 'all')
+        _ctrl.schedules = paginater(schedules, 0)
       else
-        ctrl.schedules = paginater(schedules, ctrl.limit)
+        _ctrl.schedules = paginater(schedules, _ctrl.limit)
     }
 
     $scope.updatePagination = function() {
-      ctrl.schedules = paginater(schedules, ctrl.limit)
-      return ctrl.schedules
+      _ctrl.schedules = paginater(schedules, _ctrl.limit)
+      return _ctrl.schedules
     }
 
 
     function paginater(schedules, limit) {
-      var filterByAvail = $filter('filter')(schedules, {available: ctrl.availability})
-      var filterByOrder = $filter('orderBy')(filterByAvail, ctrl.order)
+      var filterByAvail = $filter('filter')(schedules, {available: _ctrl.availability})
+      var filterByOrder = $filter('orderBy')(filterByAvail, _ctrl.order)
       return paginate(filterByOrder, limit)
     }
   }
