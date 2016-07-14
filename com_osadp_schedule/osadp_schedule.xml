@@ -29,6 +29,7 @@
 			<folder>views</folder>
 			<folder>css</folder>
 			<folder>scripts</folder>
+			<folder>vendor</folder>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<filename>osadp_schedule.php</filename>
