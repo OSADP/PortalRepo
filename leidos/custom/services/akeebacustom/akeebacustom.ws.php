@@ -1,5 +1,5 @@
 <?php
-require (dirname ( __FILE__ ) . "/services/akeebacustom.impl.php");
+require (dirname ( __DIR__ ) . "/akeebacustom/akeebacustom.impl.php");
 // instantiate our implementation
 $ars = new AkeebaCustomImpl();
 // simulate the RESTful format

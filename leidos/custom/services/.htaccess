@@ -1,4 +1,6 @@
-RewriteRule ^ars/ akeeba.ws.php
+#RewriteRule ^ars/ akeeba.ws.php
 RewriteRule ^extras/ akeebacustom.ws.php
+RewriteRule ^akeebacustom/ akeebacustom/akeebacustom.ws.php
 
 RewriteRule ^multi/ multicategories/multicategories.ws.php
+RewriteRule ^schedules/ schedules/schedules.ws.php

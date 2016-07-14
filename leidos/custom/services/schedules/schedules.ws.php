@@ -3,24 +3,17 @@
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+// set our response header
 header ( 'Content-type: application/json' );
 // require our implementation class
-require (dirname ( __FILE__ ) . "/multicategories.impl.php");
+require (dirname ( __FILE__ ) . "/schedules.impl.php");
 require (dirname ( __FILE__ ) . "/resthelpers.php");
 
 // create a new instance of our implementation
-$multi = new MulticategoriesImpl();
+$impl = new SchedulesImpl();
 // simulate the RESTful format
-$params = [];
-// get our URI
-$parts = explode ( '/', $_SERVER ['REQUEST_URI'] );
-// parse it
-for($i = 0; $i < count ( $parts ); $i ++) {
-	// first segment is the param name, second is the value
-	$params[ $parts[$i] ] = $parts[$i];
-}
 // create a rest helper instance
-$rest = new RestHelper( $params, $parts );
+$rest = new RestHelper( $_SERVER ['REQUEST_URI'] );
 // POST for inserting categories to the given itemId
 if ( isset( $params['save'] ) ) {
 	header ( 'Content-type: application/json' );
@@ -30,10 +23,10 @@ if ( isset( $params['save'] ) ) {
 		$categories = ( is_array( $categories ) ) ? $categories : [ $categories ];
 		// check if item id exist in the db and use UPDATE
 		// otherwise use INSERT
-		if( $multi->getCategoriesByItem( $itemId ) ) {
-			$response = $multi->updateCategories($itemId, $categories);
+		if( $impl->getCategoriesByItem( $itemId ) ) {
+			$response = $impl->updateCategories($itemId, $categories);
 		} else {
-			$response = $multi->insertCategories($itemId, $categories);
+			$response = $impl->insertCategories($itemId, $categories);
 		}
 		die( json_encode( $response ) );
 	}
@@ -43,16 +36,26 @@ if ( isset( $params['save'] ) ) {
 // Categories Web Service
 // GET all categories for all items
 // GET all categories for an item by item id
-if( isset( $params['categories'] ) ) {
-	$itemId = $rest->nextParam('categories');
+$rest->request('all', $impl, 'allSchedules');
+
+$rest->request('get', $impl, 'getSchedule');
+
+
+// return categories by id or all categories
+function allSchedules( $restHelper, $impl ) {
+	die( json_encode($impl->getAllSchedules()) );
+}
+
+// return categories by id or all categories
+function getSchedule( $restHelper, $impl ) {
+	$itemId = $restHelper->nextParam('get');
 	// get all categories if no item id is found
-	if( ! $itemId ) {
-		die( json_encode($multi->getAllCategories()) );
-	} else {
-		die( json_encode($multi->getCategoriesByItem( $itemId )) );
+	if( $itemId ) {
+		die( json_encode($impl->getCategoriesByItem( $itemId )) );
 	}
 
 	die( FALSE );
 }
+
 // TODO: GET all categories by item id
 ?>

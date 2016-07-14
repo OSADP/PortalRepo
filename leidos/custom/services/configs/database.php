@@ -6,9 +6,9 @@
 class DBConfig {
 	// define our database configuration
 	private $host = 'localhost';
-	private $schema = 'osadp_bookshop';
+	private $schema = 'osadp_prod';
 	private $username = 'root';
-	private $password = 'Password*2';
+	private $password = 'root';
 	
 	// define a database variable for subclasses
 	protected $db;
@@ -24,8 +24,6 @@ class DBConfig {
 	}
 	protected function database_connect() {
 		$config = new mysqli ( $this->host, $this->username, $this->password, $this->schema );
-		// restrict character encoding to UTF-8
-		$config->set_charset("utf8");
 		$config->autocommit ( FALSE );
 		return $config;
 	}
