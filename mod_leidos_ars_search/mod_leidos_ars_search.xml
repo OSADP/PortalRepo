@@ -9,35 +9,11 @@
         <filename module="mod_leidos_ars_search">mod_leidos_ars_search.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
-
-        <filename>css/index.html</filename>
-        <filename>css/bounce.animation.css</filename>
-        <filename>css/main.css</filename>
-
-        <filename>images/index.html</filename>
-        <filename>images/osadp-logo-blue.png</filename>
-        <filename>images/osadp-logo-white.png</filename>
-
-        <filename>app/index.html</filename>
-        <filename>app/main.js</filename>
-        <filename>app/router.js</filename>
-
-        <filename>app/controllers/index.html</filename>
-        <filename>app/controllers/AkeebaReleaseCtrl.js</filename>
-        <filename>app/controllers/CategoryListCtrl.js</filename>
-        <filename>app/controllers/ViewCtrl.js</filename>
-        <filename>app/controllers/ApplicationCtrl.js</filename>
-
-        <filename>app/services/index.html</filename>
-        <filename>app/services/AkeebaService.js</filename>
-        <filename>app/services/AkeebaItemDirective.js</filename>
-
-        <filename>app/partials/index.html</filename>
-        <filename>app/partials/main.ng.html</filename>
-        <filename>app/partials/item.ng.html</filename>
-        <filename>app/partials/application.ng.html</filename>
+        
+        <folder>app</folder>
+        <folder>css</folder>
+        <folder>images</folder>
+        <folder>tmpl</folder>
     </files>
     <config>
         <fields name="params">
