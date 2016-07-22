@@ -27,20 +27,21 @@
   </div>
 
   <div class="badge" ng-show="schedule.available == 1">Available</div>
-  <div class="badge warning" ng-show="schedule.available == 0">Soon</div>
+  <div class="badge warning" ng-show="schedule.available == 0">Upcoming</div>
 
   <div class="notes-container row" ng-class="{ 'notes-expand' : schedule.readmore }">
-    <div class="col-lg-12">
-      <p><strong>Notes:</strong></p>
-      <p ng-bind-html="schedule.notes"></p>
+    <div class="notes-wrapper col-lg-12">
+      <p><strong>Description:</strong></p>
+      <p class="notes-text" ng-bind-html="schedule.notes"></p>
     </div>
-    <div class="col-lg-12">
+    <div class="col-lg-12" ng-if="schedule.capabilities">
       <p><strong>Capabilities:</strong></p>
       <p ng-bind-html="schedule.capabilities"></p>
     </div>
   </div>
 
-  <div class="row osadp-schedule__card-readmore" ng-click="schedule.readmore = ! schedule.readmore">
+  <div class="row osadp-schedule__card-readmore" ng-click="schedule.readmore = ! schedule.readmore"
+    ng-if="notesOverflowed()">
     <div class="col-lg-12">
       <span class="icon-chevron-down" ng-hide="schedule.readmore"></span>
       <span class="icon-chevron-up" ng-show="schedule.readmore"></span>

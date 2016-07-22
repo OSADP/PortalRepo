@@ -18,6 +18,12 @@ angular.module('ScheduleDirective', [])
       if($scope.schedule.full_date == 0)
         $scope.date = moment($scope.schedule.date).format('YYYY')
       $scope.$parent.hideLoader()
+
+      $scope.notesOverflowed = function() {
+        var notesContainer = iElm.children()
+        .children('.notes-container')[0];
+        return notesContainer.scrollHeight > notesContainer.clientHeight || notesContainer.scrollWidth > notesContainer.clientWidth;
+      }
     }
   };
 }]);
