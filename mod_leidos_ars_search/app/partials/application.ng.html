@@ -60,24 +60,24 @@
 	</ul>
 	<!-- Display Item Description when 'description' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'description'">
-		<p ng-if="item.description == '' || item.description.length == 0">No descriptions found..</p>
+		<p ng-if="item.description == '' || item.description.length == 0">No current description available for this application.</p>
 		<div ng-bind-html="item.description"></div>
 	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'release'">
-		<p ng-if="item.release.notes == ''">No release notes found..</p>
+		<p ng-if="item.release.notes == ''">No current release notes available for this application.</p>
 		<div ng-bind-html="item.release.notes"></div>
 	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'documentation'">
-		<p ng-if="item.documentation.length == 0">No documentation found..</p>
+		<p ng-if="item.documentation.length == 0">No current documentation available for this application.</p>
 		<ul>
 			<li ng-repeat="document in item.documentation"><a href="{{ document.documentation_link }}">{{ document.documentation_text }}</a></li>
 		</ul>
 	</div>
 
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'discussion'">
-		<p ng-if="(item.discussion_url == null || item.discussion_url == '') && (item.issues_url == null || item.issues_url == '')">No discussion found..</p>
+		<p ng-if="(item.discussion_url == null || item.discussion_url == '') && (item.issues_url == null || item.issues_url == '')">No current discussion available for this application.</p>
 		<ul ng-if="item.discussion_url != null || item.issues_url != null">
 			<li ng-if="item.discussion_url != null && item.discussion_url != '' ">
 				<a href="{{ item.discussion_url }}">
@@ -94,7 +94,7 @@
 
 	<!-- Displays other applications under the same category when 'other' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'other'">
-		<p ng-if="otherItems.length == 0">No similar application found..</p>
+		<p ng-if="otherItems.length == 0">No similar application available for this application.</p>
 		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" item="item"></div>
 	</div>
 
