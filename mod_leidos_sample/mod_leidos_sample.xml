@@ -10,8 +10,8 @@
         <filename>index.html</filename>
         <filename>helper.php</filename>
         <folder>tmpl</folder>
-        <folder>css</folder>
-        <folder>js</folder>
+        <folder>styles</folder>
+        <folder>scripts</folder>
     </files>
     <config>
         <fields name="params">
