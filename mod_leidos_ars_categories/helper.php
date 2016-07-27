@@ -12,7 +12,6 @@
     defined('_JEXEC') or die;
 
     class ArsDisplay {
-
         function getCategories() {
             // create our database object
             $db = JFactory::getDbo();
@@ -23,10 +22,6 @@
             // return our result
             return $db->loadObjectList();
         }
-
-    	function getAuthor() {
-    		return "Robert Roth";
-    	}
 
     }
 ?>

@@ -1,5 +1,9 @@
 
 <?php JHtml::stylesheet('administrator/components/com_multicategories/css/styles.css'); ?>
+<?php JHtml::script('https://code.jquery.com/jquery-1.12.0.min.js'); ?>
+<?php JHtml::script('administrator/components/com_multicategories/scripts/multicategories.service.js'); ?>
+<?php JHtml::script('administrator/components/com_multicategories/scripts/osadp.alert.js'); ?>
+<?php JHtml::script('administrator/components/com_multicategories/scripts/main.js'); ?>
 
 <div class="row-fluid">
 	<div class="span6">
@@ -43,8 +47,3 @@
 	window._itemId = <?php echo $this->item->id; ?>;
 	window._mainCategory = <?php echo $this->item->category_id; ?>;
 </script>
-
-<?php JHtml::script('https://code.jquery.com/jquery-1.12.0.min.js'); ?>
-<?php JHtml::script('administrator/components/com_multicategories/scripts/multicategories.service.js'); ?>
-<?php JHtml::script('administrator/components/com_multicategories/scripts/osadp.alert.js'); ?>
-<?php JHtml::script('administrator/components/com_multicategories/scripts/main.js'); ?>

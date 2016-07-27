@@ -1,8 +1,8 @@
 
 
-'use strict';
 // iife to protect scope
 (function(window, document, $, undefined) {
+	'use strict';
 	// on document ready
 	$(function() {
 		// **** INITIALIZATION **** //

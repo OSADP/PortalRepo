@@ -1,9 +1,7 @@
-'use strict';
-
-
 // contains services for our akeeba component
 // pass in jQuery as $
 var MultiCategoriesService = (function( $ ) {
+	'use strict';
 	// constructor
 	function MultiCategoriesService( args ) {
 		// enforces new

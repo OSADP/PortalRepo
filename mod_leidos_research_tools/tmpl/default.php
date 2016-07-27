@@ -1,7 +1,7 @@
-<?php 
-defined('_JEXEC') or die;
-JHTML::stylesheet('modules/mod_leidos_research_tools/css/main.css'); 
-JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js');
+<?php
+	defined('_JEXEC') or die;
+	JHTML::stylesheet('modules/mod_leidos_research_tools/css/main.css'); 
+	JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js');
 ?>
 
 <div id="osadpResearch">

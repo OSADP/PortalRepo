@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="module" version="3.1.0" client="site" method="upgrade">
-    <name>NAME</name>
-    <author>Robert Roth @ Leidos</author>
+    <name>{ NAME }</name>
+    <author>{ DEVELOPER } @ { COMPANY }</author>
     <version>0.0.0</version>
-    <description>DESCRIPTION</description>
+    <description>{ DESCRIPTION }</description>
     <files>
         <filename>mod_leidos_sample.xml</filename>
         <filename module="mod_leidos_sample">mod_leidos_sample.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
-        <filename>styles/main.css</filename>
-        <filename>scripts/main.js</filename>
+        <folder>tmpl</folder>
+        <folder>css</folder>
+        <folder>js</folder>
     </files>
     <config>
+        <fields name="params">
+            <fieldset name="basic">
+                <field
+                    name="header"
+                    type="text"
+                    label="Enter Module Header"
+                    description="Text entered here will be displayed as the modules header."
+                    size="20">
+                </field>
+            </fieldset>
+        </fields>
     </config>
 </extension>

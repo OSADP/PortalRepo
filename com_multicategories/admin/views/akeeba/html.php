@@ -16,11 +16,7 @@ class OsadpViewsAkeebaHtml extends JViewHtml
     return parent::render();
   } 
 
-  /**
-   * Add the page title and toolbar.
-   *
-   * @since   1.6
-   */
+  // Add the page title and toolbar.
   protected function addToolbar()
   {
     $canDo  = OsadpHelpersAkeeba::getActions();

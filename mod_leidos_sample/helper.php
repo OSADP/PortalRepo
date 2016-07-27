@@ -1,14 +1,7 @@
-
-
-
 <?php
-/**
- * Helper class for this Module
- * 
- * @package    Leidos.Custom.OSADP
- * @subpackage Modules
- * @link http://itsforge.net
- */
+    /**
+     * 
+     */
     defined('_JEXEC') or die;
 
     class ModuleHelper {
@@ -23,6 +16,6 @@
             // return our result
             return $db->loadResult();
         }
-
+        
     }
 ?>

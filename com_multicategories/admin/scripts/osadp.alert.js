@@ -1,7 +1,5 @@
-
-
-'use strict';
 if( jQuery ) {
+	'use strict';
 
 	var OsadpAlert = (function( $ ) {
 		// constructor

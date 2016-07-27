@@ -23,8 +23,6 @@ class OsadpViewsMainHtml extends JViewHtml
 
     /**
      * Add the page title and toolbar.
-     *
-     * @since   1.6
      */
     protected function addToolbar()
     {

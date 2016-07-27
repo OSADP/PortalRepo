@@ -2,19 +2,15 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos OSADP Resources and Tools</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.12.0</version>
+    <version>1.0.0</version>
     <description>A custom module made by Leidos for OSADP displaying resources and other tools.</description>
     <files>
-        <filename>index.html</filename>
-        <filename>mod_leidos_research_tools.xml</filename>
         <filename module="mod_leidos_research_tools">mod_leidos_research_tools.php</filename>
+        <filename>mod_leidos_research_tools.xml</filename>
         <filename>helper.php</filename>
-
-        <filename>tmpl/index.html</filename>
-        <filename>tmpl/default.php</filename>
-
-        <filename>css/index.html</filename>
-        <filename>css/main.css</filename>
+        <filename>index.html</filename>
+        <folder>tmpl</folder>
+        <folder>css</folder>
     </files>
     <config>
         <fields name="params">

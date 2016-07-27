@@ -8,13 +8,8 @@
  * @license     License, for example GNU/GPL
  */
  
-//To prevent accessing the document directly, enter this code:
-// no direct access
+// Prevent direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
- 
-// Require the component's router file (Replace 'nameofcomponent' with the component your providing the search for
-// require_once JPATH_SITE .  '/components/nameofcomponent/helpers/route.php';
- 
 /**
  * All functions need to get wrapped in a class
  *
@@ -28,7 +23,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 	 * @access      protected
 	 * @param       object  $subject The object to observe
 	 * @param       array   $config  An array that holds the plugin configuration
-	 * @since       1.6
+	 * @since       0.0.0
 	 */
 
 	public function __construct(& $subject, $config)
@@ -47,17 +42,14 @@ class PlgSearchOsadpappsearch extends JPlugin
 		);
 		return $areas;
 	}
- 
-	// The real function has to be created. The database connection should be made. 
-	// The function will be closed with an } at the end of the file.
 	/**
 	 * The sql must return the following fields that are used in a common display
 	 * routine: href, title, section, created, text, browsernav
-	 *
-	 * @param string Target search string
-	 * @param string mathcing option, exact|any|all
-	 * @param string ordering option, newest|oldest|popular|alpha|category
-	 * @param mixed An array if the search it to be restricted to areas, null if search all
+	 * @param  string $text     Target search string
+	 * @param  string $phrase   Mathcing option, exact|any|all
+	 * @param  string $ordering Ordering option, newest|oldest|popular|alpha|category
+	 * @param  mixed $areas    	An array if the search it to be restricted to areas, null if search all
+	 * @return array            Return the search results in an array
 	 */
 	function onContentSearch( $text, $phrase='', $ordering='', $areas=null )
 	{
@@ -82,9 +74,8 @@ class PlgSearchOsadpappsearch extends JPlugin
 			return array();
 		}
  
-		// After this, you have to add the database part. This will be the most difficult part, because this changes per situation.
-		// In the coding examples later on you will find some of the examples used by Joomla! 3.1 core Search Plugins.
-		//It will look something like this.
+		// After this, you have to add the database part.
+		// This will be the most difficult part, because this changes per situation.
 		$wheres = array();
 		switch ($phrase) {
  
@@ -122,7 +113,6 @@ class PlgSearchOsadpappsearch extends JPlugin
 			case 'alpha':
 				$order = 'item.title ASC';
 				break;
- 
 			// Oldest first
 			case 'oldest':
  				$order = 'item.created ASC';
@@ -143,7 +133,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 		// Replace osadpappsearch
 		$section = JText::_( 'Applications' );
  
-		// The database query; differs per situation! It will look something like this (example from newsfeed search plugin):
+		// The database query; differs per situation:
 		$query	= $this->db->getQuery(true);
 		$query->select('item.id AS itemId, category.id AS catId, item.title AS title, item.hits AS hits, item.created AS created, item.description AS text');
 				$query->select($query->concatenate(array($this->db->Quote($section), 'category.title'), " / ").' AS section');
@@ -154,16 +144,16 @@ class PlgSearchOsadpappsearch extends JPlugin
 				$query->where('('. $where .')');
 				$query->order($order);
  
-		// Set query
 		$this->db->setQuery( $query, 0, $limit );
 		$rows = $this->db->loadObjectList();
-		// The 'output' of the displayed link. Again a demonstration from the newsfeed search plugin
+		// Build the links to our applications, the parameter is a configuration
+		// in our manifest and is set in the plugin's Joomla admin settings
 		foreach($rows as $key => $row) {
 			$link = $this->params['applications_page'] . '#/';
 			$rows[$key]->href = $link . $row->catId.'/'. $row->itemId;
 		}
  
-	//Return the search results in an array
+	// Return the search results in an array
 	return $rows;
 	}
 }

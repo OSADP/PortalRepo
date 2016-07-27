@@ -9,30 +9,9 @@
         <filename module="mod_leidos_osadp_footer">mod_leidos_osadp_footer.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
-
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
-
-        <filename>css/index.html</filename>
-        <filename>css/osadp.footer.css</filename>
-
-        <filename>js/index.html</filename>
-        <filename>js/osadp.footer.js</filename>
+        <folder>tmpl</folder>
+        <folder>css</folder>
+        <folder>js</folder>
     </files>
-    <config>
-<!--         <fields name="params">
-            <fieldset name="basic">
-                <field name="applicationsLink" type="text" default="" label="Enter Explore Applications URL:" description="This will be the link for the Explore Applications Icon" size="256" />
-            </fieldset>
-            <fieldset name="basic">
-                <field name="releasesLink" type="text" default="" label="Enter Upcoming Releases URL:" description="This will be the link for the Upcoming Releases Icon" size="256" />
-            </fieldset>
-            <fieldset name="basic">
-                <field name="resourcesLink" type="text" default="" label="Enter Resources and Tools URL:" description="This will be the link for the Resources and Tools Icon" size="256" />
-            </fieldset>
-            <fieldset name="basic">
-                <field name="discussionsLink" type="text" default="" label="Enter Discussion Forum URL:" description="This will be the link for the Discussion Forum Icon" size="256" />
-            </fieldset>
-        </fields> -->
-    </config>
+    <config></config>
 </extension>

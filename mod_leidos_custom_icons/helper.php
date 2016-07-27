@@ -57,9 +57,5 @@
             return $db->loadObjectList();
         }
 
-    	function getAuthor() {
-    		return "Robert Roth";
-    	}
-
     }
 ?>
