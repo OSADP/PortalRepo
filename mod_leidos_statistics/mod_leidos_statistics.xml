@@ -2,17 +2,15 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>OSADP Akeeba Statistics</name>
     <author>Leidos|Robert Roth</author>
-    <version>0.0.5</version>
+    <version>1.0.0</version>
     <description>A custom module made by Leidos for OSADP to display statistics for the Akeeba Release System.</description>
     <files>
         <filename>mod_leidos_statistics.xml</filename>
         <filename module="mod_leidos_statistics">mod_leidos_statistics.php</filename>
         <filename>index.html</filename>
         <filename>helper.php</filename>
-        <filename>tmpl/default.php</filename>
-        <filename>tmpl/index.html</filename>
-        <filename>css/main.css</filename>
+        <folder>tmpl</folder>
+        <folder>css</folder>
     </files>
-    <config>
-    </config>
+    <config></config>
 </extension>
