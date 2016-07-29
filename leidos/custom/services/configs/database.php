@@ -1,33 +1,23 @@
 <?php
-
-/**
- * A class containing the configuration of our database
- */
-class DBConfig {
-	// define our database configuration
-	private $host = 'localhost';
-	private $schema = 'osadp_prod';
-	private $username = 'root';
-	private $password = 'root';
-	
-	// define a database variable for subclasses
-	protected $db;
-	
-	// Constructor - open database connection
-	function __construct() {
-		$this->db = $this->database_connect ();
+	require( dirname ( __DIR__ ) . '../../../../configuration.php');
+	/**
+	 * A class containing the configuration of our database
+	 */
+	class DBConfig extends JConfig {
+		// Constructor - open database connection
+		function __construct() {
+			$this->db = $this->database_connect ();
+		}
+		// Destructor - close database connection
+		function __destruct() {
+			$this->db->close ();
+		}
+		// Create a new MySQL connection
+		protected function database_connect() {
+			$config = new mysqli ( $this->host, $this->user, $this->password, $this->db );
+			$config->autocommit ( FALSE );
+			return $config;
+		}
 	}
-	
-	// Destructor - close database connection
-	function __destruct() {
-		$this->db->close ();
-	}
-	protected function database_connect() {
-		$config = new mysqli ( $this->host, $this->username, $this->password, $this->schema );
-		$config->autocommit ( FALSE );
-		return $config;
-	}
-}
-
 ?>
 
