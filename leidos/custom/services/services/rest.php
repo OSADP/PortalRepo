@@ -24,8 +24,13 @@
 		}
 
 		function child( $route ) {
+			$routeValue = array_search($route, array_values($this->parameters));
+			if( $routeValue !== null ) {
+				$difference = count($this->parameters) - $routeValue;
+				$key = count($this->parameters) - $difference + 1;
+				return $this->parts[$key];
+			}
 			$count = count($this->parameters) - 2;
-			$key = array_search($route, array_values($this->parameters));
 			if( $key == $count ) {
 				return $this->parts[ $key + 1 ];
 			} else {
