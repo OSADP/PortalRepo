@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `#__akeeba_category_custom` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__akeeba_item_custom` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -15,10 +15,11 @@ CREATE TABLE IF NOT EXISTS `#__akeeba_item_custom` (
   `short_description` varchar(255) DEFAULT NULL,
   `discussion_url` varchar(255) DEFAULT NULL,
   `issues_url` varchar(255) DEFAULT NULL,
+  `keywords` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `#__akeeba_item_documentation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,4 +29,4 @@ CREATE TABLE IF NOT EXISTS `#__akeeba_item_documentation` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
