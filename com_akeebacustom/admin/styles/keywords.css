@@ -1,0 +1,31 @@
+#arsKeywords{
+  display: inline-block;
+  border:1px solid #ccc;
+  padding:5px;
+  font-family:Arial;
+}
+#arsKeywords > span{
+  cursor:pointer;
+  display:block;
+  float:left;
+  color:#fff;
+  background:#3498DB;
+  padding:6px 10px;
+  margin:4px;
+  font-size: 13px;
+}
+#arsKeywords > span:hover{
+  opacity:0.7;
+}
+#arsKeywords > input{
+  background:#f8f8f8;
+  // border:0;
+  border-radius: 0;
+  -o-border-radius: 0;
+  -ms-border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
+  margin:4px;
+  padding:5px 7px;
+  width:auto;
+}

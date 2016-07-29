@@ -1,0 +1,39 @@
+{
+  "name": "com_akeebacustom",
+  "version": "0.2.1",
+  "description": "Joomla Component for adding custom information to Akeeba release applications based on OSADP requirements",
+  "main": "-",
+  "scripts": {
+    "dev": "./node_modules/webpack/bin/webpack.js --watch",
+    "build": "NODE_ENV=production ./node_modules/webpack/bin/webpack.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OSADP/PortalRepo.git"
+  },
+  "keywords": [
+    "osadp",
+    "akeeba",
+    "custom"
+  ],
+  "author": "Robert Roth @ Leidos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OSADP/PortalRepo/issues"
+  },
+  "homepage": "https://github.com/OSADP/PortalRepo#readme",
+  "dependencies": {
+    "angular": "^1.5.7",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.9.0",
+    "css-loader": "^0.23.1",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.1"
+  }
+}

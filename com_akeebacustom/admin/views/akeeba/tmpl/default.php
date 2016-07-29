@@ -1,5 +1,8 @@
 
-
+<?php
+	// JHTML::stylesheet('administrator/components/com_akeebacustom/styles/keywords.css');
+	JHTML::script('administrator/components/com_akeebacustom/scripts/akeeba.custom.min.js');
+?>
 
 
 <div class="row-fluid">
@@ -8,35 +11,52 @@
 
 		<form id="akeebaCustom">
 			<fieldset>
-				<legend>Akeeba Category Custom Information</legend>
-				<label for="akeebaCategories">Akeeba Categories:</label>
-				<select class="form-control" name="category" id="akeebaCategories">
-					<option selected="selected" value="0">All Applications</option>
-					<?php
-					foreach ($this->akeebaCategories as $index => $category ) {
-						// if( $index == 0 ) {
-						// 	echo '<option selected="selected" value="' . $category->id . '">' . $category->title . '</option>';
-						// } else {
-							echo '<option value="' . $category->id . '">' . $category->title . '</option>';
-						// }
-					}
-					?>
-				</select>
+				<!-- <legend>Akeeba Category Custom Information</legend> -->
+				<h2>Akeeba Category:</h2>
+				<div class="well">
+					<label for="akeebaCategories">Akeeba Categories:</label>
+					<select class="form-control" name="category" id="akeebaCategories">
+						<option selected="selected" value="0">All Applications</option>
+						<?php
+						foreach ($this->akeebaCategories as $index => $category ) {
+							// if( $index == 0 ) {
+							// 	echo '<option selected="selected" value="' . $category->id . '">' . $category->title . '</option>';
+							// } else {
+								echo '<option value="' . $category->id . '">' . $category->title . '</option>';
+							// }
+						}
+						?>
+					</select>
 
-				<br>
-				<br>
-				<span class="help-block">Any information below will be saved under the selected category.</span>
-				<br>
-				<label for="fullName">Category Icon URL:</label>
-				<input id="categoryIcon" type="text" placeholder="Enter image URL">
-				<br>
-				<br>
-				<button id="akeebaSave" class="btn btn-small btn-success" type="button">
-					<span class="icon-apply icon-white"></span> 
-					Save
-				</button>
+					<br>
+					<br>
+					<span class="help-block">Any information below will be saved under the selected category.</span>
+					<br>
+					<label for="fullName">Category Icon URL:</label>
+					<input id="categoryIcon" type="text" placeholder="Enter image URL">
+					<br>
+					<br>
+					<button id="akeebaSave" class="btn btn-small btn-success" type="button">
+						<span class="icon-apply icon-white"></span> 
+						Save
+					</button>
+				</div>
 			</fieldset>
 		</form>
+		<div class="well" ng-app="AkeebaCustomModule">
+			<h3>Akeeba Category</h3>
+			<div ng-controller="CategoryCustomsCtrl as category">
+				<select ng-model="category.select" ng-init="category.select = 'all'" ng-change="category.changeActive(category)">
+					<option value="all">All Applications</option>
+					<option ng-repeat="category in category.categories" value="{{ category.id }}">{{ category.title }}</option>
+				</select>
+				<div style="width: 128px; height: 128px;" ng-if="category.active.icon_url">
+					<img ng-src="{{ category.active.icon_url || '' }}" alt="">
+				</div>
+				<label for="">Category Icon URL:</label>
+				<input type="text" ng-model="category.active.icon_url" placeholder="Enter image URL">
+			</div>
+		</div>
 	</div>
 
 	<div class="span4">
@@ -60,6 +80,12 @@
 				
 				<label for="issuesDiscussion">Issues Discussion Link:</label>
 				<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link">
+
+				<!-- Keyword tags -->
+				<label for="keywords"><strong>Keywords:</strong></label>
+				<div id="arsKeywords">
+			    <input type="text" value="" placeholder="Add a keyword" />
+			  </div>
 				
 				<br>
 				<br>
@@ -156,82 +182,4 @@
 		<input class="docText" type="text" placeholder="Enter documentation text">
 		<hr>
 	</li>
-</script>
-
-<script src="components/com_akeebacustom/scripts/akeeba.service.js"></script>
-<script>
-	;(function(window, document, $, AkeebaService, undefined) {
-		$(function() {
-			// instantiate our service
-			var akeeba = new AkeebaService();
-			// get information and applications under selected category
-			$('#akeebaCategories').change( function( evnt ) {
-				evnt.preventDefault();
-				akeeba.getApplications()
-				.then(akeeba.getApplicationInfo)
-				.then(akeeba.getApplicationDocs);
-				akeeba.getInformation();
-			});
-			// get information for selected application
-			$('#akeebaApplications').change( function( evnt ) {
-				evnt.preventDefault();
-				akeeba.getApplicationInfo();
-				akeeba.getApplicationDocs();
-			})
-			// save information given for selected category
-			$('#akeebaSave').click(function( evnt ) {
-				evnt.preventDefault();
-				var data = {
-					categoryId: parseInt($('#akeebaCategories option:selected').val()),
-					iconUrl: $('#categoryIcon').val()
-				}
-				akeeba.saveCategoryInfo( data ).then( function( response ) {
-					if( response == 'Success!' ) alert('Category Icon for ' + $('#akeebaCategories option:selected').text() + ' is saved.');
-				})
-			});
-			// save information given for selected application
-			$('#akeebaItemSave').click(function( evnt ) {
-				evnt.preventDefault();
-				var data = {
-					itemId: $('#akeebaApplications option:selected').val(),
-					iconUrl: $('#itemIcon').val(),
-					shortDescription: $('#description').val(),
-					mainDiscussion: $('#mainDiscussion').val(),
-					issuesDiscussion: $('#issuesDiscussion').val()
-				}
-				if( ! isNaN(data.itemId) ) {
-					akeeba.saveApplicationInfo( data ).done( function( response ) {
-						response = response.replace(/\s/g, '');
-						if( response == true ) alert('Application Information for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
-					})
-				} else {
-					alert('Error: No valid application selected.');
-				}
-			});
-			// save documentations for selected application
-			$('#akeebaDocSave').click( function( evnt ) {
-				evnt.preventDefault();
-				var docs = $('#appDocumentation li');
-				var data = {
-					itemId: $('#akeebaApplications option:selected').val(),
-					links: []
-				}
-				if( ! isNaN( data.itemId ) ) {
-					$.each(docs, function( index, doc ) {
-						data.links.push({
-							link: $(doc).find('.docLink').val(),
-							text: $(doc).find('.docText').val()
-						})
-					});
-					akeeba.saveApplicationDocs( data ).done( function( response ) {
-						response.replace(/\s/g, '');
-						if( response == true ) alert('Documentation for ' + $('#akeebaApplications option:selected').text() + ' is saved.');
-					})
-				} else {
-					alert('Error: No valid application selected.');
-				}
-			})
-
-		})
-	})(window, document, jQuery, AkeebaService);
 </script>

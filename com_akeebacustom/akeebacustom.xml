@@ -7,7 +7,7 @@
 	<authorUrl>http://itsforge.org</authorUrl>
 	<copyright></copyright>
 	<license></license>
-	<version>0.0.8</version>
+	<version>2.3.3</version>
 	<description>COM_AKEEBACUSTOM_DESCRIPTION</description>
 
 	<install>
@@ -27,7 +27,9 @@
 			<folder>languages</folder>
 			<folder>models</folder>
 			<folder>views</folder>
-			<folder>scripts</folder>
+			<folder>dist</folder>
+			<folder>styles</folder>
+			<folder>lib</folder>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>
 			<filename>akeebacustom.php</filename>
