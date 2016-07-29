@@ -37,11 +37,14 @@ if ( isset($params['item']) ) {
 		$shortDescription = $_POST['shortDescription'];
 		$mainDiscussion = $_POST['mainDiscussion'];
 		$issuesDiscussion = $_POST['issuesDiscussion'];
+		$keywords = $_POST['keywords'];
+		$keywords = ( is_array( $keywords ) ) ? $keywords : [ $keywords ];
+
 		$item = $ars->getItemCustomsById( $itemId );
 		if( isset( $item['icon_url'] )) {
-			echo $ars->updateItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion );
+			echo $ars->updateItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion, $keywords );
 		} else {
-			echo $ars->insertItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion );	
+			echo $ars->insertItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion, $keywords );	
 		}
 	} else if ( $_POST['itemId'] ) {
 		$itemId = $_POST['itemId'];

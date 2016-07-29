@@ -91,7 +91,7 @@ class AkeebaCustomImpl extends DBConfig {
 	}
 
 	// get custom values by category id
-	function insertItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion ) {
+	function insertItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion, $keywords ) {
 		// prepare the statement
 		$this->db->autocommit( TRUE );
 		$iconUrl = mysqli_escape_string( $this->db, $iconUrl );
@@ -99,9 +99,11 @@ class AkeebaCustomImpl extends DBConfig {
 		$itemId = mysqli_escape_string( $this->db, $itemId );
 		$mainDiscussion = mysqli_escape_string( $this->db, $mainDiscussion );
 		$issuesDiscussion = mysqli_escape_string( $this->db, $issuesDiscussion );
+		$keywords = implode(',', $keywords);
+
 		$stmt = $this->db->prepare( 
-				"INSERT INTO jos_akeeba_item_custom (item_id, icon_url, short_description, discussion_url, issues_url, created)
-				VALUES ('$itemId', '$iconUrl', '$shortDescription', '$mainDiscussion', '$issuesDiscussion', now())");
+				"INSERT INTO jos_akeeba_item_custom (item_id, icon_url, short_description, discussion_url, issues_url, keywords, created)
+				VALUES ('$itemId', '$iconUrl', '$shortDescription', '$mainDiscussion', '$issuesDiscussion', '$keywords', now())");
 		// should only return one result.  put that row in a variable
 		$success = $stmt->execute();
 		$stmt->close();
@@ -110,7 +112,7 @@ class AkeebaCustomImpl extends DBConfig {
 	}
 
 	// get custom values by category id
-	function updateItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion ) {
+	function updateItemCustomsById( $itemId, $iconUrl, $shortDescription, $mainDiscussion, $issuesDiscussion, $keywords ) {
 		// prepare the statement
 		$this->db->autocommit( TRUE );
 		$iconUrl = mysqli_escape_string( $this->db, $iconUrl );
@@ -118,9 +120,11 @@ class AkeebaCustomImpl extends DBConfig {
 		$shortDescription = mysqli_escape_string( $this->db, $shortDescription );
 		$mainDiscussion = mysqli_escape_string( $this->db, $mainDiscussion );
 		$issuesDiscussion = mysqli_escape_string( $this->db, $issuesDiscussion );
+		$keywords = implode(',', $keywords);
+
 		$stmt = $this->db->prepare ( 
 				"UPDATE jos_akeeba_item_custom
-				SET icon_url = '$iconUrl', short_description = '$shortDescription', discussion_url = '$mainDiscussion', issues_url = '$issuesDiscussion', modified= now() WHERE item_id = '$itemId'");
+				SET icon_url = '$iconUrl', short_description = '$shortDescription', discussion_url = '$mainDiscussion', issues_url = '$issuesDiscussion', keywords = '$keywords', modified= now() WHERE item_id = '$itemId'");
 		// should only return one result.  put that row in a variable
 		$success = $stmt->execute();
 		$stmt->close();
