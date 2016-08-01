@@ -1,30 +1,42 @@
 
-
-<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link">
-	<div class="ars-item__image-container hidden-xs">
-		<div class="ars-item__image-container__image">
-			<img ng-src="{{ item.icon_url }}" alt="">
+<div class="ars-item__link">
+	<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link-link">
+		<div class="ars-item__image-container hidden-xs hidden-sm col-md-4 col-lg-3">
+			<div class="ars-item__image-container__image">
+				<div class="ars-item__image-container__mask">
+					<span class="fa fa-eye"></span>
+					<p>Click to view</p>
+				</div>
+				<img ng-src="{{ item.icon_url }}" alt="">
+			</div>
 		</div>
-	</div>
-	<div class="ars-item__info">
-		<!-- Environment | float right -->
-		<div class="pull-right">
-			<!-- Maturity Badge -->
-			<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
-			<p class="ars-item__environments">
-				<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display pull-right" title="{{ environment.name }}"></span>
+		<div class="ars-item__info col-xs-12 col-md-8 col-lg-9">
+			<!-- Environment | float right -->
+			<div class="pull-right">
+				<!-- Maturity Badge -->
+				<span class="ars-item__info__badge badge pull-right {{ item.release.maturity }}">{{ item.release.maturity }}</span>
+				<p class="ars-item__environments">
+					<span ng-repeat="environment in item.environments" class="fa fa-{{ environment.icon }} display pull-right" title="{{ environment.name }}"></span>
+				</p>
+			</div>
+			<!-- Release Name -->
+			<p class="ars-item__info-title">
+				{{ item.title }}
+				<p class="ars-item__info-title-description"><em>{{ item.short_description }}</em></p>
 			</p>
+			<!-- Release Version -->
+			<p style="margin: 0;"><span>Version: <strong>{{ item.release.version }}</strong></span></p>
+			<!-- Date Created -->
+			<p style="margin: 0;"><span>Modified: <strong>{{ item.release.modified }}</strong></span></p>
+			<!-- Number of Hits -->
+			<p style="margin: 0;">Downloads: <strong>{{ item.hits }}</strong></p>
 		</div>
-		<!-- Release Name -->
-		<p class="ars-item__info-title">
-			{{ item.title }}
-			<p><em>{{ item.short_description }}</em></p>
-		</p>
-		<!-- Release Version -->
-		<span>Version: <strong>{{ item.release.version }}</strong><br></span>
-		<!-- Date Created -->
-		<span>Modified: <strong>{{ item.release.modified }}</strong><br></span>
-		<!-- Number of Hits -->
-		Downloads: <strong>{{ item.hits }}</strong>
-	</div>
-</a>
+	</a>
+		<div class="ars-item__ifno-keywords">
+			<a href="#" ng-repeat="keyword in item.keywords" ng-click="displaykeywords($event, true, keyword)">
+				<span class="ars-item__info-keyword" style="pointer-events: none;">
+					{{ keyword }}
+				</span>
+			</a>
+		</div>
+</div>

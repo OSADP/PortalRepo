@@ -1,7 +1,8 @@
 
 
 <!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
-<div class="col-xs-12 ars-applications__container">
+<div class="col-xs-12 ars-applications__container blurred">
+	<div ng-include="'/modules/mod_leidos_ars_search/app/partials/keywords.ng.html'" scope="" onload=""></div>
 	<!-- This is for searching current applications -->
 	<div class="row ars-applications__tools">
 		<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
@@ -22,7 +23,7 @@
 			<span class="input-group-addon">
 				<span class="fa fa-search"></span>
 			</span>
-			<input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter">
+			<input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter" style="z-index: 0;">
 		</div>
 	</div>
 	<!-- pagination -->
@@ -47,12 +48,12 @@
 	<div class="row ars-applications" onload="scrollGuard(e)">
 		<div class="loader" ng-show="showLoader">Loading...</div>
 		<!-- Populate items by selected category -->
-		<div >
-			<div akeebaitem item="item" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
+		<div>
+			<div akeebaitem item="item" displaykeywords="displayKeywords" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
 		</div>
 		<!-- // -->
 		<!-- Show this when there are no applications -->
-		<div ng-if="items.length == 0 && !showLoader" style="text-align: center;">
+		<div ng-if="items.length == 0 &amp;&amp; !showLoader" style="text-align: center;">
 			<div ng-if="searchFilter == '' || searchFilter == null">
 				<h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
 				<p><em>You can submit your application for this category by clicking this button</em></p>
@@ -61,7 +62,7 @@
 					Upload Request
 				</a>
 			</div>
-			<div ng-if="searchFilter != null && searchFilter != ''">
+			<div ng-if="searchFilter != null &amp;&amp; searchFilter != ''">
 				<h3>No <span class="text-primary">Applications</span> match your search query</h3>
 			</div>
 		</div>

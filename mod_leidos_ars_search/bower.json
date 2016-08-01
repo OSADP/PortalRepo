@@ -1,0 +1,26 @@
+{
+  "name": "mod_leidos_ars_search",
+  "homepage": "itsforge.net",
+  "authors": [
+    "Robert Roth <robroth@leidos.com>"
+  ],
+  "description": "A Joomla module to display applications created using the Akeeba Release System",
+  "main": "mod_leidos_ars_search.php",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "angular-sanitize": "^1.5.7",
+    "fastclick": "^1.0.6",
+    "Ionicons": "ionicons#^2.0.1",
+    "moment": "^2.14.1"
+  }
+}

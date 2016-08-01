@@ -13,7 +13,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 
 function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $state, $timeout ) {
 	// here we control the tabs and texts to display
-	$scope.activeTab = 'description';
+	$scope.activeTab = 'overview';
 	$scope.login = false;
 	// this changes the width of the RIGHT panel to full width
 	$state.applicationWidth = 'col-xs-12';
@@ -30,6 +30,9 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 	.then( function( item ) {
 		// item.environment = _environments[item.environments.split('"')[1]];
 		$scope.item = item;
+		if($scope.item.release.description == null || $scope.item.release.description == '') {
+			$scope.activeTab = 'description';
+		}
 		// get item documentation
 		AkeebaService.getItemDocumentation( item.id ).then( function( data ) {
 			$scope.item.documentation = data;

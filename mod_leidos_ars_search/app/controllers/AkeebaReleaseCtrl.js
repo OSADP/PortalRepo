@@ -18,13 +18,23 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 	$scope.items = []; // actuall ARS items
 	$scope.ordering = 'title'; // initial ordering setting
 	$scope.reverse = false; // affects ascending or desc of order
-	
+	$scope.moment = moment;
+	$scope.keywordsShow = false;
+
 	$scope.limitOptions = [
 		{ name: 'Show 5 Items', value: 5	},
 		{ name: 'Show 10 Items', value: 10	},
 		{ name: 'Show 20 Items', value: 20	},
 		{ name: 'Show All Items', value: 'all' }
 	]
+
+	$scope.displayKeywords = function($event, value, keyword ) {
+		$event.stopPropagation()
+		$event.preventDefault()
+		value = ( value === undefined ) ? true : value
+		$scope.keywordsShow = value
+		console.log($scope.keywordsShow);
+	}
 
 	$scope.limit = $scope.limitOptions[0].value;
 	// get the current category id from the url
@@ -37,6 +47,9 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 		$scope.showLoader = false;
 		angular.forEach( items, function( item ) {
 			item.hits = parseInt( item.hits );
+			item.release.modified = moment(item.release.modified).format('MMM D, YYYY');
+			if( item.keywords )
+				item.keywords = item.keywords.split(',');
 		});
 		// give all items to all
 		if( _categoryId  == 'all' ) {

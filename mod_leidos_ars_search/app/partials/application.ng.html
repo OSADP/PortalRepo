@@ -1,5 +1,3 @@
-
-
 <div class="ars-item__page col-xs-12" ng-cloak>
 	<div class="ars-item__page__info row">
 
@@ -42,6 +40,10 @@
 	</div>
 
 	<ul class="nav nav-tabs" role="tablist">
+	  <li role="tab" ng-class="{'active': activeTab == 'overview'}" aria-selected="{{ activeTab == 'overview'}}"
+	  	ng-hide="item.release.description == null || item.release.description == ''">
+	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'overview'">Overview</a>
+	  </li>
 	  <li role="tab" ng-class="{'active': activeTab == 'description'}" aria-selected="{{ activeTab == 'description'}}">
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'description'">Description</a>
 	  </li>
@@ -58,6 +60,10 @@
 	  	<a href="#/{{ item.release.category.id }}/{{ item.id }}" ng-click="activeTab = 'other'">Similar Applications</a>
   	</li>
 	</ul>
+	<!-- Display Item Overview when 'description' tab is active -->
+	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'overview'">
+		<div ng-bind-html="item.release.description"></div>
+	</div>
 	<!-- Display Item Description when 'description' tab is active -->
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'description'">
 		<p ng-if="item.description == '' || item.description.length == 0">No current description available for this application.</p>
@@ -77,14 +83,16 @@
 	</div>
 
 	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'discussion'">
-		<p ng-if="(item.discussion_url == null || item.discussion_url == '') && (item.issues_url == null || item.issues_url == '')">No current discussion available for this application.</p>
+		<p ng-if="(item.discussion_url == null || item.discussion_url == '') &amp;&amp; (item.issues_url == null || item.issues_url == '')">
+			No current discussion available for this application.
+		</p>
 		<ul ng-if="item.discussion_url != null || item.issues_url != null">
-			<li ng-if="item.discussion_url != null && item.discussion_url != '' ">
+			<li ng-if="item.discussion_url != null &amp;&amp; item.discussion_url != '' ">
 				<a href="{{ item.discussion_url }}">
 					Main Discussion
 				</a>
 			</li>
-			<li ng-if="item.issues_url != null && item.issues_url != ''">
+			<li ng-if="item.issues_url != null &amp;&amp; item.issues_url != ''">
 				<a href="{{ item.issues_url }}">
 					Issues Discussion
 				</a>

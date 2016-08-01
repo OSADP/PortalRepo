@@ -1,0 +1,101 @@
+<div class="keywords-mask" style="
+  display: none;
+  position: fixed;
+  background: rgba(0,0,0, .2);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  padding-top: 10%;
+  border: solid 1px #aaa;
+  z-index: 1;
+  overflow: hidden;
+  "
+  ng-class="{ 'keywords-mask-show': keywordsShow == true }">
+  <div class="keywords-container container" style="
+    min-height: 200px;
+    max-height: 90%;
+    background: white;
+    overflow: auto;
+  ">
+    <h2>
+      What
+      <button type="button" class="btn btn-sm btn-danger" style="
+        float: right;
+      "
+      ng-click="displayKeywords( $event, false )">
+        <span class="fa fa-close"></span>
+      </button>
+    </h2>
+    <div class="row">
+      <div class="col-xs-12 ars-applications__tools" ng-click="$event.stopPropagation()">
+        <div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
+          <select class="col-xs-10 col-md-8 col-lg-6" name="ordering" id="ordering" ng-model="keywordOrdering">
+            <option value="title">Sort by Name</option>
+            <option value="-hits">Sort by Most Downloads</option>
+            <option value="-release.modified">Sort by Last Modified</option>
+            <!-- <option value="-version">Sort by Newest Version</option> -->
+          </select>
+          <button class="col-xs-2 btn btn-default" ng-click="reverse = ! reverse" ng-show="reverse" title="Descending">
+            <span class="fa fa-sort-amount-desc"></span>
+          </button>
+          <button class="col-xs-2 btn btn-default" ng-click="reverse = ! reverse" ng-hide="reverse" title="Ascending">
+            <span class="fa fa-sort-amount-asc"></span>
+          </button>
+        </div>
+        <div class="ars-applications__tools__search input-group col-xs-12 col-md-6 pull-right">
+          <span class="input-group-addon">
+            <span class="fa fa-search"></span>
+          </span>
+          <input type="text" class="form-control" placeholder="Search Current Category" ng-model="keywordSearchFilter" style="z-index: 0;">
+        </div>
+      </div>
+    </div>
+    <!-- pagination -->
+    <div class="row">
+      <div class="col-xs-12">
+        <select class="col-xs-4 col-sm-4" ng-options="option.value as option.name for option in limitOptions" ng-model="limit"></select>
+        <button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems('first')" title="First" ng-class="{'disabled': currentItems == 0 || items.length == 0 }">
+          &lt;&lt; <span style="text-transform: none;" class="hidden-xs hidden-sm">First</span>
+        </button>
+        <button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems(-1)" title="Previous" ng-class="{'disabled': currentItems == 0 || items.length == 0 }">
+          &lt; <span style="text-transform: none;" class="hidden-xs hidden-sm">Previous</span>
+        </button>
+        <button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems(1)" title="Next" ng-class="{'disabled': currentItems == items.length - 1 || items.length == 0 }">
+          <span style="text-transform: none;" class="hidden-xs hidden-sm">Next</span> &gt;
+        </button>
+        <button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems('last')" title="Last" ng-class="{'disabled': currentItems == items.length -1 || items.length == 0 }">
+          <span style="text-transform: none;" class="hidden-xs hidden-sm">Last</span> &gt;&gt;
+        </button>
+      </div>
+    </div>
+    <!-- This section displays applications based on the controls given -->
+    <div class="row ars-applications" onload="scrollGuard(e)">
+      <div class="col-xs-12">
+        <div class="loader" ng-show="showLoader">Loading...</div>
+        <!-- Populate items by selected category -->
+        <div>
+          <div akeebaitem item="item" displaykeywords="displayKeywords" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
+        </div>
+        <!-- // -->
+        <!-- Show this when there are no applications -->
+        <div ng-if="items.length == 0 &amp;&amp; !showLoader" style="text-align: center;">
+          <div ng-if="searchFilter == '' || searchFilter == null">
+            <h3>There are currently no <span class="text-primary">Applications</span> under this category</h3>
+            <p><em>You can submit your application for this category by clicking this button</em></p>
+            <a href="/index.php/open-source-release-process-menu" class="btn btn-lg btn-success">
+              <span class="fa fa-cloud-upload"></span>
+              Upload Request
+            </a>
+          </div>
+          <div ng-if="searchFilter != null &amp;&amp; searchFilter != ''">
+            <h3>No <span class="text-primary">Applications</span> match your search query</h3>
+          </div>
+        </div>
+      </div>
+      <!-- // -->
+    </div>
+  <!-- container -->
+  </div>
+<!-- mask -->
+</div>
