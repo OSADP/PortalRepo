@@ -15,7 +15,7 @@
 		header ( 'Content-type: application/json' );
 		// get release by id if available, else get all items
 		if ( $child = $rest->child('items') ) {
-			if( $child !== 'category' ) {
+			if( $child !== 'category' && $child !== 'keywords' ) {
 				$rel = $implementation->get( $child );
 				echo json_encode ( $utf8parser->convert( $rel ) );
 			} else if( $child === 'category' ) {

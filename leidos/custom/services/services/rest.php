@@ -16,6 +16,7 @@
 			}
 			$this->parts = $parts;
 			$this->parameters = $parameters;
+			$this->post = $_POST;
 		}
 
 		function on( $route )

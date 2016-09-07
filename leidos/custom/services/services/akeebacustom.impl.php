@@ -5,6 +5,22 @@ require (dirname ( __DIR__ ) . "/configs/database.php");
 class AkeebaCustomImpl extends DBConfig {
 
 	// get custom values by category id
+	function updateKeywordsById( $itemId, $keywords ) {
+		// prepare the statement
+		$this->db->autocommit( TRUE );
+		$keywords = mysqli_escape_string( $this->db, $keywords );
+		
+		$stmt = $this->db->prepare ( 
+				"UPDATE jos_akeeba_item_custom
+				SET keywords = '$keywords', modified = now() WHERE item_id = '$itemId'");
+		// should only return one result.  put that row in a variable
+		$success = $stmt->execute();
+		$stmt->close();
+		$this->db->autocommit( FALSE );
+		return $success;
+	}
+	
+	// get custom values by category id
 	function getCustomById( $categoryId ) {
 		// prepare the statement
 		$stmt = $this->db->query ( 

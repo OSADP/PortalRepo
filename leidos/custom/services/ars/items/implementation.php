@@ -17,9 +17,12 @@
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments,
-					c.icon_url, c.short_description, c.discussion_url, c.issues_url, c.keywords
+					c.icon_url, c.short_description, c.discussion_url, c.issues_url, c.keywords,
+					a.rules
 				FROM  
 					jos_ars_items i 
+				INNER JOIN
+					jos_viewlevels as a ON a.id = i.access
 				LEFT JOIN
 					jos_akeeba_item_custom c ON i.id = c.item_id
 				INNER JOIN
@@ -95,9 +98,12 @@
 					i.groups, i.hits, i.created_by, i.checked_out, i.checked_out_time,
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments,
-					c.icon_url, c.short_description, c.discussion_url, c.issues_url, c.keywords
+					c.icon_url, c.short_description, c.discussion_url, c.issues_url, c.keywords,
+					a.rules
 				FROM  
 					jos_ars_items i 
+				INNER JOIN
+					jos_viewlevels as a ON a.id = i.access
 				LEFT JOIN
 					jos_akeeba_item_custom c ON i.id = c.item_id
 				INNER JOIN
@@ -176,9 +182,12 @@
 					i.ordering, i.access, i.show_unauth_links, i.redirect_unauth,
 					i.published, i.language, i.environments,
 					c.icon_url, c.short_description, c.discussion_url, c.issues_url, c.keywords,
-			    d.documentation_link, d.documentation_text
-				FROM 
+			    d.documentation_link, d.documentation_text,
+					a.rules
+				FROM  
 					jos_ars_items i 
+				INNER JOIN
+					jos_viewlevels as a ON a.id = i.access
 				LEFT JOIN
 					jos_akeeba_item_custom c ON i.id = c.item_id
 					LEFT JOIN

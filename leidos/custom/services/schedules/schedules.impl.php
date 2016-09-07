@@ -4,8 +4,19 @@ require (dirname ( __DIR__ ) . "/configs/database.php");
 // implementation class for multiple categories
 class SchedulesImpl extends DBConfig {
 	// get all release schedules
-	function getAllSchedules() {
+	function getPublishedSchedules() {
 		$statement = $this->db->query('SELECT * FROM jos_osadp_release_schedule WHERE published = 1 ORDER BY date DESC');
+		$arrCat = [];
+		// put the results in an array
+		while ( $row = $statement->fetch_array ( MYSQL_ASSOC ) ) {
+			$arrCat [] = $row;
+		}
+		$statement->close();
+		die( json_encode( $arrCat ) );
+	}
+	// get all release schedules
+	function getAllSchedules() {
+		$statement = $this->db->query('SELECT * FROM jos_osadp_release_schedule ORDER BY date DESC');
 		$arrCat = [];
 		// put the results in an array
 		while ( $row = $statement->fetch_array ( MYSQL_ASSOC ) ) {

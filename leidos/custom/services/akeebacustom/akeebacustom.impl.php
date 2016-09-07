@@ -99,7 +99,9 @@ class AkeebaCustomImpl extends DBConfig {
 		$itemId = mysqli_escape_string( $this->db, $itemId );
 		$mainDiscussion = mysqli_escape_string( $this->db, $mainDiscussion );
 		$issuesDiscussion = mysqli_escape_string( $this->db, $issuesDiscussion );
-		$keywords = implode(',', $keywords);
+		// $keywords = implode(',', $keywords);
+		$keywords = mysqli_escape_string( $this->db, $keywords );
+
 		$stmt = $this->db->prepare( 
 				"INSERT INTO jos_akeeba_item_custom (item_id, icon_url, short_description, discussion_url, issues_url, keywords, created)
 				VALUES ('$itemId', '$iconUrl', '$shortDescription', '$mainDiscussion', '$issuesDiscussion', '$keywords', now())");
@@ -119,7 +121,9 @@ class AkeebaCustomImpl extends DBConfig {
 		$shortDescription = mysqli_escape_string( $this->db, $shortDescription );
 		$mainDiscussion = mysqli_escape_string( $this->db, $mainDiscussion );
 		$issuesDiscussion = mysqli_escape_string( $this->db, $issuesDiscussion );
-		$keywords = implode(',', $keywords);
+		// $keywords = implode(',', $keywords);
+		$keywords = mysqli_escape_string( $this->db, $keywords );
+		
 		$stmt = $this->db->prepare ( 
 				"UPDATE jos_akeeba_item_custom
 				SET icon_url = '$iconUrl', short_description = '$shortDescription', discussion_url = '$mainDiscussion', issues_url = '$issuesDiscussion', keywords = '$keywords', modified= now() WHERE item_id = '$itemId'");
@@ -129,6 +133,7 @@ class AkeebaCustomImpl extends DBConfig {
 		$this->db->autocommit( FALSE );
 		return $success;
 	}
+
 	// get custom values by category id
 	function getItemCustomsById( $itemId ) {
 		// prepare the statement

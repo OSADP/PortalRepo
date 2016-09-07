@@ -12,6 +12,22 @@ for($i = 0; $i < count ( $parts ); $i ++) {
 	$params [$parts [$i]] = $parts [$i];
 }
 
+if( isset($params['keywords']) ) {
+	if ( isset($_POST['itemId']) && isset($_POST['keywords']) ) {
+		$itemId = $_POST['itemId'];
+		$keywords = $_POST['keywords'];
+		echo $ars->updateKeywordsById( $itemId, $keywords );
+	} else {
+		$postdata = file_get_contents("php://input");
+		$request = json_decode($postdata);
+		if ( isset($request->itemId) && isset($request->keywords) ) {
+			$itemId = $request->itemId;
+			$keywords = $request->keywords;
+			echo $ars->updateKeywordsById( $itemId, $keywords );
+		}
+	}
+}
+
 if ( isset($params['category']) ) {
 	if ( isset( $_POST['categoryId'] ) && isset( $_POST['iconUrl'] ) ) {
 		$categoryId = $_POST['categoryId'];
@@ -26,7 +42,20 @@ if ( isset($params['category']) ) {
 		$categoryId = $_POST['categoryId'];
 		die( json_encode($ars->getCustomById( $categoryId )) );
 	} else {
-		echo false;
+		$postdata = file_get_contents("php://input");
+		$request = json_decode($postdata);
+		if( isset($request->categoryId) && isset($request->iconUrl) ) {
+			$categoryId = $request->categoryId;
+			$iconUrl = $request->iconUrl;
+			$category = $ars->getCustomById( $categoryId );
+			if( isset( $category['icon_url'] )) {
+				echo $ars->updateCustomById( $categoryId, $iconUrl );	
+			} else {
+				echo $ars->insertCustomById( $categoryId, $iconUrl );	
+			}
+		} else {
+			die( false );
+		}
 	}
 }
 
@@ -55,10 +84,13 @@ if ( isset($params['item']) ) {
 }
 
 if ( isset($params['documentation']) ) {
-	if ( isset($_POST['itemId']) && isset($_POST['links']) ) {
+	if ( isset($_POST['itemId']) ) {
 		$itemId = $_POST['itemId'];
 		$documentation = $_POST['links']; // array
+		$documentation = $documentation ? $documentation : [];
+
 		$item = $ars->getDocumentationsById( $itemId );
+		
 		if( count( $item ) > 0 ) {
 			$ars->deleteDocumentationByItemId( $itemId );
 		}
@@ -66,7 +98,7 @@ if ( isset($params['documentation']) ) {
 			if( $item['link'] != '' && $item['text'] !='' )
 				$ars->insertItemDocumentationsById( $itemId, $item['link'], $item['text'] );	
 		}
-		echo true;
+		echo $itemId;
 	} else if ( isset($_POST['itemId']) ) {
 		$itemId = $_POST['itemId'];
 		die( json_encode($ars->getDocumentationsById( $itemId )));

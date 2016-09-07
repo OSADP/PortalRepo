@@ -36,20 +36,25 @@ if ( isset( $params['save'] ) ) {
 // Categories Web Service
 // GET all categories for all items
 // GET all categories for an item by item id
-$rest->request('all', $impl, 'allSchedules');
-
+$rest->request('all', $impl, 'publishedSchedules');
+$rest->request('every', $impl, 'allSchedules');
 $rest->request('get', $impl, 'getSchedule');
 
 
-// return categories by id or all categories
+// return schedules by id or all schedules
 function allSchedules( $restHelper, $impl ) {
 	die( json_encode($impl->getAllSchedules()) );
 }
 
-// return categories by id or all categories
+// return schedules by id or all schedules
+function publishedSchedules( $restHelper, $impl ) {
+	die( json_encode($impl->getPublishedSchedules()) );
+}
+
+// return schedules by id or all schedules
 function getSchedule( $restHelper, $impl ) {
 	$itemId = $restHelper->nextParam('get');
-	// get all categories if no item id is found
+	// get all schedules if no item id is found
 	if( $itemId ) {
 		die( json_encode($impl->getCategoriesByItem( $itemId )) );
 	}
