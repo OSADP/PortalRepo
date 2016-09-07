@@ -1,10 +1,4 @@
-
-'use strict';
-
 /**
-*  Akeeba Releases Controller
-*
-* Description
 * This controller handles the data for our items/releases
 * and parse any necessary information to make it readable
 * for users.
@@ -13,27 +7,36 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 .controller('AkeebaReleasesCtrl', ['$rootScope', '$scope', '$stateParams', 'AkeebaService', '$timeout', '$filter', AkeebaReleasesCtrl])
 
 function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $timeout, $filter ) {
+	'use strict';
 	$rootScope.$broadcast('application:hidden');
 	$scope.showLoader = true; // shows or hides loader on http load
-	$scope.items = []; // actuall ARS items
+	$scope.items = []; // actual ARS items
 	$scope.ordering = 'title'; // initial ordering setting
 	$scope.reverse = false; // affects ascending or desc of order
 	$scope.moment = moment;
 	$scope.keywordsShow = false;
-
+	// Options for limiting the number of items to display
 	$scope.limitOptions = [
 		{ name: 'Show 5 Items', value: 5	},
 		{ name: 'Show 10 Items', value: 10	},
 		{ name: 'Show 20 Items', value: 20	},
 		{ name: 'Show All Items', value: 'all' }
 	]
-
-	$scope.displayKeywords = function($event, value, keyword ) {
-		$event.stopPropagation()
-		$event.preventDefault()
-		value = ( value === undefined ) ? true : value
-		$scope.keywordsShow = value
-		console.log($scope.keywordsShow);
+	/**
+	 * Toggles the display of items with similar keywords
+	 * @param  {objecy} $event  Angular event object passed
+	 * @param  {boolean} displayInterface   True to open, false to close
+	 * @param  {string} keyword Passed keyword clicked by user
+	 * @return {undefined}
+	 */
+	$scope.displayKeywords = function($event, displayInterface, keyword ) {
+		// $event.stopPropagation()
+		// $event.preventDefault()
+		displayInterface = ( displayInterface === undefined ) ? true : displayInterface
+		$scope.keywordsShow = displayInterface
+		$scope.keyword = keyword
+		document.body.style.overflow = ( displayInterface ) ? 'hidden' : 'auto'
+		return keyword;
 	}
 
 	$scope.limit = $scope.limitOptions[0].value;
@@ -45,12 +48,8 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 	.then( function( items ) {
 		// var items = promise.data;
 		$scope.showLoader = false;
-		angular.forEach( items, function( item ) {
-			item.hits = parseInt( item.hits );
-			item.release.modified = moment(item.release.modified).format('MMM D, YYYY');
-			if( item.keywords )
-				item.keywords = item.keywords.split(',');
-		});
+		// create a separate items array for keywords process
+		$scope.allItems = items;
 		// give all items to all
 		if( _categoryId  == 'all' ) {
 			// $scope.items = items || [];
@@ -104,8 +103,12 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 		}
 	});
 
-	// allows to simulate pagination by creating an array that holds
-	// items depending on the 'limit' variable of our scope
+	/**
+	 * Allows to simulate pagination by creating an array that holds items
+	 * @param  {array} items 	Items to be paginated
+	 * @param  {int} limit 		Number of items per page
+	 * @return {array}       	Array of paginated items
+	 */
 	function paginate( items, limit ) {
 		if( limit != 'all' ) {
 			var parsedItem = [];
@@ -128,18 +131,24 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 		}
 	}
 
-	// moved orderBy filter to the controller
-	function sortItems( items, filter, reverse ) {
+	/**
+	 * Filter items with the text search filter and order filter
+	 * @param  {array} items   Items to be sorted
+	 * @param  {string} orderFilter  Type of ordering
+	 * @param  {boolean} reverse Ascending or Descending order
+	 * @return {array}         Sorted Items
+	 */
+	function sortItems( items, orderFilter, reverse ) {
 		items = $filter('filter')( items, $scope.searchFilter );
-		var sortedItems = $filter('orderBy')( items, filter, reverse );
+		var sortedItems = $filter('orderBy')( items, orderFilter, reverse );
 		return sortedItems;
 	}
-	// moved text filter to the controller
-	function filterItems( items, query ) {
-		var filteredItems = $filter('filter')( items, query );
-		return filteredItems;
-	}
 
+	/**
+	 * Change current page of items
+	 * @param  {int} num Current page to display
+	 * @return {undefined}
+	 */
 	$scope.adjustCurrentItems = function( num ) {
 		if( num == 'last' ) {
 			$timeout(function() {

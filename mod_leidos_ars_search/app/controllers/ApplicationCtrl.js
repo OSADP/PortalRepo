@@ -1,6 +1,4 @@
-
 'use strict';
-
 /**
 *  Akeeba Category List Controller
 *
@@ -9,9 +7,11 @@
 * from ARS.
 */
 angular.module('Leidos.OSADP.Akeeba.Application.Search')
-.controller('ApplicationCtrl', ['$rootScope', '$scope', '$stateParams', 'AkeebaService', '$state', '$timeout', ApplicationCtrl])
+.controller('ApplicationCtrl',
+	['$rootScope', '$scope', '$stateParams', 'AkeebaService', '$state', '$timeout', 'JoomlaApp',
+	ApplicationCtrl])
 
-function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $state, $timeout ) {
+function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $state, $timeout, JoomlaApp ) {
 	// here we control the tabs and texts to display
 	$scope.activeTab = 'overview';
 	$scope.login = false;
@@ -19,15 +19,25 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 	$state.applicationWidth = 'col-xs-12';
 	// get base64 of href
 	$scope.redirect = btoa( location.href );
-	$scope.token = window.__internal.getToken().split('"')[3];
-	$scope.userId = window.__internal.getUserId();
+	$scope.token = JoomlaApp.token; // get a token for our login form
+	$scope.userId = JoomlaApp.userId; // get user id if available
+	$scope.loggedIn = ! JoomlaApp.isGuest; // check if user is logged in
 	// broadcast the state since the category list is not part of the routing config
 	$rootScope.$broadcast('application:visible');
-	var _environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
-	// get our application details based on the route's parameters
-	$scope.loggedIn = ! window.__internal.isGuest();
+	// var _environments = ["-", "-", "linux", "osx", "apple", "windows", "android"];
+	// Get our specified item based on the item ID
 	AkeebaService.getItem( $stateParams.itemId )
 	.then( function( item ) {
+		if( item.keywords = null ) {
+			item.keywords = []
+		}
+		// ACL implementation: Remove item if user does not have access rights
+		if( item.access != 2 ) {
+			var access = JoomlaApp.usergroups[item.access];
+			if( access == undefined ) {
+				window.location.href = "#/all";
+			}
+		}
 		// item.environment = _environments[item.environments.split('"')[1]];
 		$scope.item = item;
 		if($scope.item.release.description == null || $scope.item.release.description == '') {
@@ -53,22 +63,26 @@ function ApplicationCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $sta
 					}
 				});
 			});
+		}).then(function() {
+			var $ = jQuery
+			var images = $('.ars-item__page').find('img');
+			angular.forEach(images, function(image) {
+				var firstChar = $(image).attr('src')[0];
+				if( firstChar !== '/' )
+					$(image).attr('src', '/' + $(image).attr('src'));
+			})
 		});
 	});
-
-	// this toggle the login form in the ui
-	$scope.toggleLogin = function( $event ) {
+	/**
+	 * Toggles the display of the login form in our view
+	 * @param  {object} $event        Angular event object
+	 * @param  {string} focusSelector Selector for element to be focused
+	 * @return {undefined}
+	 */
+	$scope.toggleLogin = function( $event, focusSelector ) {
 		$scope.login = ! $scope.login;
 		$timeout(function() {
-			document.querySelector('.osadp__form__username').focus();
-		}, 100)
-	}
-
-	// this toggle the login form in the ui
-	$scope.closeLogin = function( $event ) {
-		$scope.login = ! $scope.login;
-		$timeout(function() {
-			document.querySelector('.osadp__close__login').focus();
+			document.querySelector(focusSelector).focus();
 		}, 100)
 	}
 

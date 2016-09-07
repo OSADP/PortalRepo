@@ -18,11 +18,11 @@
 		</div>
 		<div class="col-xs-6 col-sm-4">
 			<div class="clearfix">
-				<a href="/leidos/custom/services/ars/download?itemId={{ item.id }}&amp;userId={{ userId }}" class="btn btn-success pull-right" ng-if="! loggedIn">
+				<a href="/leidos/custom/services/ars/download?itemId={{ item.id }}&amp;userId={{ userId }}" class="btn btn-success pull-right" ng-show="loggedIn">
 					<span class="fa fa-download"></span>
 					Download {{ item.filesize }} MB
 				</a>
-				<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="btn btn-success osadp__close__login pull-right" ng-if="loggedIn" ng-click="toggleLogin( $event )" tabindex="0">
+				<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="btn btn-success osadp__close__login pull-right" ng-hide="loggedIn" ng-click="toggleLogin( $event, '.osadp__form__username' )" tabindex="0">
 					<span class="fa fa-sign-in"></span>
 					Login to Download
 				</a>
@@ -34,7 +34,7 @@
 					{{ value.title }}
 					<span class="sr-only">Applications</span>
 				</a>
-				<span ng-if="key + 1 != item.categories.length" style="margin-right: 5px;">,</span>
+				<span ng-show="key + 1 != item.categories.length" style="margin-right: 5px;">,</span>
 			</div>
 		</div>
 	</div>
@@ -61,38 +61,38 @@
   	</li>
 	</ul>
 	<!-- Display Item Overview when 'description' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'overview'">
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'overview'">
 		<div ng-bind-html="item.release.description"></div>
 	</div>
 	<!-- Display Item Description when 'description' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'description'">
-		<p ng-if="item.description == '' || item.description.length == 0">No current description available for this application.</p>
+	<div class="ars-app__description" style="padding-top: 15px;" ng-show="activeTab == 'description'">
+		<p ng-show="item.description == '' || item.description.length == 0">No current description available for this application.</p>
 		<div ng-bind-html="item.description"></div>
 	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'release'">
-		<p ng-if="item.release.notes == ''">No current release notes available for this application.</p>
+	<div class="ars-app__release-notes" style="padding-top: 15px;" ng-show="activeTab == 'release'">
+		<p ng-show="item.release.notes == ''">No current release notes available for this application.</p>
 		<div ng-bind-html="item.release.notes"></div>
 	</div>
 	<!-- Displays Item Release Notes when 'release notes' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'documentation'">
-		<p ng-if="item.documentation.length == 0">No current documentation available for this application.</p>
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'documentation'">
+		<p ng-show="item.documentation.length == 0">No current documentation available for this application.</p>
 		<ul>
 			<li ng-repeat="document in item.documentation"><a href="{{ document.documentation_link }}">{{ document.documentation_text }}</a></li>
 		</ul>
 	</div>
 
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'discussion'">
-		<p ng-if="(item.discussion_url == null || item.discussion_url == '') &amp;&amp; (item.issues_url == null || item.issues_url == '')">
+	<div class="" style="padding-top: 15px;" ng-show="activeTab == 'discussion'">
+		<p ng-show="(item.discussion_url == null || item.discussion_url == '') &amp;&amp; (item.issues_url == null || item.issues_url == '')">
 			No current discussion available for this application.
 		</p>
-		<ul ng-if="item.discussion_url != null || item.issues_url != null">
-			<li ng-if="item.discussion_url != null &amp;&amp; item.discussion_url != '' ">
+		<ul ng-show="item.discussion_url != null || item.issues_url != null">
+			<li ng-show="item.discussion_url != null &amp;&amp; item.discussion_url != '' ">
 				<a href="{{ item.discussion_url }}">
 					Main Discussion
 				</a>
 			</li>
-			<li ng-if="item.issues_url != null &amp;&amp; item.issues_url != ''">
+			<li ng-show="item.issues_url != null &amp;&amp; item.issues_url != ''">
 				<a href="{{ item.issues_url }}">
 					Issues Discussion
 				</a>
@@ -101,16 +101,22 @@
 	</div>
 
 	<!-- Displays other applications under the same category when 'other' tab is active -->
-	<div class="" style="padding-top: 15px;" ng-if="activeTab == 'other'">
-		<p ng-if="otherItems.length == 0">No similar application available for this application.</p>
-		<div akeebaitem ng-repeat="item in otherItems | orderBy: ordering" class="ars-item" ng-hide="showLoader" item="item"></div>
+	<div class="col-xs-12 col-md-8" style="padding-top: 15px;" ng-show="activeTab == 'other'">
+		<p ng-show="otherItems.length == 0">No similar application available for this application.</p>
+		<div class="ars-item"
+			akeebaitem
+			ng-repeat="item in otherItems track by $index | orderBy: ordering"
+			ng-hide="showLoader"
+			item="item"
+			showkeywordtags="false"></div>
 	</div>
 
 
-	<div class="osadp__login" ng-if="login == true" style="width: 100%; height" ng-click="closeLogin()">
+	<div class="osadp__login" ng-if="login == true" style="width: 100%; height"
+		ng-click="toggleLogin( $event, '.osadp__close__login' )">
 		<form action="/login?task=user.login" method="post" name="login" class="osadp__login__form" ng-click="$event.stopPropagation()">
 			<button type="button" class="osadp__login__form-close pull-right" title="Close"
-				ng-click="closeLogin()">
+				ng-click="toggleLogin( $event, '.osadp__close__login' )">
 				<span class="fa fa-remove"></span>
 			</button>
 			<br>

@@ -1,6 +1,7 @@
 
 <div class="ars-item__link">
-	<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link-link">
+	<a href="#/{{ item.release.category.id }}/{{ item.id }}" class="ars-item__link-link"
+		ng-click="toggleKeywords($event, false, keyword)">
 		<div class="ars-item__image-container hidden-xs hidden-sm col-md-4 col-lg-3">
 			<div class="ars-item__image-container__image">
 				<div class="ars-item__image-container__mask">
@@ -20,10 +21,8 @@
 				</p>
 			</div>
 			<!-- Release Name -->
-			<p class="ars-item__info-title">
-				{{ item.title }}
-				<p class="ars-item__info-title-description"><em>{{ item.short_description }}</em></p>
-			</p>
+			<p class="ars-item__info-title">{{ item.title }}</p>
+			<p class="ars-item__info-title-description"><em>{{ item.short_description }}</em></p>
 			<!-- Release Version -->
 			<p style="margin: 0;"><span>Version: <strong>{{ item.release.version }}</strong></span></p>
 			<!-- Date Created -->
@@ -32,9 +31,11 @@
 			<p style="margin: 0;">Downloads: <strong>{{ item.hits }}</strong></p>
 		</div>
 	</a>
-		<div class="ars-item__ifno-keywords">
-			<a href="#" ng-repeat="keyword in item.keywords" ng-click="displaykeywords($event, true, keyword)">
-				<span class="ars-item__info-keyword" style="pointer-events: none;">
+		<div class="ars-item__info-keywords" ng-show="showKeywordTags &amp;&amp; item.keywords.length > 0">
+			<span class="ars-item__info-keywords-label">Keywords:</span>
+			<span class="ars-item__info-keywords-warning" ng-show="item.keywords.length === 0"><em>No keywords available for this application</em></span>
+			<a href="#" class="ars-item__info-keyword" ng-repeat="keyword in item.keywords" ng-click="toggleKeywords($event, true, keyword)">
+				<span class="keyword" style="pointer-events: none;" ng-class="{'active-keyword': keyword == activeKeyword}">
 					{{ keyword }}
 				</span>
 			</a>

@@ -1,36 +1,23 @@
-<div class="keywords-mask" style="
-  display: none;
-  position: fixed;
-  background: rgba(0,0,0, .2);
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  padding-top: 10%;
-  border: solid 1px #aaa;
-  z-index: 1;
-  overflow: hidden;
-  "
-  ng-class="{ 'keywords-mask-show': keywordsShow == true }">
-  <div class="keywords-container container" style="
-    min-height: 200px;
-    max-height: 90%;
-    background: white;
-    overflow: auto;
-  ">
-    <h2>
-      What
-      <button type="button" class="btn btn-sm btn-danger" style="
-        float: right;
-      "
-      ng-click="displayKeywords( $event, false )">
-        <span class="fa fa-close"></span>
-      </button>
-    </h2>
+<div class="keywords-mask"
+  ng-class="{ 'keywords-mask-show': show == true }">
+  <div class="keywords-container col-xs-12 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-6 col-lg-offset-3">
     <div class="row">
-      <div class="col-xs-12 ars-applications__tools" ng-click="$event.stopPropagation()">
+      <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <h3>
+          Keyword: <span class="keyword-active">{{ keyword }}</span>
+          <button type="button" class="btn btn-sm btn-danger" style="
+            float: right;
+          "
+          ng-click="toggle( $event, false )">
+            <span class="fa fa-close"></span> close
+          </button>
+        </h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-md-10 col-md-offset-1 ars-applications__tools">
         <div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
-          <select class="col-xs-10 col-md-8 col-lg-6" name="ordering" id="ordering" ng-model="keywordOrdering">
+          <select class="col-xs-10 col-md-8 col-lg-6" name="ordering" id="ordering" ng-model="ordering" ng-init="ordering = 'title'">
             <option value="title">Sort by Name</option>
             <option value="-hits">Sort by Most Downloads</option>
             <option value="-release.modified">Sort by Last Modified</option>
@@ -47,12 +34,12 @@
           <span class="input-group-addon">
             <span class="fa fa-search"></span>
           </span>
-          <input type="text" class="form-control" placeholder="Search Current Category" ng-model="keywordSearchFilter" style="z-index: 0;">
+          <input type="text" class="form-control" placeholder="Search Current Category" ng-model="searchFilter" style="z-index: 0;">
         </div>
       </div>
     </div>
     <!-- pagination -->
-    <div class="row">
+    <div class="row" style="display: none;">
       <div class="col-xs-12">
         <select class="col-xs-4 col-sm-4" ng-options="option.value as option.name for option in limitOptions" ng-model="limit"></select>
         <button class="col-xs-2 col-sm-2 btn btn-default" ng-click="adjustCurrentItems('first')" title="First" ng-class="{'disabled': currentItems == 0 || items.length == 0 }">
@@ -71,11 +58,19 @@
     </div>
     <!-- This section displays applications based on the controls given -->
     <div class="row ars-applications" onload="scrollGuard(e)">
-      <div class="col-xs-12">
+      <div class="col-xs-12 col-md-9 col-md-offset-1 col-lg-10">
         <div class="loader" ng-show="showLoader">Loading...</div>
         <!-- Populate items by selected category -->
         <div>
-          <div akeebaitem item="item" displaykeywords="displayKeywords" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
+          <div class="ars-item"
+            akeebaitem
+            item="item"
+            displaykeywords="toggle"
+            showkeywordtags="true"
+            activekeyword="keyword"
+            ng-repeat="item in items | filter: {'keywords': keyword}:true | filter: searchFilter | orderBy: ordering : reverse"
+            ng-hide="showLoader">    
+          </div>
         </div>
         <!-- // -->
         <!-- Show this when there are no applications -->
@@ -97,5 +92,7 @@
     </div>
   <!-- container -->
   </div>
+  <div class="keywords-mask-close-trigger" 
+    ng-click="toggle( $event, false )"></div>
 <!-- mask -->
 </div>

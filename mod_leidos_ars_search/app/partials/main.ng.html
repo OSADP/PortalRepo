@@ -2,7 +2,8 @@
 
 <!-- RIGHT SIDE DISPLAY APPLICATION AND SEARCH AND SORT -->
 <div class="col-xs-12 ars-applications__container blurred">
-	<div ng-include="'/modules/mod_leidos_ars_search/app/partials/keywords.ng.html'" scope="" onload=""></div>
+	<!-- <div ng-include="'/modules/mod_leidos_ars_search/app/partials/keywords.ng.html'" scope="" onload=""></div> -->
+	<div data-keywords-display items="allItems" toggle="displayKeywords" show="keywordsShow" keyword="keyword"></div>
 	<!-- This is for searching current applications -->
 	<div class="row ars-applications__tools">
 		<div class="ars-applications__tools__sort input-group col-xs-12 col-md-6 pull-left">
@@ -49,7 +50,12 @@
 		<div class="loader" ng-show="showLoader">Loading...</div>
 		<!-- Populate items by selected category -->
 		<div>
-			<div akeebaitem item="item" displaykeywords="displayKeywords" ng-repeat="item in items[currentItems]" class="ars-item" ng-hide="showLoader"></div>
+			<div class="ars-item" akeebaitem
+				item="item"
+				displaykeywords="displayKeywords"
+				showkeywordtags="true"
+				ng-repeat="item in items[currentItems]"
+				ng-hide="showLoader"></div>
 		</div>
 		<!-- // -->
 		<!-- Show this when there are no applications -->

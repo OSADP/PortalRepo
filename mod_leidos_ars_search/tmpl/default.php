@@ -9,14 +9,7 @@ JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/a
 JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-sanitize.min.js');
 JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js');
 JHTML::script('modules/mod_leidos_ars_search/lib/moment/min/moment.min.js');
-JHTML::script('modules/mod_leidos_ars_search/app/main.js');
-JHTML::script('modules/mod_leidos_ars_search/app/services/AkeebaService.js');
-JHTML::script('modules/mod_leidos_ars_search/app/services/AkeebaItemDirective.js');
-JHTML::script('modules/mod_leidos_ars_search/app/controllers/AkeebaReleaseCtrl.js');
-JHTML::script('modules/mod_leidos_ars_search/app/controllers/CategoryListCtrl.js');
-JHTML::script('modules/mod_leidos_ars_search/app/controllers/ViewCtrl.js');
-JHTML::script('modules/mod_leidos_ars_search/app/controllers/ApplicationCtrl.js');
-JHTML::script('modules/mod_leidos_ars_search/app/router.js'); 
+JHTML::script('modules/mod_leidos_ars_search/app/min/ars.search.min.js');
 ?>
 
 
@@ -57,19 +50,13 @@ JHTML::script('modules/mod_leidos_ars_search/app/router.js');
 	</div>
 </div>
 
-
-
-	<script>
-		window.__internal = {
-			userId: '<?php echo dechex( $user->id + 618 );?>',
-			isGuest: function() {
-				return <?php echo $user->guest;?> == 0;
-			},
-			getUserId: function() {
-				return '<?php echo dechex( $user->id + 618 );?>'
-			},
-			getToken: function() {
-				return '<?php echo JHtml::_('form.token'); ?>';
-			}
-		}
-	</script>
+<script>
+  angular.module('JoomlaAppValues', [])
+  .value('JoomlaApp', {
+    userId: '<?php echo dechex( $user->id + 618 );?>',
+    isGuest: (<?php echo $user->guest;?> == true),
+    token: '<?php echo JHtml::_('form.token'); ?>'.split('"')[3],
+    usergroups: <?php echo json_encode($user->groups); ?>,
+    viewAccess: <?php echo json_encode($user->getAuthorisedViewLevels()); ?>
+  })
+</script>

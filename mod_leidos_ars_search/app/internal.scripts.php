@@ -19,6 +19,7 @@
   .value('JoomlaApp', {
     userId: '<?php echo dechex( $user->id + 618 );?>',
     isGuest: (<?php echo $user->guest;?> == 0),
-    token: '<?php echo JHtml::_('form.token'); ?>'.split('"')[3]
+    token: '<?php echo JHtml::_('form.token'); ?>'.split('"')[3],
+    user: <?php echo json_encode($user)
   })
 </script>

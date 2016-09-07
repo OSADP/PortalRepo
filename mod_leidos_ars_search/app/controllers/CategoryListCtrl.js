@@ -1,6 +1,4 @@
-
 'use strict';
-
 /**
 *  Akeeba Category List Controller
 *
@@ -56,15 +54,12 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
               category.items.push( item );
             }
           })
-          // if( item.release.category_id == category.id )
-          //  category.items.push( item );
         })
       });
     });
 
     // show the list and get active category item
-    $rootScope
-    .$on('application:hidden', function() {
+    $rootScope.$on('application:hidden', function() {
       $scope.hideView = false;
       setActiveOnLoad( $scope.categories );
     })
@@ -72,11 +67,15 @@ function CategoryListCtrl ( $rootScope, $scope, $timeout, $http, $location, Akee
   });
   // hide category list, it's outside the category scope
   // to enable it on reload when in an application page
-  $rootScope
-  .$on('application:visible', function() {
+  $rootScope.$on('application:visible', function() {
     $scope.hideView = true;
   })
 
+  /**
+   * Since categories have a different controller,
+   * this enables us to change the active category
+   * @param {array} categories Akeeba Categories
+   */
   function setActiveOnLoad( categories ) {
     angular.forEach( categories, function( category ) {
       category.active = false;
