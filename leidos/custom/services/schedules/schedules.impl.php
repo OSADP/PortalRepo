@@ -52,6 +52,22 @@ class SchedulesImpl extends DBConfig {
 			return false;
 		}
 	}
+	// delete schedule by item id
+	function deleteScheduleById( $id ) {
+		$statement = $this->db->query(
+			"DELETE FROM jos_osadp_release_schedule
+			WHERE id = $id");
+		// execute statement and return the appropriate response
+		if ( $statement ) {
+			// commit changes to the database
+			$this->db->commit();
+			// $statement->close();
+			return TRUE;
+		} else {
+			// $statement->close();
+			return $id;
+		}
+	}
 	
 	// inserting categories by item id
 	function insertCategories($itemId, $categories) {

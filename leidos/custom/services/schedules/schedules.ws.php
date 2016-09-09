@@ -39,6 +39,7 @@ if ( isset( $params['save'] ) ) {
 $rest->request('all', $impl, 'publishedSchedules');
 $rest->request('every', $impl, 'allSchedules');
 $rest->request('get', $impl, 'getSchedule');
+$rest->request('delete', $impl, 'deleteSchedule');
 
 
 // return schedules by id or all schedules
@@ -49,6 +50,19 @@ function allSchedules( $restHelper, $impl ) {
 // return schedules by id or all schedules
 function publishedSchedules( $restHelper, $impl ) {
 	die( json_encode($impl->getPublishedSchedules()) );
+}
+
+// delete schedule by id
+function deleteSchedule( $restHelper, $impl ) {
+	$postdata = file_get_contents("php://input");
+	$request = json_decode($postdata);
+	$itemId = $request->id;
+	// get all schedules if no item id is found
+	if( $itemId ) {
+		die( json_encode($impl->deleteScheduleById( $itemId )) );
+	}
+
+	die( FALSE );
 }
 
 // return schedules by id or all schedules
