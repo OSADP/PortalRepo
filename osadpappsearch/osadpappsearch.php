@@ -8,8 +8,13 @@
  * @license     License, for example GNU/GPL
  */
  
-// Prevent direct access
+//To prevent accessing the document directly, enter this code:
+// no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
+ 
+// Require the component's router file (Replace 'nameofcomponent' with the component your providing the search for
+// require_once JPATH_SITE .  '/components/nameofcomponent/helpers/route.php';
+ 
 /**
  * All functions need to get wrapped in a class
  *
@@ -23,7 +28,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 	 * @access      protected
 	 * @param       object  $subject The object to observe
 	 * @param       array   $config  An array that holds the plugin configuration
-	 * @since       0.0.0
+	 * @since       1.6
 	 */
 
 	public function __construct(& $subject, $config)
@@ -42,14 +47,17 @@ class PlgSearchOsadpappsearch extends JPlugin
 		);
 		return $areas;
 	}
+ 
+	// The real function has to be created. The database connection should be made. 
+	// The function will be closed with an } at the end of the file.
 	/**
 	 * The sql must return the following fields that are used in a common display
 	 * routine: href, title, section, created, text, browsernav
-	 * @param  string $text     Target search string
-	 * @param  string $phrase   Mathcing option, exact|any|all
-	 * @param  string $ordering Ordering option, newest|oldest|popular|alpha|category
-	 * @param  mixed $areas    	An array if the search it to be restricted to areas, null if search all
-	 * @return array            Return the search results in an array
+	 *
+	 * @param string Target search string
+	 * @param string mathcing option, exact|any|all
+	 * @param string ordering option, newest|oldest|popular|alpha|category
+	 * @param mixed An array if the search it to be restricted to areas, null if search all
 	 */
 	function onContentSearch( $text, $phrase='', $ordering='', $areas=null )
 	{
@@ -74,16 +82,18 @@ class PlgSearchOsadpappsearch extends JPlugin
 			return array();
 		}
  
-		// After this, you have to add the database part.
-		// This will be the most difficult part, because this changes per situation.
-		$wheres = array();
+		// After this, you have to add the database part. This will be the most difficult part, because this changes per situation.
+		// In the coding examples later on you will find some of the examples used by Joomla! 3.1 core Search Plugins.
+		//It will look something like this.
+		// $wheres = array();
 		switch ($phrase) {
  
 			// Search exact
 			case 'exact':
 				$text		= $this->db->Quote( '%'.$this->db->escape( $text, true ).'%', false );
 				$wheres2 	= array();
-				$wheres2[] 	= 'LOWER(item.title) LIKE '.$text;
+				$wheres2[] = 'LOWER(item.title) LIKE '.$text;
+				$wheres2[] = 'LOWER(customs.keywords) LIKE '.$text;
 				$where 		= '(' . implode( ') OR (', $wheres2 ) . ')';
 				break;
  
@@ -100,6 +110,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 					$word		= $this->db->Quote( '%'.$this->db->escape( $word, true ).'%', false );
 					$wheres2 	= array();
 					$wheres2[] 	= 'LOWER(item.title) LIKE '.$word;
+					$wheres2[] = 'LOWER(customs.keywords) LIKE '.$word;
 					$wheres[] 	= implode( ' OR ', $wheres2 );
 				}
 				$where = '(' . implode( ($phrase == 'all' ? ') AND (' : ') OR ('), $wheres ) . ')';
@@ -113,6 +124,7 @@ class PlgSearchOsadpappsearch extends JPlugin
 			case 'alpha':
 				$order = 'item.title ASC';
 				break;
+ 
 			// Oldest first
 			case 'oldest':
  				$order = 'item.created ASC';
@@ -133,27 +145,28 @@ class PlgSearchOsadpappsearch extends JPlugin
 		// Replace osadpappsearch
 		$section = JText::_( 'Applications' );
  
-		// The database query; differs per situation:
+		// The database query; differs per situation! It will look something like this (example from newsfeed search plugin):
 		$query	= $this->db->getQuery(true);
-		$query->select('item.id AS itemId, category.id AS catId, item.title AS title, item.hits AS hits, item.created AS created, item.description AS text');
+		$query->select('item.id AS itemId, category.id AS catId, item.title AS title, item.hits AS hits, item.created AS created, item.description AS text, customs.keywords as keywords');
 				$query->select($query->concatenate(array($this->db->Quote($section), 'category.title'), " / ").' AS section');
 				$query->select('"1" AS browsernav');
 				$query->from('#__ars_items AS item');
+				$query->innerJoin('#__akeeba_item_custom AS customs ON item.id = customs.item_id');
 				$query->innerJoin('#__ars_releases AS releases ON releases.id = item.release_id');
 				$query->innerJoin('#__ars_categories AS category ON category.id = releases.category_id');
 				$query->where('('. $where .')');
 				$query->order($order);
  
+		// Set query
 		$this->db->setQuery( $query, 0, $limit );
 		$rows = $this->db->loadObjectList();
-		// Build the links to our applications, the parameter is a configuration
-		// in our manifest and is set in the plugin's Joomla admin settings
+		// The 'output' of the displayed link. Again a demonstration from the newsfeed search plugin
 		foreach($rows as $key => $row) {
 			$link = $this->params['applications_page'] . '#/';
 			$rows[$key]->href = $link . $row->catId.'/'. $row->itemId;
 		}
  
-	// Return the search results in an array
+	//Return the search results in an array
 	return $rows;
 	}
 }
