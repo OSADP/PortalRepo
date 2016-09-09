@@ -1,0 +1,15 @@
+.release-table > tbody > tr:hover > td {
+  background: #E4F1FE !important;
+}
+
+.release-table > tbody > tr:focus > td {
+  background: #E4F1FE !important;
+}
+
+.centered {
+  text-align: center !important;
+}
+
+.clickable {
+  cursor: pointer;
+}
