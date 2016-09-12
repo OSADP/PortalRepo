@@ -8,15 +8,19 @@
 
 <div class="row-fluid new-form" data-save-success="<?php echo $this->saveSuccess; ?>">
 	<div class="span7">
-		<?php echo $this->confirm; ?>
-		<div class="alert alert-danger hidden">
-		  <button type="button" class="close" data-dismiss="alert">&times;</button>
-		  <strong>Error!</strong> Saving schedule failed. Please try again.
-		</div>
-		<div class="alert alert-success hidden">
-		  <button type="button" class="close" data-dismiss="alert">&times;</button>
-		  <strong>Succes!</strong> Schedule is successfully SAVED in the database.
-		</div>
+		<?php if( isset( $this->confirm ) ) { 
+			if( $this->confirm == 0 ) { ?>
+				<div class="alert alert-danger hidden">
+				  <button type="button" class="close" data-dismiss="alert">&times;</button>
+				  <strong>Error!</strong> Saving schedule failed. Please try again.
+				</div>
+			<?php } else if( $this->confirm == 1 ) { ?>
+				<div class="alert alert-success hidden">
+				  <button type="button" class="close" data-dismiss="alert">&times;</button>
+				  <strong>Succes!</strong> Schedule is successfully SAVED in the database.
+				</div>
+			<?php }
+		} ?>
 
 		<form action="/administrator/index.php?option=com_osadp_schedule&amp;view=new" method="post">
 			<input type="submit" class="hidden" id="btnSubmit">

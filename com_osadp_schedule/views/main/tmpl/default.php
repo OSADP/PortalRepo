@@ -32,31 +32,31 @@
 						<span class="icon-arrow-down-3" ng-if="scheduleOrder == 'name' &amp;&amp; ! reverseOrder"></span>
 						Project Name
 					</th>
-					<th class="centered clickable" ng-click="mainCtrl.changeOrder('date')">
+					<th class="centered clickable" ng-click="mainCtrl.changeOrder('date')" style="width: 100px;">
 						<span class="icon-menu-2" ng-if="scheduleOrder !== 'date'" style="color: #aaa;"></span>
 						<span class="icon-arrow-up-3" ng-if="scheduleOrder == 'date' &amp;&amp; ! reverseOrder"></span>
 						<span class="icon-arrow-down-3" ng-if="scheduleOrder == 'date' &amp;&amp; reverseOrder"></span>
 						Date
 					</th>
-					<th class="centered">Availability</th>
-					<th class="centered">Notes</th>
-					<th class="centered">Capabilities</th>
-					<th class="centered">Full Date</th>
-					<th class="centered">DMA</th>
-					<th class="centered">Published</th>
-					<th class="centered">Options</th>
+					<th class="centered" scope="col">Availability</th>
+					<th class="centered" scope="col">Notes</th>
+					<th class="centered" scope="col">Capabilities</th>
+					<th class="centered" scope="col">Full Date</th>
+					<th class="centered" scope="col">DMA</th>
+					<th class="centered" scope="col">Published</th>
+					<th class="centered" scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr ng-repeat="schedule in mainCtrl.schedules | filter: scheduleSearch | orderBy: scheduleOrder: reverseOrder | filter: {available: availability}">
 					<!-- Release Name -->
-					<td>
+					<th scope="row">
 						<a href="#" 
 						ng-click="mainCtrl.editRelease(schedule.id)"
 						ng-keyup="mainCtrl.onKeyupEditRelease($event, schedule.id)">
 							<span ng-bind="schedule.name"></span>
 						</a>
-					</td>
+					</th>
 					<!-- Date -->
 					<td class="centered" ng-bind="schedule.formattedDate"></td>
 					<!-- Availability -->
@@ -91,9 +91,12 @@
 					</td>
 					<!-- Delete -->
 					<td class="centered">
-						<a href="#" class="btn btn-sm btn-danger" ng-click="mainCtrl.deleteRelease($event, schedule.id, schedule.name)">
+						<button type="button"
+							class="btn-delete-schedule"
+							title="Delete {{ schedule.name }}?"
+							ng-click="mainCtrl.deleteRelease($event, schedule.id, schedule.name)">
 							<span class="icon-trash"></span>
-						</a>
+						</button>
 					</td>
 				</tr>
 			</tbody>

@@ -13,3 +13,23 @@
 .clickable {
   cursor: pointer;
 }
+
+.btn-delete-schedule {
+  background: #FFFFFF;
+  color: #FFFFFF;
+  font-size: 1em;
+  padding: 3px 8px 1px 10px;
+  border: 1px solid #EC644B;
+  border-radius: 3px;
+  box-shadow: inset 0 25px 0 0 #EC644B;
+  transition: 300ms;
+}
+
+.btn-delete-schedule:hover, .btn-delete-schedule:focus {
+  box-shadow: inset 0 0 0 0 #EC644B;
+  color: #EC644B;
+}
+
+.table-striped tbody > tr:hover > td, .release-table.table-striped tbody > tr:hover > th {
+  background: #E4F1FE !important;
+}
