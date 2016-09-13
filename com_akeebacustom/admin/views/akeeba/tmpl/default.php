@@ -1,173 +1,117 @@
 
 <?php
-	// JHTML::stylesheet('administrator/components/com_akeebacustom/styles/keywords.css');
+	JHTML::stylesheet('administrator/components/com_akeebacustom/styles/akeeba.form.css');
+
+	JHTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js');
 	JHTML::script('administrator/components/com_akeebacustom/scripts/akeeba.custom.min.js');
 ?>
 
+<div class="row-fluid" ng-app="AkeebaCustomModule" ng-cloak>
 
-<div class="row-fluid">
-
-	<div class="span4">
-
-		<form id="akeebaCustom">
-			<fieldset>
-				<!-- <legend>Akeeba Category Custom Information</legend> -->
-				<h2>Akeeba Category:</h2>
-				<div class="well">
-					<label for="akeebaCategories">Akeeba Categories:</label>
-					<select class="form-control" name="category" id="akeebaCategories">
-						<option selected="selected" value="0">All Applications</option>
-						<?php
-						foreach ($this->akeebaCategories as $index => $category ) {
-							// if( $index == 0 ) {
-							// 	echo '<option selected="selected" value="' . $category->id . '">' . $category->title . '</option>';
-							// } else {
-								echo '<option value="' . $category->id . '">' . $category->title . '</option>';
-							// }
-						}
-						?>
-					</select>
-
-					<br>
-					<br>
-					<span class="help-block">Any information below will be saved under the selected category.</span>
-					<br>
-					<label for="fullName">Category Icon URL:</label>
-					<input id="categoryIcon" type="text" placeholder="Enter image URL">
-					<br>
-					<br>
-					<button id="akeebaSave" class="btn btn-small btn-success" type="button">
-						<span class="icon-apply icon-white"></span> 
-						Save
-					</button>
+		<div class="span4 akeeba__form">
+			<legend class="akeeba__form-legend"><abbr title="Akeeba Release System">ARS</abbr> Category Custom Information</legend>
+			<fieldset ng-controller="CategoryCustomsCtrl as category">
+				<div akeeba-alert></div>
+				<div class="akeeba__form-group">
+					<div  class="akeeba__form-group-mimic-input">
+						<select ng-model="category.select" ng-init="category.select = 'all'" ng-change="category.changeActive(category)" id="akeebaCategories">
+							<option value="all">Select Category</option>
+							<option ng-repeat="category in category.categories" value="{{ category.id }}">{{ category.title }}</option>
+						</select>
+					</div>
 				</div>
-			</fieldset>
-		</form>
-		<div class="well" ng-app="AkeebaCustomModule">
-			<h3>Akeeba Category</h3>
-			<div ng-controller="CategoryCustomsCtrl as category">
-				<select ng-model="category.select" ng-init="category.select = 'all'" ng-change="category.changeActive(category)">
-					<option value="all">All Applications</option>
-					<option ng-repeat="category in category.categories" value="{{ category.id }}">{{ category.title }}</option>
-				</select>
 				<div style="width: 128px; height: 128px;" ng-if="category.active.icon_url">
 					<img ng-src="{{ category.active.icon_url || '' }}" alt="">
 				</div>
-				<label for="">Category Icon URL:</label>
-				<input type="text" ng-model="category.active.icon_url" placeholder="Enter image URL">
-			</div>
-		</div>
-	</div>
-
-	<div class="span4">
-		<form>
-			<fieldset>
-				<legend>Akeeba Application Custom Information</legend>
-				<label for="akeebaApplications">Akeeba Applications:</label>
-				<select class="form-control" name="applications" id="akeebaApplications"></select>
-				<br>
-				<br>
-				<span class="help-block">Any information below will be saved under the selected application.</span>
-				<br>
-				<label for="itemIcon">Image Source Link:</label>
-				<input id="itemIcon" type="text" placeholder="Enter image source">
-				
-				<label for="description">Full Name:</label>
-				<input id="description" type="text" placeholder="Enter full name">
-
-				<label for="mainDiscussion">Main Discussion Link:</label>
-				<input id="mainDiscussion" type="text" placeholder="Enter main discussion link">
-				
-				<label for="issuesDiscussion">Issues Discussion Link:</label>
-				<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link">
-
-				<!-- Keyword tags -->
-				<label for="keywords"><strong>Keywords:</strong></label>
-				<div id="arsKeywords">
-			    <input type="text" value="" placeholder="Add a keyword" />
-			  </div>
-				
-				<br>
-				<br>
-				<button id="akeebaItemSave" class="btn btn-small btn-success" type="button">
+				<div class="akeeba__form-group">
+					<label for="">Category Icon URL:</label>
+					<input type="text" ng-model="category.active.icon_url" placeholder="Enter image URL">
+				</div>
+				<button class="akeeba__form-group-btn-save" type="button" ng-click="category.saveCategoryInfo()">
 					<span class="icon-apply icon-white"></span> 
 					Save
 				</button>
 			</fieldset>
-		</form>
-	</div>
+		</div>
 
-	<div class="span4">
+	<div class="span4 akeeba__form" ng-controller="ItemCustomsCtrl as item">
 		<form>
+			<legend class="akeeba__form-legend"><abbr title="Akeeba Release System">ARS</abbr> Application Custom Information</legend>
 			<fieldset>
-				<legend>Akeeba Application Documentations</legend>
-				<span class="help-block">Any information below will be saved under the selected application.</span>
-				<br>
+				<div class="akeeba__form-group">
+					<label for="akeebaApplications">Application:</label>
+					<div class="akeeba__form-group-mimic-input">
+						<select class="form-control" name="applications" id="akeebaApplications"></select>
+					</div>
+				</div>
+				<p class="akeeba__form-group-helper-text">Any information <strong>below</strong> will be saved under the selected application <strong>above</strong>.</p>
+				<div class="akeeba__form-group">
+					<label for="itemIcon">Image Source Link:</label>
+					<input id="itemIcon" type="text" placeholder="Enter image source">
+				</div>
+				<div class="akeeba__form-group">
+					<label for="description">Full Name:</label>
+					<input id="description" type="text" placeholder="Enter full name">
+				</div>
+				<div class="akeeba__form-group">
+					<label for="mainDiscussion">Main Discussion Link:</label>
+					<input id="mainDiscussion" type="text" placeholder="Enter main discussion link">
+				</div>
+				<div class="akeeba__form-group">
+					<label for="issuesDiscussion">Issues Discussion Link:</label>
+					<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link">
+				</div>
+				<!-- Keyword tags -->
+				<div class="akeeba__form-group">
+					<label for="keywords">Keywords:</label>
+					<input type="text" id="arsKeywords" placeholder="Enter keywords" />
+				</div>
 
-				<ol id="appDocumentation">
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-					<li>
-					<label for="docLink">Documentation Link:</label>
-					<input class="docLink" type="text" placeholder="Enter documentaion link">
-					<label for="docText">Documentation Text:</label>
-					<input class="docText" type="text" placeholder="Enter documentation text">
-					<hr>
-					</li>
-				</ol>
-
-				<br>
-				<button id="akeebaDocSave" class="btn btn-small btn-success" type="button">
+				<button id="akeebaItemSave" class="akeeba__form-group-btn-save" type="button">
 					<span class="icon-apply icon-white"></span> 
 					Save
 				</button>
+				<span ng-controller="ParseButton as parseBtn">
+					<button id="akeebaRepair" class="akeeba__form-group-btn-danger" type="button" ng-click="parseBtn.parseKeywords()">
+						<span class="icon-cogs icon-white"></span> 
+						Parse Keywords
+					</button>
+				</span>
+			</fieldset>
+		</form>
+	</div>
+
+	<div class="span4 akeeba__form" ng-controller="DocumentationsCtrl as docs">
+		<form>
+			<legend class="akeeba__form-legend"><abbr title="Akeeba Release System">ARS</abbr> Application Documentations</legend>
+			<fieldset>
+				<p class="help-block">Any information below will be saved under the selected application.</p>
+				<p class="help-block"><em>(Documentation Link and Documentation Text should be filled in or none will be saved)</em></p>
+				<button class="akeeba__form-group-btn-info" ng-click="docs.addDocumentation()">
+					<span class="icon-plus"></span>
+					Add Documentation
+				</button>
+				<button class="akeeba__form-group-btn-save" type="button"
+					ng-class="{'disabled': docs.documentations.length === 0}"
+					ng-click="docs.saveDocumentations($event)">
+					<span class="icon-apply icon-white"></span> 
+					Save
+				</button>
+				<ol id="appDocumentation">
+					<li ng-repeat="documentation in docs.documentations">
+						<div class="akeeba__form-group">
+							<button type="button" class="akeeba__documentation-btn-delete pull-right" ng-click="docs.removeDocumentation( $event, documentation.id, documentation.$$hashKey )">
+								<span class="icon-trash"></span>
+							</button>
+							<label for="docLink">Documentation Link:</label>
+							<input class="docLink" type="text" placeholder="Enter documentaion link" ng-model="documentation.link" required="required">
+						</div>
+						<div class="akeeba__form-group">
+							<label for="docText">Documentation Text:</label>
+							<input class="docText" type="text" placeholder="Enter documentation text" ng-model="documentation.text" required="required">
+						</div>
+					</li>
+				</ol>
 			</fieldset>
 		</form>
 	</div>
@@ -176,10 +120,13 @@
 
 <script type="text/template" id="documentationTemplate">
 	<li>
-		<label for="docLink">Documentation Link:</label>
-		<input class="docLink" type="text" placeholder="Enter documentaion link">
-		<label for="docText">Documentation Text:</label>
-		<input class="docText" type="text" placeholder="Enter documentation text">
-		<hr>
+		<div class="akeeba__form-group">
+			<label for="docLink">Documentation Link:</label>
+			<input class="docLink" type="text" placeholder="Enter documentaion link">
+		</div>
+		<div class="akeeba__form-group">
+			<label for="docText">Documentation Text:</label>
+			<input class="docText" type="text" placeholder="Enter documentation text">
+		</div>
 	</li>
 </script>

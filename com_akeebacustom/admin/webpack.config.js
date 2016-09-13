@@ -4,11 +4,14 @@ var path = require('path');
 
 module.exports = {
   context: __dirname,
-  devtool: debug ? "inline-sourcemap" : null,
+  devtool: debug ? "inline-source-map" : null,
   entry: './app/index.js',
   output: {
      path: __dirname + '/scripts',
      filename: 'akeeba.custom.min.js'
+  },
+  externals: {
+    "angular": "angular"
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),

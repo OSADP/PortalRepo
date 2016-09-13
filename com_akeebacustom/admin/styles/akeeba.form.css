@@ -1,0 +1,147 @@
+.akeeba__form fieldset {
+  padding: 10px;
+  background: #f8f8f8;
+  box-shadow: inset 0 0 0 1px #069;
+}
+
+.akeeba__form legend {
+  margin: 0;
+  background: #069;
+  color: #fff;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: none;
+}
+
+.akeeba__form abbr {
+  border: none;
+}
+
+.akeeba__form-group {
+  margin-bottom: 15px;
+}
+
+.akeeba__form-group label {
+  padding: 0 10px;
+  width: auto;
+  display: inline-block;
+  font-weight: bold;
+  color: #069;
+}
+
+.akeeba__form-group input[type="text"], .akeeba__form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 10px;
+  margin: 0;
+  border: 2px solid #e8e8e8;
+  border-radius: 0;
+  box-shadow: inset 0 50px 0 #e8e8e8;
+  transition: 300ms;
+}
+
+.akeeba__form-group input[type="text"]:focus {
+  box-shadow: inset 0 0 0 #e8e8e8;
+  border-color: #ddd;
+}
+
+.akeeba__form-group select {
+  display: block;
+  width: 100%;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.akeeba__form-group .akeeba__form-group-mimic-input {
+  border: 2px solid #e8e8e8;
+  padding: 1px 0;
+  border-radius: 0;
+  box-shadow: inset 0 50px #e8e8e8;
+}
+
+.akeeba__form-group-helper-text {
+  font-style: italic;
+  padding: 0 10px;
+  margin-bottom: 10px;
+}
+
+.akeeba__form-group-btn-save, .akeeba__form-group-btn-danger, .akeeba__form-group-btn-info {
+  background: #096;
+  color: #fff;
+  margin-bottom: 9px;
+  padding: 7px 10px;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  text-align: center;
+}
+
+.akeeba__form-group-btn-danger {
+  background: #900;
+}
+
+.akeeba__form-group-btn-info {
+  background: #22A7F0;
+}
+
+.akeeba__form-group-btn-save:hover, .akeeba__form-group-btn-save:focus {
+  background: #0a7;
+}
+
+.akeeba__form-group-btn-info:hover, .akeeba__form-group-btn-info:focus {
+  background: #19B5FE;
+}
+
+.akeeba__form-group-btn-danger:hover, .akeeba__form-group-btn-danger:focus {
+  background: #c00;
+}
+
+.akeeba__documentation-btn-delete {
+  background: transparent;
+  border: none;
+  color: #D91E18;
+  transition: 300ms;
+}
+
+.akeeba__documentation-btn-delete > [class^="icon-"], .akeeba__documentation-btn-delete > [class*=" icon-"] {
+  margin: 4px 0 0 0;
+}
+
+.akeeba__documentation-btn-delete:hover, .akeeba__documentation-btn-delete:focus {
+  color: #F89406;
+}
+
+.akeeba__documentation-btn-delete.light {
+  padding: 0;
+  color: #f3f3f3;
+}
+
+.akeeba__documentation-btn-delete.light:hover, .akeeba__documentation-btn-delete.light:focus {
+  transform: scale(1.3);
+}
+
+.akeeba__alert-box {
+  width: 320px;
+  height: 90px;
+  display: inline-block;
+  position: absolute;
+  right: 10px;
+  top: 100px;
+  z-index: 1010;
+  padding: 10px;
+  box-sizing: border-box;
+  background: #EC644B;
+  color: #FFFFFF;
+  transition: 300ms;
+}
+
+.akeeba__alert-box.success {
+  background: #4ECDC4;
+}
+
+.akeeba__alert-box.exit {
+  width: 0;
+  padding: 0;
+  overflow: hidden;
+}
