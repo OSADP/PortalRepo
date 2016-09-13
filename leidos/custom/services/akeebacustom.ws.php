@@ -84,7 +84,14 @@ if ( isset($params['item']) ) {
 }
 
 if ( isset($params['documentation']) ) {
-	if ( isset($_POST['itemId']) ) {
+	// if only itemId is available: get documentation based on item id
+	if ( isset($_POST['itemId']) && !isset($_POST['links']) ) {
+		$itemId = $_POST['itemId'];
+		die( json_encode($ars->getDocumentationsById( $itemId )));
+	}
+	// else if both itemId and links are given: save the given documentation
+	// links associated with the itemId to our database
+	else if ( isset($_POST['itemId']) && isset($_POST['links'])) {
 		$itemId = $_POST['itemId'];
 		$documentation = $_POST['links']; // array
 		$documentation = $documentation ? $documentation : [];
@@ -99,16 +106,26 @@ if ( isset($params['documentation']) ) {
 				$ars->insertItemDocumentationsById( $itemId, $item['link'], $item['text'] );	
 		}
 		echo $itemId;
-	} else if ( isset($_POST['itemId']) ) {
-		$itemId = $_POST['itemId'];
-		die( json_encode($ars->getDocumentationsById( $itemId )));
-	} else {
+	}
+	// since Angular POST data is read a different way in PHP
+	// we need to do these process to make it work with our service
+	else {
+		// get the passed data from the POST request
 		$json = file_get_contents('php://input');
 		$data = json_decode( $json );
-		if( $data->itemId != null ) {
-			echo json_encode($ars->getDocumentationsById( $data->itemId ));
+		// if both itemId and links are given, save documentation links
+		if( isset($data->itemId) && isset($data->links)) {
+			$ars->deleteDocumentationByItemId( $data->itemId );
+			foreach( $data->links as $documentation ) {
+				if( $documentation->link != '' && $documentation->text != '' ) {
+					$ars->insertItemDocumentationsById( $data->itemId, $documentation->link, $documentation->text );	
+				}
+			}
+			die( true );
+		} else if( isset($data->itemId) && !isset($data->links) ) {
+			die( json_encode($ars->getDocumentationsById( $data->itemId )) );
 		} else {
-			echo false;
+			die( false );
 		}
 	}
 }
