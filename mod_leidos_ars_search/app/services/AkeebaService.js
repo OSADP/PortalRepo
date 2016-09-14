@@ -8,7 +8,6 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 
 .service('AkeebaService', ['$http', 'JoomlaApp', function( $http, JoomlaApp ){
 	var _this = this;
-	console.log(JoomlaApp);
 	/**
 	 * Get all published Akeeba Release System Categories
 	 * @return {array} List of category objects
@@ -164,7 +163,7 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 
 				// remove item to which the user have no access to
 				angular.forEach(removeItems, function(removeItem, index) {
-					console.log(_parsedItems.splice(removeItem - index, 1));
+					_parsedItems.splice(removeItem - index, 1);
 				});
 
 				return _parsedItems;

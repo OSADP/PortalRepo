@@ -47,7 +47,6 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 	AkeebaService.getAllItems()
 	.then( function( items ) {
 		// var items = promise.data;
-		$scope.showLoader = false;
 		// create a separate items array for keywords process
 		$scope.allItems = items;
 		// give all items to all
@@ -101,6 +100,11 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 				}
 			})
 		}
+	})
+	.then(function() {
+		$timeout(function() {
+			$scope.showLoader = false;
+		}, 500)
 	});
 
 	/**

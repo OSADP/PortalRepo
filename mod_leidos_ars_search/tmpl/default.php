@@ -3,7 +3,7 @@ defined('_JEXEC') or die;
 
 JHTML::stylesheet('http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
 JHTML::stylesheet('modules/mod_leidos_ars_search/css/main.css'); 
-JHTML::stylesheet('modules/mod_leidos_ars_search/css/bounce.animation.css'); 
+JHTML::stylesheet('modules/mod_leidos_ars_search/css/bounce.animation.css');
 JHTML::script('https://code.angularjs.org/1.4.7/angular.min.js');
 JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js');
 JHTML::script('https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-sanitize.min.js');

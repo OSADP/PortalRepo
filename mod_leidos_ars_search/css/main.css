@@ -201,6 +201,7 @@
   position: relative;
   clear: both;
   /*max-height: 900px;*/
+  min-height: 50px;
   overflow: auto;
 }
 
