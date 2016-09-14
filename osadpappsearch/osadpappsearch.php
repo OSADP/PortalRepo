@@ -94,7 +94,8 @@ class PlgSearchOsadpappsearch extends JPlugin
 				$wheres2 	= array();
 				$wheres2[] = 'LOWER(item.title) LIKE '.$text;
 				$wheres2[] = 'LOWER(customs.keywords) LIKE '.$text;
-				$where 		= '(' . implode( ') OR (', $wheres2 ) . ')';
+				$wheres2[] = 'LOWER(customs.short_description) LIKE '.$text;
+				$where 		 = '(' . implode( ') OR (', $wheres2 ) . ')';
 				break;
  
 			// Search all or any
@@ -110,7 +111,8 @@ class PlgSearchOsadpappsearch extends JPlugin
 					$word		= $this->db->Quote( '%'.$this->db->escape( $word, true ).'%', false );
 					$wheres2 	= array();
 					$wheres2[] 	= 'LOWER(item.title) LIKE '.$word;
-					$wheres2[] = 'LOWER(customs.keywords) LIKE '.$word;
+					$wheres2[] 	= 'LOWER(customs.keywords) LIKE '.$word;
+					$wheres2[] 	= 'LOWER(customs.short_description) LIKE '.$word;
 					$wheres[] 	= implode( ' OR ', $wheres2 );
 				}
 				$where = '(' . implode( ($phrase == 'all' ? ') AND (' : ') OR ('), $wheres ) . ')';
@@ -147,7 +149,7 @@ class PlgSearchOsadpappsearch extends JPlugin
  
 		// The database query; differs per situation! It will look something like this (example from newsfeed search plugin):
 		$query	= $this->db->getQuery(true);
-		$query->select('item.id AS itemId, category.id AS catId, item.title AS title, item.hits AS hits, item.created AS created, item.description AS text, customs.keywords as keywords');
+		$query->select('item.id AS itemId, category.id AS catId, item.title AS title, item.hits AS hits, item.created AS created, item.description AS text, customs.short_description as description, customs.keywords as keywords');
 				$query->select($query->concatenate(array($this->db->Quote($section), 'category.title'), " / ").' AS section');
 				$query->select('"1" AS browsernav');
 				$query->from('#__ars_items AS item');
