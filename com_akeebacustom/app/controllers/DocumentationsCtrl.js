@@ -36,7 +36,7 @@ export default class DocumentationsCtrl {
 
   saveDocumentations ( $event ) {
     let _ctrl = this
-    if( ! isNaN( this.activeItemId ) ) {
+    if( ! isNaN( parseInt(this.activeItemId) ) ) {
       let data = {
         itemId: this.activeItemId,
         links: _ctrl.documentations
@@ -58,6 +58,12 @@ export default class DocumentationsCtrl {
           })
         }
       )
+    } else {
+      _ctrl.$rootScope.$broadcast('akeeba:alert', {
+        alertMessage: 'No Akeeba Items selected..',
+        successAlert: false,
+        exitAlert: false
+      })
     }
   }
 

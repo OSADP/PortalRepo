@@ -7,7 +7,7 @@
 	<authorUrl>http://itsforge.org</authorUrl>
 	<copyright></copyright>
 	<license></license>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<description>COM_AKEEBACUSTOM_DESCRIPTION</description>
 
 	<install>
@@ -22,6 +22,7 @@
 		<menu link="option=com_akeebacustom">COM_AKEEBACUSTOM</menu>
 
 		<files folder="admin">
+			<folder>app</folder>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
 			<folder>images</folder>
