@@ -63,6 +63,13 @@
   clear: both;
   /*max-height: 900px;*/
   overflow: auto;
+
+  &__container {
+    .btn.btn-default.disabled {
+      background: #eee;
+      color: #999;
+    }
+  }
 }
 
 .ars-applications__tools {

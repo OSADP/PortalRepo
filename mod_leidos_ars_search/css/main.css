@@ -204,6 +204,11 @@
   overflow: auto;
 }
 
+.ars-applications__container .btn.btn-default.disabled {
+  background: #eee;
+  color: #999;
+}
+
 .ars-applications__tools {
   margin-bottom: 10px;
 }

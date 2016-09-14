@@ -139,7 +139,7 @@ function AkeebaReleasesCtrl ( $rootScope, $scope, $stateParams, AkeebaService, $
 	 * @return {array}         Sorted Items
 	 */
 	function sortItems( items, orderFilter, reverse ) {
-		items = $filter('filter')( items, $scope.searchFilter );
+		items = $filter('filter')( items, $scope.searchFilter, false );
 		var sortedItems = $filter('orderBy')( items, orderFilter, reverse );
 		return sortedItems;
 	}

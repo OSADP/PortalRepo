@@ -49,10 +49,24 @@ angular.module('Leidos.OSADP.Akeeba.Application.Search')
 					item.release.modified = moment(item.release.modified).format('MMM D, YYYY');
 
 					// explode our string
-					if( item.keywords )
+					if( item.keywords ) {
 						item.keywords = item.keywords.split(',');
-					else
+						item.keywordsReversed = angular.copy(item.keywords);
+						item.keywordsReversed = item.keywordsReversed.reverse();
+
+						item.meta = {
+							joined: item.keywords.join(''),
+							spaced: item.keywords.join(' '),
+							comma: item.keywords.join(),
+							'comma-spaced': item.keywords.join(', '),
+							'joined-reversed': item.keywordsReversed.join(''),
+							'spaced-reversed': item.keywordsReversed.join(' '),
+							'comma-reversed': item.keywordsReversed.join(),
+							'comma-spaced-reversed': item.keywordsReversed.join(', ')
+						}
+					} else {
 						item.keywords = [] // this prevents the angular dupes error
+					}
 
 					// ACL implementation: Remove item if user does not have access rights
 					if( item.access != 2 ) {
