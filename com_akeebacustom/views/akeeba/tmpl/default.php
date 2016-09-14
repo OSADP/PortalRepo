@@ -1,7 +1,6 @@
 
 <?php
 	JHTML::stylesheet('administrator/components/com_akeebacustom/styles/akeeba.form.css');
-
 	JHTML::script('https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js');
 	JHTML::script('administrator/components/com_akeebacustom/scripts/akeeba.custom.min.js');
 ?>
@@ -138,16 +137,3 @@
 	</div>
 
 </div>
-
-<script type="text/template" id="documentationTemplate">
-	<li>
-		<div class="akeeba__form-group">
-			<label for="docLink">Documentation Link:</label>
-			<input class="docLink" type="text" placeholder="Enter documentaion link">
-		</div>
-		<div class="akeeba__form-group">
-			<label for="docText">Documentation Text:</label>
-			<input class="docText" type="text" placeholder="Enter documentation text">
-		</div>
-	</li>
-</script>

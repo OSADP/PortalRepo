@@ -1,6 +1,3 @@
-import $ from 'jquery'
-import angular from 'angular'
-
 export default class DocumentationsCtrl {
 
   constructor( $rootScope, $scope, $http ) {
