@@ -18,7 +18,7 @@ export default function AkeebaAlert ($rootScope, $timeout) {
         if( message.exitAlert === false ) {
           autohide = $timeout(() => {
             $scope.exitAlert = true
-          }, 3000)
+          }, 5000)
         }
       })
 

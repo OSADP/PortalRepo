@@ -9,7 +9,7 @@ import $ from 'jquery'
     // var AkeebaService = require('./akeeba.service.js');
     var akeeba = new AkeebaService();
     // get information and applications under selected category
-    $('#akeebaCategories').change( function( evnt ) {
+    $('#akeebaCategories2').change( function( evnt ) {
       evnt.preventDefault();
       akeeba.getApplications()
       .then(function() {
@@ -18,13 +18,13 @@ import $ from 'jquery'
       .then( akeeba.getApplicationDocs );
     });
     // get information for selected application
-    $('#akeebaApplications').change( function( evnt ) {
+    $('#akeebaApplications2').change( function( evnt ) {
       evnt.preventDefault();
       akeeba.getApplicationInfo();
       akeeba.getApplicationDocs();
     })
     // save information given for selected category
-    $('#akeebaSave').click(function( evnt ) {
+    $('#akeebaSave2').click(function( evnt ) {
       evnt.preventDefault();
       var data = {
         categoryId: parseInt($('#akeebaCategories option:selected').val()),
@@ -35,7 +35,7 @@ import $ from 'jquery'
       })
     });
     // save information given for selected application
-    $('#akeebaItemSave').click(function( evnt ) {
+    $('#akeebaItemSave2').click(function( evnt ) {
       evnt.preventDefault();
       // Modify keyword input to ensure every string
       // is lowercased and trimmed of leading or trailing spaces

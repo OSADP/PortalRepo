@@ -121,11 +121,22 @@
   transform: scale(1.3);
 }
 
+.akeeba_category-icon {
+  vertical-align: bottom;
+  border: solid 1px #ccc;
+}
+
+.akeeba__category-icon-wrapper {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
 .akeeba__alert-box {
+  position: fixed;
+  // display: inline-block;
   width: 320px;
   height: 90px;
-  display: inline-block;
-  position: absolute;
   right: 10px;
   top: 100px;
   z-index: 1010;

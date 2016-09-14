@@ -5,54 +5,53 @@ export default class DocumentationsCtrl {
 
   constructor( $rootScope, $scope, $http ) {
     let _ctrl = this
-    _ctrl.http = $http
-    _ctrl.scope = $scope
-    _ctrl.rootScope = $rootScope
+    _ctrl.$http = $http
+    _ctrl.$scope = $scope
+    _ctrl.$rootScope = $rootScope
 
-    $('#akeebaApplications').on('ready, app:change', ( event, data ) => {
-      _ctrl.getDocumentations( data.itemId )
+    _ctrl.$rootScope.$on('item:change', (event, itemId) => {
+      _ctrl.activeItemId = itemId
+      _ctrl.getDocumentations( itemId )
     })
   }
 
   getDocumentations ( itemId ) {
     let _ctrl = this
     _ctrl.documentations = []
-    if( ! isNaN( itemId ) ) {
-      _ctrl.http.post('/leidos/custom/services/extras/documentation', { itemId: itemId })
+    if( ! isNaN( parseInt(itemId) )  ) {
+      _ctrl.$http.post('/leidos/custom/services/extras/documentation', { itemId: itemId })
       // load documentations
-      .then(( promise ) => {
-        angular.forEach(promise.data, ( data ) => {
+      .then( promise => {
+        angular.forEach(promise.data, data => {
           _ctrl.documentations.push({
             link: data.documentation_link,
             text: data.documentation_text
           })
         })
       })
+    } else {
+      _ctrl.documentations = []
     }
-    _ctrl.scope.$apply();
   }
 
   saveDocumentations ( $event ) {
     let _ctrl = this
-    let itemId = parseInt( $('#akeebaApplications').val() )
-    if( ! isNaN( itemId ) ) {
+    if( ! isNaN( this.activeItemId ) ) {
       let data = {
-        itemId: itemId,
+        itemId: this.activeItemId,
         links: _ctrl.documentations
       }
-      _ctrl.http.post('/leidos/custom/services/extras/documentation', data)
+      _ctrl.$http.post('/leidos/custom/services/extras/documentation', data)
       .then(
-        (res)=> { // success
-          console.log(res);
-          _ctrl.rootScope.$broadcast('akeeba:alert', {
+        res => { // success
+          _ctrl.$rootScope.$broadcast('akeeba:alert', {
             alertMessage: 'Documentations are saved..',
             successAlert: true,
             exitAlert: false
           })
         },
-        (err)=> { // failed
-          console.log(err);
-          _ctrl.rootScope.$broadcast('akeeba:alert', {
+        err => { // failed
+          _ctrl.$rootScope.$broadcast('akeeba:alert', {
             alertMessage: 'One or more Documentations are not saved. Please review your inputs..',
             successAlert: false,
             exitAlert: false
@@ -69,8 +68,12 @@ export default class DocumentationsCtrl {
         documentation_link: '',
         documentation_text: ''
       })
-    else
-      alert('Maximum number of Documentaions(8) is reached.')
+    else 
+      _ctrl.$rootScope.$broadcast('akeeba:alert', {
+        alertMessage: 'Maximum number of Documentaions(8) is reached.',
+        successAlert: false,
+        exitAlert: false
+      })
   }
 
   removeDocumentation ( $event, id, hashKey ) {

@@ -7,7 +7,7 @@
 	<authorUrl>http://itsforge.org</authorUrl>
 	<copyright></copyright>
 	<license></license>
-	<version>2.8.0</version>
+	<version>3.0.0</version>
 	<description>COM_AKEEBACUSTOM_DESCRIPTION</description>
 
 	<install>
@@ -24,6 +24,7 @@
 		<files folder="admin">
 			<folder>controllers</folder>
 			<folder>helpers</folder>
+			<folder>images</folder>
 			<folder>languages</folder>
 			<folder>models</folder>
 			<folder>views</folder>

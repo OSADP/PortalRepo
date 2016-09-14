@@ -13,70 +13,92 @@
 			<fieldset ng-controller="CategoryCustomsCtrl as category">
 				<div akeeba-alert></div>
 				<div class="akeeba__form-group">
-					<div  class="akeeba__form-group-mimic-input">
-						<select ng-model="category.select" ng-init="category.select = 'all'" ng-change="category.changeActive(category)" id="akeebaCategories">
-							<option value="all">Select Category</option>
-							<option ng-repeat="category in category.categories" value="{{ category.id }}">{{ category.title }}</option>
-						</select>
+					<div class="span4" class="akeeba_category-icon">
+						<div class="akeeba__category-icon-wrapper">
+							<img src="/administrator/components/com_akeebacustom/images/osadp-logo-blue.png" alt="" ng-if="! category.active.icon_url" style="opacity: .2;">
+							<img ng-src="{{ category.active.icon_url || '' }}" alt="" ng-if="category.active.icon_url">
+						</div>
+					</div>
+					<div class="span8">
+						<div class="akeeba__form-group-mimic-input">
+							<select ng-model="category.select" ng-init="category.select = 'all'" ng-change="category.changeActive(category)">
+								<option value="all">Select Category</option>
+								<option ng-repeat="category in category.categories" value="{{ category.id }}">{{ category.title }}</option>
+							</select>
+						</div>
+						<div class="akeeba__form-group">
+							<label for="">Category Icon URL:</label>
+							<input type="text" placeholder="Enter image URL" ng-model="category.active.icon_url" ng-disabled="category.active === undefined">
+						</div>
+						<button class="akeeba__form-group-btn-save" type="button"
+							ng-click="category.saveCategoryInfo()"
+							ng-disabled="category.active === undefined"
+							ng-class="{ disabled: category.active === undefined }">
+							<span class="icon-apply icon-white"></span> 
+							Save
+						</button>
 					</div>
 				</div>
-				<div style="width: 128px; height: 128px;" ng-if="category.active.icon_url">
-					<img ng-src="{{ category.active.icon_url || '' }}" alt="">
-				</div>
-				<div class="akeeba__form-group">
-					<label for="">Category Icon URL:</label>
-					<input type="text" ng-model="category.active.icon_url" placeholder="Enter image URL">
-				</div>
-				<button class="akeeba__form-group-btn-save" type="button" ng-click="category.saveCategoryInfo()">
-					<span class="icon-apply icon-white"></span> 
-					Save
-				</button>
 			</fieldset>
 		</div>
 
-	<div class="span4 akeeba__form" ng-controller="ItemCustomsCtrl as item">
+	<div class="span4 akeeba__form" ng-controller="ItemCustomsCtrl as itemCtrl">
 		<form>
 			<legend class="akeeba__form-legend"><abbr title="Akeeba Release System">ARS</abbr> Application Custom Information</legend>
 			<fieldset>
 				<div class="akeeba__form-group">
-					<label for="akeebaApplications">Application:</label>
+					<label for="akeeba_items">Application:</label>
 					<div class="akeeba__form-group-mimic-input">
-						<select class="form-control" name="applications" id="akeebaApplications"></select>
+						<select class="form-control" id="akeeba_items"
+							ng-options="item.title for item in itemCtrl.items track by item.id"
+							ng-model="itemCtrl.activeItem"
+							ng-change="itemCtrl.changeActiveItem()"
+							></select>
 					</div>
 				</div>
+
 				<p class="akeeba__form-group-helper-text">Any information <strong>below</strong> will be saved under the selected application <strong>above</strong>.</p>
+
 				<div class="akeeba__form-group">
 					<label for="itemIcon">Image Source Link:</label>
-					<input id="itemIcon" type="text" placeholder="Enter image source">
-				</div>
-				<div class="akeeba__form-group">
-					<label for="description">Full Name:</label>
-					<input id="description" type="text" placeholder="Enter full name">
-				</div>
-				<div class="akeeba__form-group">
-					<label for="mainDiscussion">Main Discussion Link:</label>
-					<input id="mainDiscussion" type="text" placeholder="Enter main discussion link">
-				</div>
-				<div class="akeeba__form-group">
-					<label for="issuesDiscussion">Issues Discussion Link:</label>
-					<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link">
-				</div>
-				<!-- Keyword tags -->
-				<div class="akeeba__form-group">
-					<label for="keywords">Keywords:</label>
-					<input type="text" id="arsKeywords" placeholder="Enter keywords" />
+					<input id="itemIcon" type="text" placeholder="Enter image source" ng-model="itemCtrl.activeItem.icon_url" ng-disabled="itemCtrl.activeItem == undefined">
 				</div>
 
-				<button id="akeebaItemSave" class="akeeba__form-group-btn-save" type="button">
+				<div class="akeeba__form-group">
+					<label for="description">Full Name:</label>
+					<input id="description" type="text" placeholder="Enter full name" ng-model="itemCtrl.activeItem.short_description" ng-disabled="itemCtrl.activeItem == undefined">
+				</div>
+
+				<div class="akeeba__form-group">
+					<label for="mainDiscussion">Main Discussion Link:</label>
+					<input id="mainDiscussion" type="text" placeholder="Enter main discussion link" ng-model="itemCtrl.activeItem.discussion_url" ng-disabled="itemCtrl.activeItem == undefined">
+				</div>
+
+				<div class="akeeba__form-group">
+					<label for="issuesDiscussion">Issues Discussion Link:</label>
+					<input id="issuesDiscussion" type="text" placeholder="Enter issues discussion link" ng-model="itemCtrl.activeItem.issues_url" ng-disabled="itemCtrl.activeItem == undefined">
+				</div>
+
+				<div class="akeeba__form-group">
+					<label for="keywords">Keywords:</label>
+					<input type="text" id="arsKeywords" placeholder="Enter keywords" ng-model="itemCtrl.activeItem.keywords" ng-disabled="itemCtrl.activeItem == undefined">
+				</div>
+
+				<button class="akeeba__form-group-btn-save" type="button"
+					ng-click="itemCtrl.saveItemCustoms( itemCtrl.activeItem )"
+					ng-disabled="itemCtrl.activeItem == undefined"
+					ng-class="{ disabled: itemCtrl.activeItem == undefined }">
 					<span class="icon-apply icon-white"></span> 
 					Save
 				</button>
+
 				<span ng-controller="ParseButton as parseBtn">
 					<button id="akeebaRepair" class="akeeba__form-group-btn-danger" type="button" ng-click="parseBtn.parseKeywords()">
 						<span class="icon-cogs icon-white"></span> 
 						Parse Keywords
 					</button>
 				</span>
+
 			</fieldset>
 		</form>
 	</div>
@@ -92,8 +114,7 @@
 					Add Documentation
 				</button>
 				<button class="akeeba__form-group-btn-save" type="button"
-					ng-class="{'disabled': docs.documentations.length === 0}"
-					ng-click="docs.saveDocumentations($event)">
+					ng-click="docs.saveDocumentations( $event )">
 					<span class="icon-apply icon-white"></span> 
 					Save
 				</button>

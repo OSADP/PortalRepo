@@ -7,21 +7,11 @@ import DocumentationsCtrl from './controllers/DocumentationsCtrl'
 
 import AkeebaAlert from './directives/alert/Alert'
 
-require('./akeeba.custom.js');
-
 angular.module('AkeebaCustomModule', [])
-.service('CategoryService', ['$http', function($http){
-  this.getAllCategories = function() {
-    return $http.get('/leidos/custom/services/ars/categories')
-      .then(function( promise ) {
-        return promise
-      })
-  }
-}])
 // keyword parser
 .controller('ParseButton', ['$http', '$q', ParseButtonCtrl])
 // Category Custom Information Controller
-.controller('CategoryCustomsCtrl', ['$rootScope', '$scope', '$http', 'CategoryService', CategoryCustomsCtrl])
+.controller('CategoryCustomsCtrl', ['$rootScope', '$scope', '$http', CategoryCustomsCtrl])
 //
 .controller('ItemCustomsCtrl', ['$rootScope', '$scope', '$http', ItemCustomsCtrl])
 // 
