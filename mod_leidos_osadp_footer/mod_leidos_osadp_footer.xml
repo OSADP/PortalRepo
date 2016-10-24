@@ -2,7 +2,7 @@
 <extension type="module" version="3.1.0" client="site" method="upgrade">
     <name>Leidos OSADP Footer</name>
     <author>Robert Roth - Software Developer @ Leidos</author>
-    <version>1.0.1</version>
+    <version>1.2.0</version>
     <description>A custom module made by Leidos for OSADP display a better functioning footer.</description>
     <files>
         <filename>mod_leidos_osadp_footer.xml</filename>

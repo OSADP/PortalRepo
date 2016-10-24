@@ -1,6 +1,3 @@
-
-
-
 <?php
 /**
  * Helper class for Custom Icon Links module

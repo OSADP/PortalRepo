@@ -5,9 +5,9 @@
 
 <div class="osadp-footer-container">
   <p class="osadp-footer">
-		<a href="index.php?option=com_content&amp;view=article&amp;id=170:terms-of-use&amp;catid=101:policy-statement&amp;Itemid=576">Term of use</a>
+		<a href="/index.php/terms-of-use">Term of use</a>
 		<span class="spacer">|</span>
-		<a href="http://itsforge.net/index.php/component/content/article/79-information/82-privacy-notice">Privacy Policy</a>
+		<a href="/index.php/terms-of-use/96-information/169-privacy-notice">Privacy Policy</a>
 		<span class="spacer">|</span>
 		<a href="http://www.fhwa.dot.gov/foia/">Freedom of Information Act (FOIA)</a>
 		<span class="spacer">|</span>

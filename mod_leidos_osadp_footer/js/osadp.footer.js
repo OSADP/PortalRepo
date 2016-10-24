@@ -1,8 +1,6 @@
-
-
 'use strict';
 
-(function(window, document, $, undefined){
+;(function(window, document, $, undefined){
 
 	$(function() {
 		var $element = $('.osadp-footer');
