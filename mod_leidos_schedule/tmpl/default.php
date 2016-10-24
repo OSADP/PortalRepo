@@ -33,9 +33,7 @@
       <!-- Display all Coming Soon releases filter by availability -->
       <div class="col-lg-12 col-xs-12 osadp-schedule__card-container"
         ng-repeat="(kay, schedule) in soon.schedules[soon.page] |
-        filter: soon.searchText |
-        filter: { available: soon.availability } |
-        orderBy: soon.order : (soon.availability === '0')">
+        filter: soon.searchText">
         <div data-schedule-item
           schedule="schedule"
           name="schedule.name"

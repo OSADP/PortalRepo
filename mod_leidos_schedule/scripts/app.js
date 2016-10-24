@@ -50,6 +50,12 @@
     function paginater(schedules, limit) {
       var filterByAvail = $filter('filter')(schedules, {available: _ctrl.availability})
       var filterByOrder = $filter('orderBy')(filterByAvail, _ctrl.order)
+      // since the Upcoming Releases require a reversal of order when
+      // it's the chosen availability, we need to reverse the order
+      // of the date before pagination
+      if( _ctrl.availability === 0 || _ctrl.availability === '0' && _ctrl.order === '-date' ) {
+        filterByOrder = filterByOrder.reverse()
+      }
       return paginate(filterByOrder, limit)
     }
   }
@@ -59,9 +65,9 @@
     if( limit != 'all' ) {
       var parsedItem = [];
       var x = 0;
-      angular.forEach( items , function( stuff, index ) {
+      angular.forEach( items , function( item, index ) {
         parsedItem[x] = parsedItem[x] || [];
-        parsedItem[x].push( stuff );
+        parsedItem[x].push( item );
         if( items.length > limit )
           if( (index + 1) % limit == 0 ) {
             x += 1;
